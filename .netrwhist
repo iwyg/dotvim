@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/Users/malcolm/www/sym23/extensions/dynamictextgroup'
+let g:netrw_dirhist_2='/Users/malcolm/www/sym23/extensions/dynamictextgroup/assets'
+let g:netrw_dirhist_3='/Users/malcolm/vim_bk/bundle/vim-javascript/.git'
+let g:netrw_dirhist_4='/Users/malcolm/www/sym23/extensions/filemanager/dev/js'
+let g:netrw_dirhist_5='/Users/malcolm/www/sym23/extensions/dynamictextgroup'
+let g:netrw_dirhist_6='/usr/local/Cellar/php'
