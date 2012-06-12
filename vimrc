@@ -221,9 +221,9 @@ endif
 
 " PHP Manual Mapping: 	
 "-------------------------------------------------------------------------------------
-"au BufReadPost *.php  set keywordprg=pman
-"au BufReadPost *.vim  map K :exe ":help ".expand("<cword>")<CR>
-"au BufReadPost .vimrc map K :exe ":help ".expand("<cword>")<CR>
+au BufReadPost *.php  set keywordprg=pman
+au BufReadPost *.vim  map K :exe ":help ".expand("<cword>")<CR>
+au BufReadPost .vimrc map K :exe ":help ".expand("<cword>")<CR>
 
 "-------------------------------------------------------------------------------------
 " Set Filetype Indentation:
