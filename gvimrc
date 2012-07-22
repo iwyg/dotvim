@@ -1,11 +1,17 @@
 " Do some Themeing stuff if gui is available
+set background=dark
+set guifont=DejaVu\ Sans\ Mono:h12
+set transparency=0
+"	colorscheme mustang	
+colorscheme solarized	
 if has("gui_macvim")	
 	"set theme
 	syntax enable
 
-	set background=light
+	set background=dark
 	set guifont=DejaVu\ Sans\ Mono:h12
 	set transparency=0
+"	colorscheme mustang	
 	colorscheme solarized	
 "	colorscheme dw_orange	
 "	color lucius

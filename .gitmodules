@@ -69,10 +69,10 @@
 	url = git://github.com/tomtom/tskeleton_vim.git
 [submodule "bundle/vim-taglist-plus"]
 	path = bundle/vim-taglist-plus
-	url = git://github.com/int3/vim-taglist-plus.git
+	url = git://github.com/jameycribbs/vim-taglist-plus.git
 [submodule "bundle/vim-tagbar"]
 	path = bundle/vim-tagbar
-	url = git://github.com/majutsushi/tagbar.git
+	url = git://github.com/vim-scripts/Tagbar.git
 [submodule "bundle/nerdcommenter"]
 	path = bundle/nerdcommenter
 	url = git://github.com/scrooloose/nerdcommenter.git
@@ -100,3 +100,18 @@
 [submodule "bundle/vim-gundo"]
 	path = bundle/vim-gundo
 	url = git://github.com/sjl/gundo.vim.git
+[submodule "bundle/vim-scss"]
+	path = bundle/vim-scss
+	url = git://github.com/cakebaker/scss-syntax.vim.git
+[submodule "bundle/vim-tagbar-phpctags"]
+	path = bundle/vim-tagbar-phpctags
+	url = git://github.com/techlivezheng/tagbar-phpctags.git
+[submodule "phpctags"]
+	path = phpctags
+	url = git://github.com/techlivezheng/phpctags.git
+[submodule "bundle/vim-xdebug"]
+	path = bundle/vim-xdebug
+	url = git://github.com/ludovicPelle/vim-xdebug.git
+[submodule "bundle/vim-phpunit"]
+	path = bundle/vim-phpunit
+	url = git://github.com/klokane/vim-phpunit.git

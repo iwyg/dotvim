@@ -2,7 +2,12 @@
 set nocompatible
 filetype off
 
-set shell=zsh\ -i
+"if has('gui_running')
+" set shell=zsh\ -i
+"endif
+if has("gui_running")
+	set sh=/bin/zsh
+endif
 
 " let $PATH=system("echo \$PATH")
 "=====================================================================================
@@ -53,6 +58,16 @@ set autowrite
 set hidden
 
 "-------------------------------------------------------------------------------------
+" ctags runtime
+"-------------------------------------------------------------------------------------
+"set tags=./tags;/
+set tags=~/.vim/ctags/symphony
+
+" tag jumping
+nnoremap ü <C-]>
+nnoremap Ü <C-O>
+
+"-------------------------------------------------------------------------------------
 " cappuccino runtime
 "-------------------------------------------------------------------------------------
 set runtimepath+=/usr/local/narwhal/bin/objj
@@ -60,7 +75,8 @@ set runtimepath+=/usr/local/narwhal/bin/objj
 "-------------------------------------------------------------------------------------
 "append $ when changing a word
 "-------------------------------------------------------------------------------------
-set cpoptions+=$
+" set cpoptions=ces$
+" set cpoptions+=$
 
 "-------------------------------------------------------------------------------------
 " Map Next Prev Buffer:
@@ -90,6 +106,7 @@ if has("autocmd")
 	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 	autocmd FileType xslt setlocal omnifunc=xmlcomplete#CompleteTags
 	autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+	autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 endif
 
 "-------------------------------------------------------------------------------------
@@ -191,9 +208,11 @@ set foldmethod=indent
 if !exists("autocommands_loaded")
   let autocommands_loaded = 1
 
-" Less CSS Sytax:
+" Sass And Less CSS Sytax:
 "-------------------------------------------------------------------------------------
 	au BufNewFile,BufRead *.less set filetype=less
+	au BufNewFile,BufRead *.scss set filetype=scss
+	au BufNewFile,BufRead *.sass set filetype=sass
 " md, markdown, and mk are markdown and define buffer-local preview
 "-------------------------------------------------------------------------------------
 	au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} set ft=markdown
@@ -208,11 +227,11 @@ if !exists("autocommands_loaded")
 	au BufNewFile,BufRead *.ts setlocal filetype=typoscript 	
 " Smarty:	
 "-------------------------------------------------------------------------------------
-	au BufNewFile,BufRead *.tpl setlocal filetype=smarty 	
+"	au BufNewFile,BufRead *.tpl setlocal filetype=smarty 	
 " Underscore Templates:	
 "-------------------------------------------------------------------------------------
 	au BufNewFile,BufRead *.jst set syntax=jst
-
+	au BufNewFile,BufRead *.tpl set syntax=jst
 " ObjectiveJ: 	
 "-------------------------------------------------------------------------------------
 	au BufNewFile,BufRead *.j set syntax=objj
@@ -245,14 +264,15 @@ if has("autocmd")
   autocmd FileType xml setlocal ts=2 sts=2 sw=2 noexpandtab
   autocmd FileType less setlocal ts=2 sts=2 sw=2 noexpandtab
   autocmd FileType xslt setlocal ts=2 sts=2 sw=2 noexpandtab
-  autocmd FileType php setlocal ts=4 sts=4 sw=4 noexpandtab
+  autocmd FileType php setlocal ts=4 sts=4 sw=4 expandtab
   autocmd FileType javascript setlocal ts=4 sts=4 sw=4 noexpandtab
    
   " Treat .rss files as XML
   autocmd BufNewFile,BufRead *.rss setfiletype xml
 endif
 
-
+let php_sql_query=1                                                                                        
+let php_htmlInStrings=1
 
 "=====================================================================================
 " AUTOCOMPLETION
@@ -300,17 +320,17 @@ let g:syntastic_mode_map = {'active_filetypes':
 \	'passive_filetypes': ['py', 'scss']
 \}
 
-"let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
+let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
 
 "!phpcs --config-set severity-error 5
 "!phpcs --config-set severity-warning 8
 
 "let g:syntastic_phpcs_conf = "--standard=PSR1 --sniffs=Generic.Formatting.SpaceAfterCast,Generic.Functions.OpeningFunctionBraceBsdAllman,Generic.WhiteSpace.ScopeIndent,Squiz.Scope.MemberVarScope,Squiz.Scope.MemberVarScope,Squiz.ControlStructures.ForLoopDeclaration,Squiz.ControlStructures.ControlSignature"
-"let g:syntastic_phpcs_conf = "--standard=PSR1 --sniffs=Squiz.Scope.MemberVarScope"
+let g:syntastic_phpcs_conf = "--standard=PSR1 --sniffs=Squiz.Scope.MemberVarScope"
 
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 map <Leader>SC :SyntasticCheck<CR>
 
@@ -358,44 +378,44 @@ vnoremap <C-P> :call PhpDocRange()<CR>
 " Neocomplcache:	
 "-------------------------------------------------------------------------------------
 
-let g:acp_enableAtStartup = 0								" Disable AutoComplPop.
-let g:neocomplcache_enable_at_startup = 1					" Use neocomplcache.
-let g:neocomplcache_enable_smart_case = 1					" Use smartcase.
-let g:neocomplcache_enable_camel_case_completion = 1 		" Use camel case completion.
-let g:neocomplcache_enable_underbar_completion = 1			" Use underbar completion.
-let g:neocomplcache_min_syntax_length = 3					" Set minimum syntax keyword length.
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'	
-
-" Define dictionary.
-let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.zsh_history',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-    \ }
-
-if !exists('g:neocomplcache_keyword_patterns')				" Define keyword.
-  let g:neocomplcache_keyword_patterns = {}
-endif
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
-imap <C-k><Plug>(neocomplcache_snippets_expand)				" Plugin key-mappings.
-smap <C-k><Plug>(neocomplcache_snippets_expand)
-inoremap <expr><C-g>neocomplcache#undo_completion()
-inoremap <expr><C-l>neocomplcache#complete_common_string()
-
-" SuperTab like snippets behavior.
-imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
+"let g:acp_enableAtStartup = 0								" Disable AutoComplPop.
+"let g:neocomplcache_enable_at_startup = 1					" Use neocomplcache.
+"let g:neocomplcache_enable_smart_case = 1					" Use smartcase.
+"let g:neocomplcache_enable_camel_case_completion = 1 		" Use camel case completion.
+"let g:neocomplcache_enable_underbar_completion = 1			" Use underbar completion.
+"let g:neocomplcache_min_syntax_length = 3					" Set minimum syntax keyword length.
+"let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'	
+"
+"" Define dictionary.
+"let g:neocomplcache_dictionary_filetype_lists = {
+"    \ 'default' : '',
+"    \ 'vimshell' : $HOME.'/.zsh_history',
+"    \ 'scheme' : $HOME.'/.gosh_completions'
+"    \ }
+"
+"if !exists('g:neocomplcache_keyword_patterns')				" Define keyword.
+"  let g:neocomplcache_keyword_patterns = {}
+"endif
+"let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+"
+""imap <C-k><Plug>(neocomplcache_snippets_expand)				" Plugin key-mappings.
+""smap <C-k><Plug>(neocomplcache_snippets_expand)
+""inoremap <expr><C-g>neocomplcache#undo_completion()
+""inoremap <expr><C-l>neocomplcache#complete_common_string()
+"
+"" SuperTab like snippets behavior.
+"imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+"
+"" Recommended key-mappings.
+"" <CR>: close popup and save indent.
+"inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+"" <TAB>: completion.
+"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+"" <C-h>, <BS>: close popup and delete backword char.
+"inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+"inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+"inoremap <expr><C-y>  neocomplcache#close_popup()
+"inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
 " AutoComplPop like behavior.
 "let g:neocomplcache_enable_auto_select = 1
@@ -422,16 +442,68 @@ let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 " TAGBAR:
 "-------------------------------------------------------------------------------------
 nmap <F8> :TagbarToggle<CR>
+let g:tagbar_ctags_bin='/usr/local/bin/ctags'
+
 let g:tagbar_type_javascript = {
-    \ 'ctagsbin' : 'jsctags'
+    \ 'ctagsbin' : '/usr/local/bin/jsctags',
+    \ 'ctagsargs' : '-f -'
 \ }
+
+let g:tagbar_phpctags_bin='~/.vim/phpctags/phpctags'
+
+" tagbar scala
+"let g:tagbar_type_scala = {}
+"let g:tagbar_type_scala.ctagstype = 'Scala'
+"let g:tagbar_type_scala.kinds     = [
+"  \ {'short' : 'p', 'long' : 'packages',  'fold' : 1 },
+"  \ {'short' : 'V', 'long' : 'values',    'fold' : 0 },
+"  \ {'short' : 'v', 'long' : 'variables', 'fold' : 0 },
+"  \ {'short' : 'T', 'long' : 'types',     'fold' : 0 },
+"  \ {'short' : 't', 'long' : 'traits',    'fold' : 0 },
+"  \ {'short' : 'o', 'long' : 'objects',   'fold' : 0 },
+"  \ {'short' : 'a', 'long' : 'aclasses',  'fold' : 0 },
+"  \ {'short' : 'c', 'long' : 'classes',   'fold' : 0 },
+"  \ {'short' : 'r', 'long' : 'cclasses',  'fold' : 0 },
+"  \ {'short' : 'm', 'long' : 'methods',   'fold' : 0 }
+"\ ]
+"let g:tagbar_type_scala.sro        = '.'
+"let g:tagbar_type_scala.kind2scope = {
+"  \ 'T' : 'type',
+"  \ 't' : 'trait',
+"  \ 'o' : 'object',
+"  \ 'a' : 'abstract class',
+"  \ 'c' : 'class',
+"  \ 'r' : 'case class'
+"\ }
+"let g:tagbar_type_scala.scope2kind = {
+"  \ 'type'           : 'T',
+"  \ 'trait'          : 't',
+"  \ 'object'         : 'o',
+"  \ 'abstract class' : 'a',
+"  \ 'class'          : 'c',
+"  \ 'case class'     : 'r'
+"\ }
+"let s:tagbar_known_types.scala = tagbar_type_scala
 
 "-------------------------------------------------------------------------------------
 " TAGLIST:
 "-------------------------------------------------------------------------------------
-let Tlist_WinWidth='auto'
-let Tlist_javascript_Hide_Extras=['type']
+"let Tlist_WinWidth='auto'
+let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
+" let Tlist_javascript_Hide_Extras=['type']
+" width of window
+let Tlist_WinWidth = 30
+let Tlist_Use_Right_Window = 1
+let Tlist_Show_One_File = 1
 
+" set the names of flags
+" let tlist_php_settings = 'php;c:class;f:function;d:constant'
+" close all folds except for current file
+let Tlist_File_Fold_Auto_Close = 1
+" make tlist pane active when opened
+let Tlist_GainFocus_On_ToggleOpen = 0
+" close tlist when a selection is made
+let Tlist_Close_On_Select = 0
 nmap <Leader>tl :TlistToggle<CR>
 "=====================================================================================
 " FUNCTIONS 
@@ -472,8 +544,19 @@ function! LessCSSCompress()
   endif	  
   if (executable('lessc'))
     let stdout = system('lessc '.cwd.'/'.name.'.less > '.cwd.'/../css/'.name.'.css &')
-	echo stdout
+    if stdout != ''
+        echo stdout
+    endif
+"	call s:growl('lessc', 'successfully compiled'.name.'less')
   endif
+endfunction
+
+"-------------------------------------------------------------------------------------
+" Growl:	
+"-------------------------------------------------------------------------------------
+
+function! s:growl(title, message)
+    execute printf('silent !growlnotify -t %s -m %s', shellescape(a:title, 1), shellescape(a:message, 1))
 endfunction
 
 "=====================================================================================
