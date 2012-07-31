@@ -115,3 +115,9 @@
 [submodule "bundle/vim-phpunit"]
 	path = bundle/vim-phpunit
 	url = git://github.com/klokane/vim-phpunit.git
+[submodule "bundle/vim-sql"]
+	path = bundle/vim-sql
+	url = git://github.com/LStinson/Vim.git
+[submodule "bundle/vim-tlib"]
+	path = bundle/vim-tlib
+	url = git://github.com/tomtom/tlib_vim.git
