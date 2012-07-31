@@ -3,16 +3,15 @@ set background=dark
 set guifont=DejaVu\ Sans\ Mono:h12
 set transparency=0
 "	colorscheme mustang	
-colorscheme solarized	
 if has("gui_macvim")	
 	"set theme
 	syntax enable
+	set transparency=0
+	colorscheme mustang	
 
 	set background=dark
 	set guifont=DejaVu\ Sans\ Mono:h12
-	set transparency=0
-"	colorscheme mustang	
-	colorscheme solarized	
+"	colorscheme solarized	
 "	colorscheme dw_orange	
 "	color lucius
 "	color xoria256

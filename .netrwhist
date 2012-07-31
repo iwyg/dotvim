@@ -1,7 +1,8 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_cnt =6
 let g:netrw_dirhist_1='/Users/malcolm/www/sym23/extensions/author_groups'
 let g:netrw_dirhist_2='/Users/malcolm/www/sym23/extensions/filemanager'
 let g:netrw_dirhist_3='/Users/malcolm/scoped_taged_tags_test'
 let g:netrw_dirhist_4='/Users/malcolm/www/sym23/extensions/filemanager/dev/js'
 let g:netrw_dirhist_5='/usr/local/Cellar/php/5.3.10'
+let g:netrw_dirhist_6='/Users/malcolm/www/sym23/extensions/versioning'

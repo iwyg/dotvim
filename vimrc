@@ -17,6 +17,7 @@ set nocompatible
 filetype off
 
 set virtualedit=all
+let g:dbgWaitTime = 30
 
 "=====================================================================================
 "pathogen
@@ -300,6 +301,7 @@ let g:snipMate = {}
 let g:snipMate.scope_aliases = {} 
 let g:snipMate.scope_aliases['javascript'] = 'javascript,javascript-backbonejs,javascript-requirejs,javascript-underscorejs'
 let g:snipMate['no_match_completion_feedkeys_chars'] = ""
+"let g:snips_trigger_key = '<F2>'
 let g:snips_trigger_key = '<F2>'
 
 "-------------------------------------------------------------------------------------
@@ -314,15 +316,14 @@ let g:syntastic_check_on_open=1
 let g:syntastic_echo_current_error=1
 let g:syntastic_enable_balloons = 1
 let g:syntastic_loc_list_height=8
-
+let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
 
 let g:syntastic_mode_map = {'active_filetypes': 
-\	['vim', 'js', 'javascript', 'less', 'html', 'xsl', 'json', 'xslt', 'xml', 'css'], 
+\	['vim', 'js', 'javascript', 'less', 'html', 'xsl', 'json', 'xslt', 'xml', 'css', 'php'], 
 \	'mode': 'active', 
 \	'passive_filetypes': ['py', 'scss']
 \}
 
-let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
 
 "!phpcs --config-set severity-error 5
 "!phpcs --config-set severity-warning 8
@@ -335,6 +336,17 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 map <Leader>SC :SyntasticCheck<CR>
+
+" for Syntastic
+"let g:syntastic_auto_loc_list=1 "Auto open errors window upon detection
+"let g:syntastic_enable_signs=1
+"let g:syntastic_auto_jump=1
+"let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
+"let g:syntastic_enable_balloons=1 
+
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
 "-------------------------------------------------------------------------------------
 " PHP CS FIXER:	
@@ -376,6 +388,11 @@ inoremap <C-P> <ESC>:call PhpDocSingle()<CR>i
 nnoremap <C-P> :call PhpDocSingle()<CR> 
 vnoremap <C-P> :call PhpDocRange()<CR> 
 
+"-------------------------------------------------------------------------------------
+" Supertab:	
+"-------------------------------------------------------------------------------------
+"let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+"let g:SuperTabDefaultCompletionType = "context"
 "-------------------------------------------------------------------------------------
 " Neocomplcache:	
 "-------------------------------------------------------------------------------------
@@ -430,15 +447,28 @@ vnoremap <C-P> :call PhpDocRange()<CR>
 "inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 
 
+"" Enable heavy omni completion.
+"if !exists('g:neocomplcache_omni_patterns')
+"  let g:neocomplcache_omni_patterns = {}
+"endif
+"let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+""autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+"let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
+"let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+
+
 " Enable heavy omni completion.
 if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
+    let g:neocomplcache_omni_patterns = {}
 endif
+
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
-let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+
+if has("gui_running")
+    highlight SpellBad term=underline gui=undercurl guisp=Orange
+endif
 
 "-------------------------------------------------------------------------------------
 " TAGBAR:
@@ -584,3 +614,5 @@ else
   set t_Sf=[3%dm
   set t_Sb=[4%dm
 endif
+
+
