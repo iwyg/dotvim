@@ -78,8 +78,8 @@ set runtimepath+=/usr/local/narwhal/bin/objj
 "-------------------------------------------------------------------------------------
 "append $ when changing a word
 "-------------------------------------------------------------------------------------
-" set cpoptions=ces$
-" set cpoptions+=$
+set cpoptions=ces$
+set cpoptions+=$
 
 "-------------------------------------------------------------------------------------
 " Map Next Prev Buffer:
@@ -93,9 +93,9 @@ vmap <S-C-TAB> :bn<CR>
 nmap <M-C-TAB> :bp<CR>
 vmap <M-C-TAB> :bp<CR>
 
-"if has("mouse")
-"	set mouse=a
-"endif	
+if has("mouse")
+	set mouse=a
+endif	
 
 "-------------------------------------------------------------------------------------
 " Enable omni completion.
@@ -179,6 +179,7 @@ set noexpandtab
 "-------------------------------------------------------------------------------------
 set completeopt=longest,menu
 set pumheight=20
+set complete-=i
 
 
 "-------------------------------------------------------------------------------------
@@ -361,6 +362,20 @@ let g:php_cs_fixer_dry_run = 0								" Call command with dry-run option
 let g:php_cs_fixer_verbose = 1
 
 "-------------------------------------------------------------------------------------
+" PHP DOC:	
+"-------------------------------------------------------------------------------------
+"source ~/.vim/plugin/php-doc.vim
+inoremap <C-P> <ESC>:call PhpDocSingle()<CR>i 
+nnoremap <C-P> :call PhpDocSingle()<CR> 
+vnoremap <C-P> :call PhpDocRange()<CR> 
+
+let g:pdv_cfg_Type = "Mixed"
+let g:pdv_cfg_Package = ""
+let g:pdv_cfg_Version = "$id$"
+let g:pdv_cfg_Author = "Thomas Appel <thomas@soario.com>"
+let g:pdv_cfg_Copyright = "2012-2015 Soario Inc. <http://soario.com>"
+let g:pdv_cfg_License = "PHP Version 3.0 {@link http://www.php.net/license/3_0.txt}"
+"-------------------------------------------------------------------------------------
 " GIST VIM:
 "-------------------------------------------------------------------------------------
 let g:github_user = "iwyg-snippets"
@@ -380,13 +395,6 @@ let g:Jsbeautify_jslint_whitespace = 1						" JSbreautyfy JSlint
 
 map <Leader>n :NERDTree<CR>
 map <Leader>nn :NERDTreeToggle<CR>
-"-------------------------------------------------------------------------------------
-" php doc:
-"-------------------------------------------------------------------------------------
-source ~/.vim/php-doc.vim
-inoremap <C-P> <ESC>:call PhpDocSingle()<CR>i 
-nnoremap <C-P> :call PhpDocSingle()<CR> 
-vnoremap <C-P> :call PhpDocRange()<CR> 
 
 "-------------------------------------------------------------------------------------
 " Supertab:	
