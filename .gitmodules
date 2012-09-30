@@ -127,3 +127,12 @@
 [submodule "bundle/vim-neocomplcache"]
 	path = bundle/vim-neocomplcache
 	url = git://github.com/Shougo/neocomplcache.git
+[submodule "bundle/vim-snipmate"]
+	path = bundle/vim-snipmate
+	url = git://github.com/garbas/vim-snipmate.git
+[submodule "bundle/vim-syntastic"]
+	path = bundle/vim-syntastic
+	url = git://github.com/scrooloose/syntastic.git
+[submodule "bundle/custom-snippets"]
+	path = bundle/custom-snippets
+	url = git://github.com/iwyg/custom-snippets.git

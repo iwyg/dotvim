@@ -78,7 +78,7 @@ set runtimepath+=/usr/local/narwhal/bin/objj
 "-------------------------------------------------------------------------------------
 "append $ when changing a word
 "-------------------------------------------------------------------------------------
-set cpoptions=ces$
+"set cpoptions=ces$
 set cpoptions+=$
 
 "-------------------------------------------------------------------------------------
@@ -299,38 +299,51 @@ endif
 "-------------------------------------------------------------------------------------
 
 let g:snipMate = {}
-let g:snipMate.scope_aliases = {} 
-let g:snipMate.scope_aliases['javascript'] = 'javascript,javascript-backbonejs,javascript-requirejs,javascript-underscorejs'
+let g:snipMate.scope_aliases = {
+			\'javascript' : 'javascript,javascript-backbonejs,javascript-requirejs,javascript-underscorejs',
+			\'php' : 'php,symphony',
+			\'xslt' : 'xslt,xml'
+			\} 
 let g:snipMate['no_match_completion_feedkeys_chars'] = ""
+
+""let g:snips_trigger_key = '<F2>'
 "let g:snips_trigger_key = '<F2>'
-let g:snips_trigger_key = '<F2>'
 
 "-------------------------------------------------------------------------------------
 
 " Syntastic:	
 "-------------------------------------------------------------------------------------
+" parser
+let s:javascript_executable = "/usr/local/bin/jshint"
+let g:syntastic_php_exec = "/usr/bin/php"
+let g:syntastic_ruby_exec = "/usr/local/bin/ruby"
+let g:syntastic_javascript_checker = 'jshint'
+let g:syntastic_html_checker = 'w3'
+
 let g:syntastic_quiet_warnings=0
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=1
-let g:syntastic_auto_jump=0
+let g:syntastic_auto_jump=1
 let g:syntastic_check_on_open=1
 let g:syntastic_echo_current_error=1
 let g:syntastic_enable_balloons = 1
 let g:syntastic_loc_list_height=8
 let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
 
+
 let g:syntastic_mode_map = {'active_filetypes': 
-\	['vim', 'js', 'javascript', 'less', 'html', 'xsl', 'json', 'xslt', 'xml', 'css', 'php'], 
+\	['vim', 'js', 'javascript', 'less', 'html', 'xsl', 'json', 'xslt', 'xml', 'css', 'php', 'rb'], 
 \	'mode': 'active', 
 \	'passive_filetypes': ['py', 'scss']
 \}
 
-
-"!phpcs --config-set severity-error 5
-"!phpcs --config-set severity-warning 8
+"!sudo phpcs --config-set severity-error 5
+"!sudo phpcs --config-set severity-warning 8
 
 "let g:syntastic_phpcs_conf = "--standard=PSR1 --sniffs=Generic.Formatting.SpaceAfterCast,Generic.Functions.OpeningFunctionBraceBsdAllman,Generic.WhiteSpace.ScopeIndent,Squiz.Scope.MemberVarScope,Squiz.Scope.MemberVarScope,Squiz.ControlStructures.ForLoopDeclaration,Squiz.ControlStructures.ControlSignature"
-let g:syntastic_phpcs_conf = "--standard=PSR1 --sniffs=Squiz.Scope.MemberVarScope"
+"let g:syntastic_phpcs_conf = "--standard=PSR1 --sniffs=Generic.Formatting.SpaceAfterCast,Generic.Functions.OpeningFunctionBraceBsdAllman,Generic.WhiteSpace.ScopeIndent,Squiz.Scope.MemberVarScope"
+let g:syntastic_phpcs_conf = "--standard=PSR2"
+
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -353,28 +366,34 @@ map <Leader>SC :SyntasticCheck<CR>
 " PHP CS FIXER:	
 "-------------------------------------------------------------------------------------
 let g:php_cs_fixer_path = "~/.vim/tools/php-cs-fixer.phar"	" define the path to the php-cs-fixer.phar
-let g:php_cs_fixer_level = "all"							" which level ?
+let g:php_cs_fixer_level = "PSR2"							" which level ?
 let g:php_cs_fixer_config = "default"						" configuration
-let g:php_cs_fixer_php_path = "php"							" Path to PHP
+let g:php_cs_fixer_php_path = "/usr/bin/php"				" Path to PHP
 let g:php_cs_fixer_fixers_list = ""							" List of fixers
 let g:php_cs_fixer_enable_default_mapping = 1				" Enable the mapping by default (<leader>pcd)
 let g:php_cs_fixer_dry_run = 0								" Call command with dry-run option
 let g:php_cs_fixer_verbose = 1
 
+nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
+nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
+
 "-------------------------------------------------------------------------------------
 " PHP DOC:	
 "-------------------------------------------------------------------------------------
-"source ~/.vim/plugin/php-doc.vim
 inoremap <C-P> <ESC>:call PhpDocSingle()<CR>i 
 nnoremap <C-P> :call PhpDocSingle()<CR> 
 vnoremap <C-P> :call PhpDocRange()<CR> 
+
+
+source ~/.vim/tools/php-doc.vim
 
 let g:pdv_cfg_Type = "Mixed"
 let g:pdv_cfg_Package = ""
 let g:pdv_cfg_Version = "$id$"
 let g:pdv_cfg_Author = "Thomas Appel <thomas@soario.com>"
 let g:pdv_cfg_Copyright = "2012-2015 Soario Inc. <http://soario.com>"
-let g:pdv_cfg_License = "PHP Version 3.0 {@link http://www.php.net/license/3_0.txt}"
+"let g:pdv_cfg_License = "PHP Version 3.0 {@link http://www.php.net/license/3_0.txt}"
+let g:pdv_cfg_License = "http://soario.com/faq/licenses Soario Inc. Software License Version 1.0"
 "-------------------------------------------------------------------------------------
 " GIST VIM:
 "-------------------------------------------------------------------------------------
@@ -391,7 +410,8 @@ let g:Jsbeautify_jslint_whitespace = 1						" JSbreautyfy JSlint
 "-------------------------------------------------------------------------------------
 " NERDTree:	
 "-------------------------------------------------------------------------------------
-"let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$']
+let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$', '\.DS_*']
+let NERDTreeShowHidden = 1
 
 map <Leader>n :NERDTree<CR>
 map <Leader>nn :NERDTreeToggle<CR>

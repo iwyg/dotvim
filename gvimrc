@@ -11,10 +11,11 @@ if has("gui_macvim")
 	colorscheme solarized	
 
 	set background=dark
-	set guifont=DejaVu\ Sans\ Mono:h12
+"	set guifont=DejaVu\ Sans\ Mono:h12
+	set guifont=Source\ Code\ Pro:h12
 
 "	colorscheme dw_orange	
-	color lucius
+"	color lucius
 "	color xoria256
 "	color jellybeans+
 "	colorscheme tir_black	
@@ -26,7 +27,7 @@ if has("gui_macvim")
 "	set guifont=Bitstream\ Vera\ Sans\ Mono:h12
 	"set guifont=Menlo:h12
 	" set transparency
-	au FileType php colorscheme bclear 
+	"au FileType php colorscheme bclear 
 " ------------------------------------------------------------------
 
 " The following items are available options, but do not need to be
