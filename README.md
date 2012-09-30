@@ -7,6 +7,7 @@
 
 ## after installation
 
+- create `tmp` folder in `~/.vim` 
 - create symbolic link to vimrc `ln -s ~/.vimrc ~/.vim/vimrc`
 - create symbolic link to gvimrc `ln -s ~/.gvimrc ~/.vim/gvimrc`
 - create symbolic link to jshintrc `ln -s ~/.jshintrc ~/.vim/jshintrc`
@@ -19,4 +20,6 @@
 - jsctags: `npm install jsctags -g` 
 - exuberant ctags: `brew install ctags`
 - lessc: `brew install lesscss`
-- PHP_Codesniffer: see http://pear.php.net/package/PHP_CodeSniffer/  
+- Compass & SASS
+- PHP_Codesniffer: see http://pear.php.net/package/PHP_CodeSniffer/ 
+- PHP_CSFIXER
