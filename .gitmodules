@@ -94,9 +94,6 @@
 [submodule "bundle/vim-addon-mw-utils"]
 	path = bundle/vim-addon-mw-utils
 	url = git://github.com/MarcWeber/vim-addon-mw-utils.git
-[submodule "bundle/snipmate-snippets"]
-	path = bundle/snipmate-snippets
-	url = git://github.com/iwyg/snipmate-snippets.git
 [submodule "bundle/vim-gundo"]
 	path = bundle/vim-gundo
 	url = git://github.com/sjl/gundo.vim.git
@@ -123,7 +120,7 @@
 	url = git://github.com/tomtom/tlib_vim.git
 [submodule "bundle/vim-tabular"]
 	path = bundle/vim-tabular
-	url = git://github.com/godlygeek/tabular.git
+	url = git@github.com:godlygeek/tabular.git
 [submodule "bundle/vim-neocomplcache"]
 	path = bundle/vim-neocomplcache
 	url = git://github.com/Shougo/neocomplcache.git
@@ -136,3 +133,15 @@
 [submodule "bundle/custom-snippets"]
 	path = bundle/custom-snippets
 	url = git://github.com/iwyg/custom-snippets.git
+[submodule "bundle/vim-dart"]
+	path = bundle/vim-dart
+	url = https://github.com/bartekd/vim-dart.git
+[submodule "bundle/vim-json"]
+	path = bundle/vim-json
+	url = git://github.com/helino/vim-json.git
+[submodule "bundle/vim-puppet"]
+	path = bundle/vim-puppet
+	url = git://github.com/rodjek/vim-puppet.git
+[submodule "bundle/snipmate-snippets"]
+	path = bundle/snipmate-snippets
+	url = git@github.com:scrooloose/snipmate-snippets.git

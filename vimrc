@@ -19,15 +19,21 @@ filetype off
 set virtualedit=all
 let g:dbgWaitTime = 30
 
+set ruler
+set cursorline
+set number
+
 "=====================================================================================
 "pathogen
 "=====================================================================================
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags() "call this when installing new plugins
+call pathogen#infect()
 
 filetype plugin on
 filetype plugin indent on
 syntax enable
+
 set ofu=syntaxcomplete#Complete
 "=====================================================================================
 " BASIC SETTINGS
@@ -98,21 +104,6 @@ if has("mouse")
 endif	
 
 "-------------------------------------------------------------------------------------
-" Enable omni completion.
-"-------------------------------------------------------------------------------------
-if has("autocmd")
-	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-	autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-	autocmd FileType smarty set omnifunc=htmlcomplete#CompleteTags
-	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-	autocmd FileType xslt setlocal omnifunc=xmlcomplete#CompleteTags
-	autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-	autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-endif
-
-"-------------------------------------------------------------------------------------
 " History:
 "-------------------------------------------------------------------------------------
 set history=1000
@@ -129,6 +120,10 @@ nmap <Leader>R :set number!<CR>
 " Shortcut to rapidly toggle `set list`
 "-------------------------------------------------------------------------------------
 nmap <leader>L :set list!<CR>
+"-------------------------------------------------------------------------------------
+" prettyfy json
+"-------------------------------------------------------------------------------------
+map <leader>jt <Esc>:%!json_xs -f json -t json-pretty<CR>
 
 "-------------------------------------------------------------------------------------
 " Use the same symbols as TextMate for tabstops and EOLs
@@ -210,34 +205,36 @@ set foldmethod=indent
 " SYNTAX 
 "=====================================================================================
 if !exists("autocommands_loaded")
-  let autocommands_loaded = 1
+	let autocommands_loaded = 1
 
-" Sass And Less CSS Sytax:
-"-------------------------------------------------------------------------------------
+	" Sass And Less CSS Sytax:
+	"-------------------------------------------------------------------------------------
 	au BufNewFile,BufRead *.less set filetype=less
 	au BufNewFile,BufRead *.scss set filetype=scss
 	au BufNewFile,BufRead *.sass set filetype=sass
-" md, markdown, and mk are markdown and define buffer-local preview
-"-------------------------------------------------------------------------------------
+	au BufNewFile,BufRead *.ts set filetype=typescript
+	au BufRead,BufNewFile *.dart set filetype=dart
+	" md, markdown, and mk are markdown and define buffer-local preview
+	"-------------------------------------------------------------------------------------
 	au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} set ft=markdown
-" Add json syntax highlighting:
-"-------------------------------------------------------------------------------------
+	" Add json syntax highlighting:
+	"-------------------------------------------------------------------------------------
 	au BufNewFile,BufRead *.json set ft=javascript
 
-"	au BufRead,BufNewFile *.txt call s:setupWrapping()
-" Typoscript:
-"-------------------------------------------------------------------------------------
-	au BufNewFile,BufRead mozex.textarea.* setlocal filetype=typoscript
-	au BufNewFile,BufRead *.ts setlocal filetype=typoscript 	
-" Smarty:	
-"-------------------------------------------------------------------------------------
-"	au BufNewFile,BufRead *.tpl setlocal filetype=smarty 	
-" Underscore Templates:	
-"-------------------------------------------------------------------------------------
+	"	au BufRead,BufNewFile *.txt call s:setupWrapping()
+	" Typoscript:
+	"-------------------------------------------------------------------------------------
+	"	au BufNewFile,BufRead mozex.textarea.* setlocal filetype=typoscript
+	"	au BufNewFile,BufRead *.ts setlocal filetype=typoscript 	
+	" Smarty:	
+	"-------------------------------------------------------------------------------------
+	"	au BufNewFile,BufRead *.tpl setlocal filetype=smarty 	
+	" Underscore Templates:	
+	"-------------------------------------------------------------------------------------
 	au BufNewFile,BufRead *.jst set syntax=jst
 	au BufNewFile,BufRead *.tpl set syntax=jst
-" ObjectiveJ: 	
-"-------------------------------------------------------------------------------------
+	" ObjectiveJ: 	
+	"-------------------------------------------------------------------------------------
 	au BufNewFile,BufRead *.j set syntax=objj
 
 endif
@@ -255,24 +252,24 @@ set autoindent
 
 " Only do this part when compiled with support for autocommands
 if has("autocmd")
-  " Enable file type detection
-  filetype on
-   
-  " Syntax of these languages is fussy over tabs Vs spaces
-  autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-  autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-   
-  " Customisations based on house-style (arbitrary)
-  autocmd FileType html setlocal ts=2 sts=2 sw=2 noexpandtab
-  autocmd FileType css setlocal ts=2 sts=2 sw=2 noexpandtab
-  autocmd FileType xml setlocal ts=2 sts=2 sw=2 noexpandtab
-  autocmd FileType less setlocal ts=2 sts=2 sw=2 noexpandtab
-  autocmd FileType xslt setlocal ts=2 sts=2 sw=2 noexpandtab
-  autocmd FileType php setlocal ts=4 sts=4 sw=4 expandtab
-  autocmd FileType javascript setlocal ts=4 sts=4 sw=4 noexpandtab
-   
-  " Treat .rss files as XML
-  autocmd BufNewFile,BufRead *.rss setfiletype xml
+	" Enable file type detection
+	filetype on
+
+	" Syntax of these languages is fussy over tabs Vs spaces
+	autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+	autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+	" Customisations based on house-style (arbitrary)
+	autocmd FileType html setlocal ts=2 sts=2 sw=2 noexpandtab
+	autocmd FileType css setlocal ts=2 sts=2 sw=2 noexpandtab
+	autocmd FileType xml setlocal ts=2 sts=2 sw=2 noexpandtab
+	autocmd FileType less setlocal ts=2 sts=2 sw=2 noexpandtab
+	autocmd FileType xslt setlocal ts=2 sts=2 sw=2 noexpandtab
+	autocmd FileType php setlocal ts=4 sts=4 sw=4 expandtab
+	autocmd FileType javascript setlocal ts=4 sts=4 sw=4 noexpandtab
+
+	" Treat .rss files as XML
+	autocmd BufNewFile,BufRead *.rss setfiletype xml
 endif
 
 let php_sql_query=1                                                                                        
@@ -288,6 +285,17 @@ if has("autocmd")
 	autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 	autocmd FileType xsl set omnifunc=xmlcomplete#CompleteTags
 
+	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+	autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+	autocmd FileType typescript setlocal omnifunc=javascriptcomplete#CompleteJS
+	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+	autocmd FileType smarty set omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+	autocmd FileType xslt setlocal omnifunc=xmlcomplete#CompleteTags
+	autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+	autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+
 endif
 
 
@@ -301,7 +309,7 @@ endif
 let g:snipMate = {}
 let g:snipMate.scope_aliases = {
 			\'javascript' : 'javascript,javascript-backbonejs,javascript-requirejs,javascript-underscorejs',
-			\'php' : 'php,symphony',
+			\'php' : 'php,symphony,phpunit',
 			\'xslt' : 'xslt,xml'
 			\} 
 let g:snipMate['no_match_completion_feedkeys_chars'] = ""
@@ -315,7 +323,7 @@ let g:snipMate['no_match_completion_feedkeys_chars'] = ""
 "-------------------------------------------------------------------------------------
 " parser
 let s:javascript_executable = "/usr/local/bin/jshint"
-let g:syntastic_php_exec = "/usr/bin/php"
+let g:syntastic_php_exec = "/usr/local/bin/php"
 let g:syntastic_ruby_exec = "/usr/local/bin/ruby"
 let g:syntastic_javascript_checker = 'jshint'
 let g:syntastic_html_checker = 'w3'
@@ -332,17 +340,18 @@ let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
 
 
 let g:syntastic_mode_map = {'active_filetypes': 
-\	['vim', 'js', 'javascript', 'less', 'html', 'xsl', 'json', 'xslt', 'xml', 'css', 'php', 'rb'], 
-\	'mode': 'active', 
-\	'passive_filetypes': ['py', 'scss']
-\}
+			\	['vim', 'js', 'javascript', 'less', 'html', 'xsl', 'json', 'xslt', 'xml', 'css', 'php', 'rb'], 
+			\	'mode': 'active', 
+			\	'passive_filetypes': ['py', 'scss']
+			\}
 
 "!sudo phpcs --config-set severity-error 5
 "!sudo phpcs --config-set severity-warning 8
 
 "let g:syntastic_phpcs_conf = "--standard=PSR1 --sniffs=Generic.Formatting.SpaceAfterCast,Generic.Functions.OpeningFunctionBraceBsdAllman,Generic.WhiteSpace.ScopeIndent,Squiz.Scope.MemberVarScope,Squiz.Scope.MemberVarScope,Squiz.ControlStructures.ForLoopDeclaration,Squiz.ControlStructures.ControlSignature"
-"let g:syntastic_phpcs_conf = "--standard=PSR1 --sniffs=Generic.Formatting.SpaceAfterCast,Generic.Functions.OpeningFunctionBraceBsdAllman,Generic.WhiteSpace.ScopeIndent,Squiz.Scope.MemberVarScope"
-let g:syntastic_phpcs_conf = "--standard=PSR2"
+"let g:syntastic_phpcs_conf = "--standard=PSR2 --sniffs=Generic.Formatting.SpaceAfterCast,Generic.Functions.OpeningFunctionBraceBsdAllman,Generic.WhiteSpace.ScopeIndent,Squiz.Scope.MemberVarScope,Squiz.ControlStructures.ForLoopDeclaration,Squiz.ControlStructures.ControlSignature"
+let g:syntastic_phpcs_conf = "--standard=PSR2 --sniffs=Generic.Formatting.SpaceAfterCast,Generic.Functions.OpeningFunctionBraceBsdAllman,Squiz.Scope.MemberVarScope,Squiz.ControlStructures.ForLoopDeclaration,Squiz.ControlStructures.ControlSignature"
+"let g:syntastic_phpcs_conf = "--standard=PSR2"
 
 
 set statusline+=%#warningmsg#
@@ -368,7 +377,7 @@ map <Leader>SC :SyntasticCheck<CR>
 let g:php_cs_fixer_path = "~/.vim/tools/php-cs-fixer.phar"	" define the path to the php-cs-fixer.phar
 let g:php_cs_fixer_level = "PSR2"							" which level ?
 let g:php_cs_fixer_config = "default"						" configuration
-let g:php_cs_fixer_php_path = "/usr/bin/php"				" Path to PHP
+let g:php_cs_fixer_php_path = "/usr/local/bin/php"			" Path to PHP
 let g:php_cs_fixer_fixers_list = ""							" List of fixers
 let g:php_cs_fixer_enable_default_mapping = 1				" Enable the mapping by default (<leader>pcd)
 let g:php_cs_fixer_dry_run = 0								" Call command with dry-run option
@@ -488,14 +497,14 @@ map <Leader>nn :NERDTreeToggle<CR>
 
 " Enable heavy omni completion.
 if !exists('g:neocomplcache_omni_patterns')
-    let g:neocomplcache_omni_patterns = {}
+	let g:neocomplcache_omni_patterns = {}
 endif
 
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 
 if has("gui_running")
-    highlight SpellBad term=underline gui=undercurl guisp=Orange
+	highlight SpellBad term=underline gui=undercurl guisp=Orange
 endif
 
 "-------------------------------------------------------------------------------------
@@ -505,9 +514,9 @@ nmap <F8> :TagbarToggle<CR>
 let g:tagbar_ctags_bin='/usr/local/bin/ctags'
 
 let g:tagbar_type_javascript = {
-    \ 'ctagsbin' : '/usr/local/bin/jsctags',
-    \ 'ctagsargs' : '-f -'
-\ }
+			\ 'ctagsbin' : '/usr/local/bin/jsctags',
+			\ 'ctagsargs' : '-f -'
+			\ }
 
 let g:tagbar_phpctags_bin='~/.vim/phpctags/phpctags'
 
@@ -574,15 +583,15 @@ nmap <Leader>tl :TlistToggle<CR>
 "-------------------------------------------------------------------------------------
 
 function! <SID>StripTrailingWhitespaces()
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " Do the business:
-    %s/\s\+$//e
-    " Clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
+	" Preparation: save last search, and cursor position.
+	let _s=@/
+	let l = line(".")
+	let c = col(".")
+	" Do the business:
+	%s/\s\+$//e
+	" Clean up: restore previous search history, and cursor position
+	let @/=_s
+	call cursor(l, c)
 endfunction
 
 nnoremap <silent> <F5> :call <SID>StripTrailingWhitespaces()<CR>
@@ -597,18 +606,18 @@ endif
 
 autocmd FileWritePost,BufWritePost *.less :call LessCSSCompress()
 function! LessCSSCompress()
-  let cwd = expand('<afile>:p:h')
-  let name = expand('<afile>:t:r')
-  if !isdirectory(cwd.'/..css/')
-	  cal system('mkdir -p '.cwd.'/../css/')
-  endif	  
-  if (executable('lessc'))
-    let stdout = system('lessc '.cwd.'/'.name.'.less > '.cwd.'/../css/'.name.'.css &')
-    if stdout != ''
-        echo stdout
-    endif
-"	call s:growl('lessc', 'successfully compiled'.name.'less')
-  endif
+	let cwd = expand('<afile>:p:h')
+	let name = expand('<afile>:t:r')
+	if !isdirectory(cwd.'/..css/')
+		cal system('mkdir -p '.cwd.'/../css/')
+	endif	  
+	if (executable('lessc'))
+		let stdout = system('lessc '.cwd.'/'.name.'.less > '.cwd.'/../css/'.name.'.css &')
+		if stdout != ''
+			echo stdout
+		endif
+		"	call s:growl('lessc', 'successfully compiled'.name.'less')
+	endif
 endfunction
 
 "-------------------------------------------------------------------------------------
@@ -616,7 +625,7 @@ endfunction
 "-------------------------------------------------------------------------------------
 
 function! s:growl(title, message)
-    execute printf('silent !growlnotify -t %s -m %s', shellescape(a:title, 1), shellescape(a:message, 1))
+	execute printf('silent !growlnotify -t %s -m %s', shellescape(a:title, 1), shellescape(a:message, 1))
 endfunction
 
 "=====================================================================================
@@ -627,20 +636,25 @@ endfunction
 " XTerm:	
 "-------------------------------------------------------------------------------------
 if $TERM == 'xterm-color' && &t_Co == 8
-  set t_Co=16
+	set t_Co=16
 endif
 if $TERM == 'xterm-256color'
-  set t_Co=256
+	"colorscheme wombat256
+	"set t_Co=256
+	"Solarized stuff
+	let g:solarized_termtrans = 1
+	set background=dark
+	colorscheme solarized
 endif
 
 if has("terminfo")
-  set t_Co=16
-  set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
-  set t_AF=[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm
+	set t_Co=16
+	set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
+	set t_AF=[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm
 else
-  set t_Co=16
-  set t_Sf=[3%dm
-  set t_Sb=[4%dm
-endif
+	set t_Co=16
+	set t_Sf=[3%dm
+	set t_Sb=[4%dm
 
+endif
 
