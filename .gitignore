@@ -6,3 +6,6 @@ cache/
 .DS_Store
 autoload/pathogen.vim
 /sessions/
+/cache
+.VimballRecord
+buildtags
