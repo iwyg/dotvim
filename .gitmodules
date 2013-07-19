@@ -144,31 +144,31 @@
 	url = git://github.com/rodjek/vim-puppet.git
 [submodule "bundle/snipmate-snippets"]
 	path = bundle/snipmate-snippets
-	url = git@github.com:honza/snipmate-snippets.git
+	url = git://github.com/honza/snipmate-snippets.git
 [submodule "bundle/vim-ack"]
 	path = bundle/vim-ack
-	url = git@github.com:mileszs/ack.vim.git
+	url = git://github.com/mileszs/ack.vim.git
 [submodule "bundle/vim-rainbow-parenthsis"]
 	path = bundle/vim-rainbow-parenthsis
-	url = git@github.com:vim-scripts/Rainbow-Parenthsis-Bundle.git
+	url = git://github.com/vim-scripts/Rainbow-Parenthsis-Bundle.git
 [submodule "bundle/vim-phpdoc"]
 	path = bundle/vim-phpdoc
 	url = git://github.com/justinrainbow/php-doc.vim.git
 [submodule "bundle/vim-phpfolding"]
 	path = bundle/vim-phpfolding
-	url = git@github.com:vim-scripts/phpfolding.vim.git
+	url = git://github.com/vim-scripts/phpfolding.vim.git
 [submodule "bundle/vim-phpcomplete"]
 	path = bundle/vim-phpcomplete
-	url = git@github.com:shawncplus/phpcomplete.vim.git
+	url = git://github.com/shawncplus/phpcomplete.vim.git
 [submodule "bundle/vim-pdv"]
 	path = bundle/vim-pdv
 	url = https://github.com/iwyg/pdv.git
 [submodule "bundle/vim-vmustache"]
 	path = bundle/vim-vmustache
-	url = git@github.com:tobyS/vmustache.git
+	url = git://github.com/tobyS/vmustache.git
 [submodule "bundle/ultisnips"]
 	path = bundle/ultisnips
-	url = git@github.com:SirVer/ultisnips.git
+	url = https://github.com/SirVer/ultisnips.git
 [submodule "bundle/vim-livereload"]
 	path = bundle/vim-livereload
 	url = https://github.com/flomotlik/vim-livereload.git
