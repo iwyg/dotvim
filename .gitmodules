@@ -229,9 +229,9 @@
 [submodule "bundle/snippets"]
 	path = bundle/snippets
 	url = https://github.com/iwyg/custom-snippets.git
-[submodule "bundle/command-t"]
-	path = bundle/command-t
-	url = git://git.wincent.com/command-t.git
 [submodule "bundle/vim-latex"]
 	path = bundle/vim-latex
 	url = https://github.com/jcf/vim-latex.git
+[submodule "bundle/command-t"]
+	path = bundle/command-t
+	url = https://github.com/wincent/Command-T.git
