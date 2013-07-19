@@ -4,3 +4,5 @@ cache/
 *.swp
 .netrwhist
 .DS_Store
+autoload/pathogen.vim
+/sessions/

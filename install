@@ -1,0 +1,6 @@
+curl -Sso ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+mkdir tmp
+(ln -s ~/.vimrc ~/.vim/vimrc && ln -s ~/.gvimrc ~/.vim/gvimrc) || ln log
+cd bundle/command-t/ruby/command-t
+ruby extconf.rb
+make

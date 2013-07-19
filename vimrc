@@ -5,9 +5,9 @@ filetype off
 "if has('gui_running')
 " set shell=zsh\ -i
 "endif
-if has("gui_running")
-	set sh=/bin/zsh
-endif
+"if has("gui_running")
+"  set sh=/bin/zsh
+"endif
 
 " let $PATH=system("echo \$PATH")
 "=====================================================================================
@@ -22,17 +22,15 @@ let g:dbgWaitTime = 30
 set ruler
 set cursorline
 set number
+set linespace=10
 
 "=====================================================================================
 "pathogen
 "=====================================================================================
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags() "call this when installing new plugins
-call pathogen#infect()
-
-filetype plugin on
+execute pathogen#infect()
+call pathogen#helptags()
+syntax on
 filetype plugin indent on
-syntax enable
 
 set ofu=syntaxcomplete#Complete
 "=====================================================================================
@@ -69,8 +67,11 @@ set hidden
 "-------------------------------------------------------------------------------------
 " ctags runtime
 "-------------------------------------------------------------------------------------
-"set tags=./tags;/
-set tags=~/.vim/ctags/symphony
+set tags=./.tags
+
+" Cool tab completion stuff
+set wildmenu
+set wildmode=list:longest,full
 
 " tag jumping
 nnoremap ü <C-]>
@@ -199,8 +200,27 @@ let php_folding = 1
 set foldmethod=indent
 
 
+"=====================================================================================
+" PHP Stuff
+"=====================================================================================
 
+" PHPFolding
+map <F5> <Esc>:EnableFastPHPFolds<Cr>
+map <F6> <Esc>:EnablePHPFolds<Cr>
+map <F7> <Esc>:DisablePHPFolds<Cr>
+" disable auto folding
+let g:DisableAutoPHPFolding = 1
 
+"=====================================================================================
+" PHP Namespace
+"=====================================================================================
+inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
+noremap <Leader>e :call PhpExpandClass()<CR>
+
+"=====================================================================================
+" INSTANT MARKDOWN
+"=====================================================================================
+let g:instant_markdown_slow = 1
 "=====================================================================================
 " SYNTAX 
 "=====================================================================================
@@ -214,12 +234,15 @@ if !exists("autocommands_loaded")
 	au BufNewFile,BufRead *.sass set filetype=sass
 	au BufNewFile,BufRead *.ts set filetype=typescript
 	au BufRead,BufNewFile *.dart set filetype=dart
+	au BufRead,BufNewFile *.twig set filetype=htmljinja
+	au BufRead,BufNewFile *.handlebars set filetype=html
 	" md, markdown, and mk are markdown and define buffer-local preview
 	"-------------------------------------------------------------------------------------
 	au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} set ft=markdown
+	au BufRead,BufNewFile *.{jshintrc,*rc} set ft=rc
 	" Add json syntax highlighting:
 	"-------------------------------------------------------------------------------------
-	au BufNewFile,BufRead *.json set ft=javascript
+	"au BufNewFile,BufRead *.json set ft=javascript
 
 	"	au BufRead,BufNewFile *.txt call s:setupWrapping()
 	" Typoscript:
@@ -236,6 +259,8 @@ if !exists("autocommands_loaded")
 	" ObjectiveJ: 	
 	"-------------------------------------------------------------------------------------
 	au BufNewFile,BufRead *.j set syntax=objj
+
+	"au BufWritePost *.php !phpctags %s &
 
 endif
 
@@ -260,16 +285,24 @@ if has("autocmd")
 	autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 	" Customisations based on house-style (arbitrary)
-	autocmd FileType html setlocal ts=2 sts=2 sw=2 noexpandtab
-	autocmd FileType css setlocal ts=2 sts=2 sw=2 noexpandtab
-	autocmd FileType xml setlocal ts=2 sts=2 sw=2 noexpandtab
-	autocmd FileType less setlocal ts=2 sts=2 sw=2 noexpandtab
-	autocmd FileType xslt setlocal ts=2 sts=2 sw=2 noexpandtab
+	autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType scss setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType sass setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType xml setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType less setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType xslt setlocal ts=2 sts=2 sw=2 expandtab
 	autocmd FileType php setlocal ts=4 sts=4 sw=4 expandtab
-	autocmd FileType javascript setlocal ts=4 sts=4 sw=4 noexpandtab
+	autocmd FileType std setlocal ts=4 sts=4 sw=4 expandtab
+	autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
 
 	" Treat .rss files as XML
 	autocmd BufNewFile,BufRead *.rss setfiletype xml
+	" Treat .std template files as php
+	autocmd BufNewFile,BufRead *.std setfiletype php
+
+	"change the cursor appereance in insert mode
+	"autocmd InsertEnter,InsertLeave * set cul!
 endif
 
 let php_sql_query=1                                                                                        
@@ -279,22 +312,22 @@ let php_htmlInStrings=1
 " AUTOCOMPLETION
 "=====================================================================================
 if has("autocmd")
-	autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-	autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-	autocmd FileType smarty set omnifunc=htmlcomplete#CompleteTags
-	autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-	autocmd FileType xsl set omnifunc=xmlcomplete#CompleteTags
+	autocmd FileType javascript              set omnifunc=javascriptcomplete#CompleteJS
+	autocmd FileType html,htmljinja          set omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType smarty                  set omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType xml                     set omnifunc=xmlcomplete#CompleteTags
+	autocmd FileType xsl                     set omnifunc=xmlcomplete#CompleteTags
 
-	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-	autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-	autocmd FileType typescript setlocal omnifunc=javascriptcomplete#CompleteJS
-	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-	autocmd FileType smarty set omnifunc=htmlcomplete#CompleteTags
-	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-	autocmd FileType xslt setlocal omnifunc=xmlcomplete#CompleteTags
-	autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-	autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+	autocmd FileType css                     setlocal omnifunc=csscomplete#CompleteCSS
+	autocmd FileType html,markdown,htmljinja setlocal omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType javascript              setlocal omnifunc=javascriptcomplete#CompleteJS
+	autocmd FileType typescript              setlocal omnifunc=javascriptcomplete#CompleteJS
+	autocmd FileType python                  setlocal omnifunc=pythoncomplete#Complete
+	autocmd FileType smarty                  set omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType xml                     setlocal omnifunc=xmlcomplete#CompleteTags
+	autocmd FileType xslt                    setlocal omnifunc=xmlcomplete#CompleteTags
+	autocmd FileType php                     setlocal omnifunc=phpcomplete#CompletePHP
+	autocmd FileType php                     set omnifunc=phpcomplete#CompletePHP
 
 endif
 
@@ -303,19 +336,19 @@ endif
 " PLUGIN SETTINGS
 "=====================================================================================
 
-" Snipmate:	
-"-------------------------------------------------------------------------------------
-
-let g:snipMate = {}
-let g:snipMate.scope_aliases = {
-			\'javascript' : 'javascript,javascript-backbonejs,javascript-requirejs,javascript-underscorejs',
-			\'php' : 'php,symphony,phpunit',
-			\'xslt' : 'xslt,xml'
-			\} 
-let g:snipMate['no_match_completion_feedkeys_chars'] = ""
-
+"" Snipmate:	
+""-------------------------------------------------------------------------------------
+"
+"let g:snipMate = {}
+"let g:snipMate.scope_aliases = {
+"			\'javascript' : 'javascript,javascript-backbonejs,javascript-requirejs,javascript-underscorejs',
+"			\'php' : 'php,symphony,phpunit',
+"			\'xslt' : 'xslt,xml'
+"			\} 
+"let g:snipMate['no_match_completion_feedkeys_chars'] = ""
+"
+"""let g:snips_trigger_key = '<F2>'
 ""let g:snips_trigger_key = '<F2>'
-"let g:snips_trigger_key = '<F2>'
 
 "-------------------------------------------------------------------------------------
 
@@ -323,35 +356,49 @@ let g:snipMate['no_match_completion_feedkeys_chars'] = ""
 "-------------------------------------------------------------------------------------
 " parser
 let s:javascript_executable = "/usr/local/bin/jshint"
-let g:syntastic_php_exec = "/usr/local/bin/php"
-let g:syntastic_ruby_exec = "/usr/local/bin/ruby"
-let g:syntastic_javascript_checker = 'jshint'
-let g:syntastic_html_checker = 'w3'
-
-let g:syntastic_quiet_warnings=0
-let g:syntastic_enable_signs=1
+"let g:syntastic_php_exec = "/usr/local/bin/php"
+"
+"let g:syntastic_ruby_exec = "/usr/local/bin/ruby"
+"
+"let g:syntastic_quiet_warnings=1
+"let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=1
-let g:syntastic_auto_jump=1
+let g:syntastic_auto_jump=0
 let g:syntastic_check_on_open=1
 let g:syntastic_echo_current_error=1
-let g:syntastic_enable_balloons = 1
-let g:syntastic_loc_list_height=8
-let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
+"let g:syntastic_enable_balloons = 1
+let g:syntastic_loc_list_height=4
+"let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
+
+let g:syntastic_php_checkers=['php', 'phpcs']
+let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_html_checkers = ['tidy']
 
 
-let g:syntastic_mode_map = {'active_filetypes': 
-			\	['vim', 'js', 'javascript', 'less', 'html', 'xsl', 'json', 'xslt', 'xml', 'css', 'php', 'rb'], 
-			\	'mode': 'active', 
-			\	'passive_filetypes': ['py', 'scss']
-			\}
+"let g:syntastic_mode_map = {'active_filetypes':
+":w
+"			\	['vim', 'js', 'javascript', 'less', 'html', 'xsl', 'json', 'xslt', 'xml', 'css', 'php', 'rb'], 
+"			\	'mode': 'active', 
+"			\	'passive_filetypes': ['py', 'scss']
+"			\}
 
 "!sudo phpcs --config-set severity-error 5
 "!sudo phpcs --config-set severity-warning 8
+let g:syntastic_php_php_args = "-l -d error_reporting=E_ALL -d display_errors=1 -d log_errors=0 -d xdebug.cli_color=0"
 
+"let g:syntastic_php_phpcs_args = "--report=csv --standard=PSR2 --sniffs=Generic.Formatting.SpaceAfterCast,Generic.Functions.OpeningFunctionBraceBsdAllman,Generic.WhiteSpace.ScopeIndent,Squiz.Scope.MemberVarScope,Squiz.ControlStructures.ForLoopDeclaration,Squiz.ControlStructures.ControlSignature"
+
+let g:syntastic_php_phpcs_args = "--report=csv --standard=PSR2 --sniffs=Generic.Formatting.SpaceAfterCast,Generic.WhiteSpace.ScopeIndent,Squiz.Scope.MemberVarScope"
+"let g:syntastic_php_phpcs_args = "--report=csv --standard=PSR2"
+"
+"let g:syntastic_php_phpcs_args = '--report=csv --standard=PSR2'
+
+"let g:syntastic_php_phpcs_args = "--standard=PSR1"
 "let g:syntastic_phpcs_conf = "--standard=PSR1 --sniffs=Generic.Formatting.SpaceAfterCast,Generic.Functions.OpeningFunctionBraceBsdAllman,Generic.WhiteSpace.ScopeIndent,Squiz.Scope.MemberVarScope,Squiz.Scope.MemberVarScope,Squiz.ControlStructures.ForLoopDeclaration,Squiz.ControlStructures.ControlSignature"
-"let g:syntastic_phpcs_conf = "--standard=PSR2 --sniffs=Generic.Formatting.SpaceAfterCast,Generic.Functions.OpeningFunctionBraceBsdAllman,Generic.WhiteSpace.ScopeIndent,Squiz.Scope.MemberVarScope,Squiz.ControlStructures.ForLoopDeclaration,Squiz.ControlStructures.ControlSignature"
-let g:syntastic_phpcs_conf = "--standard=PSR2 --sniffs=Generic.Formatting.SpaceAfterCast,Generic.Functions.OpeningFunctionBraceBsdAllman,Squiz.Scope.MemberVarScope,Squiz.ControlStructures.ForLoopDeclaration,Squiz.ControlStructures.ControlSignature"
-"let g:syntastic_phpcs_conf = "--standard=PSR2"
+"let g:syntastic_phpcs_conf = "--standard=PSR2 --sniffs=Generic.Formatting.SpaceAfterCast,Generic.Functions.OpeningFunctionBraceBsdAllman,Squiz.Scope.MemberVarScope,Squiz.ControlStructures.ForLoopDeclaration,Squiz.ControlStructures.ControlSignature"
+"
+
+"let g:syntastic_php_phpcs_args = '--report=csv --standard=Symfony2'
 
 
 set statusline+=%#warningmsg#
@@ -359,6 +406,9 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 map <Leader>SC :SyntasticCheck<CR>
+
+" Thumbnail Buffer View
+noremap <Leader><F1> :Thumbnail<CR>
 
 " for Syntastic
 "let g:syntastic_auto_loc_list=1 "Auto open errors window upon detection
@@ -375,7 +425,7 @@ map <Leader>SC :SyntasticCheck<CR>
 " PHP CS FIXER:	
 "-------------------------------------------------------------------------------------
 let g:php_cs_fixer_path = "~/.vim/tools/php-cs-fixer.phar"	" define the path to the php-cs-fixer.phar
-let g:php_cs_fixer_level = "PSR2"							" which level ?
+let g:php_cs_fixer_level = "Symfony2"					    " which level ?
 let g:php_cs_fixer_config = "default"						" configuration
 let g:php_cs_fixer_php_path = "/usr/local/bin/php"			" Path to PHP
 let g:php_cs_fixer_fixers_list = ""							" List of fixers
@@ -389,32 +439,58 @@ nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
 "-------------------------------------------------------------------------------------
 " PHP DOC:	
 "-------------------------------------------------------------------------------------
-inoremap <C-P> <ESC>:call PhpDocSingle()<CR>i 
-nnoremap <C-P> :call PhpDocSingle()<CR> 
-vnoremap <C-P> :call PhpDocRange()<CR> 
+let g:pdv_template_dir = $HOME ."/.vim/bundle/vim-pdv/templates"
+nnoremap <C-p> :call pdv#DocumentCurrentLine()<CR>
+"nnoremap  <C-P> :call pdv#DocumentCurrentLine()<CR>
 
+"inoremap <C-P> <ESC>:call pdv#PhpDocSingle()<CR>i 
+"nnoremap <C-P> :call pdv#PhpDocSingle()<CR> 
+"vnoremap <C-P> :call pdv#PhpDocRange()<CR> 
+"
+"source ~/.vim/bundle/vim-pdv/autoload/pdv.vim
+"imap <C-o> :set paste<CR>:exe pdv#PhpDoc()<CR>:set nopaste<CR>i
 
-source ~/.vim/tools/php-doc.vim
+" PHP documenter script bound to Control-P
+" autocmd FileType php inoremap <C-p> <ESC>:call PhpDocSingle()<CR>i
+" autocmd FileType php nnoremap <C-p> :call PhpDocSingle()<CR>
+" autocmd FileType php vnoremap <C-p> :call PhpDocRange()<CR> 
 
+"let g:pdv_cfg_Type = "Mixed"
+"let g:pdv_cfg_Package = ""
+"let g:pdv_cfg_Version = "$id$"
+"let g:pdv_cfg_Author = "Thomas Appel <thomas@soario.com>"
+"let g:pdv_cfg_Copyright = "2012-2015 Soario Inc. <http://soario.com>"
+""let g:pdv_cfg_License = "PHP Version 3.0 {@link http://www.php.net/license/3_0.txt}"
+"let g:pdv_cfg_License = "http://soario.com/faq/licenses Soario Inc. Software License Version 1.0"
+"
 let g:pdv_cfg_Type = "Mixed"
 let g:pdv_cfg_Package = ""
 let g:pdv_cfg_Version = "$id$"
-let g:pdv_cfg_Author = "Thomas Appel <thomas@soario.com>"
-let g:pdv_cfg_Copyright = "2012-2015 Soario Inc. <http://soario.com>"
+let g:pdv_cfg_Author = "Thomas Appel <mail@thomas@appel.com>"
+let g:pdv_cfg_Copyright = "2012-2015 Thomas Appel. <mail@thomas@appel.com>"
 "let g:pdv_cfg_License = "PHP Version 3.0 {@link http://www.php.net/license/3_0.txt}"
-let g:pdv_cfg_License = "http://soario.com/faq/licenses Soario Inc. Software License Version 1.0"
+let g:pdv_cfg_License = "MIT"
 "-------------------------------------------------------------------------------------
 " GIST VIM:
 "-------------------------------------------------------------------------------------
-let g:github_user = "iwyg-snippets"
-let g:github_token = "$GITHUB_TOKEN"
+"let g:github_user = "iwyg-snippets"
+"let g:github_token = "$GITHUB_TOKEN"
+"-------------------------------------------------------------------------------------
+" ULTISNIPS:
+"-------------------------------------------------------------------------------------
+let g:UltiSnipsUsePythonVersion = 2
+let g:UltiSnipsSnippetsDir = "$HOME/.vim/bundle/custom-snippets"
 
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 "-------------------------------------------------------------------------------------
 " JSBeautify:	
 "-------------------------------------------------------------------------------------
 
 let g:JSLintHighlightErrorLine = 1							" Turn on JSLint error highlighting
 let g:Jsbeautify_jslint_whitespace = 1						" JSbreautyfy JSlint
+let g:Jsbeautify_jslint_expandtab = 1                       " expand tabs to spaces
 
 "-------------------------------------------------------------------------------------
 " NERDTree:	
@@ -510,15 +586,19 @@ endif
 "-------------------------------------------------------------------------------------
 " TAGBAR:
 "-------------------------------------------------------------------------------------
-nmap <F8> :TagbarToggle<CR>
+" TagbarToggle 
+nmap <Leader>tb :TagbarToggle<CR>
 let g:tagbar_ctags_bin='/usr/local/bin/ctags'
+let g:tagbar_phpctags_bin='/usr/local/bin/jsctags'
 
+"let g:tagbar_type_php = {
+"			\ 'ctagsbin' : '/usr/local/bin/phpctags',
+"			\ }
 let g:tagbar_type_javascript = {
-			\ 'ctagsbin' : '/usr/local/bin/jsctags',
-			\ 'ctagsargs' : '-f -'
-			\ }
+\ 'ctagsbin' : '/usr/local/bin/jsctags',
+\ 'ctagsargs' : '-f -'
+\ }
 
-let g:tagbar_phpctags_bin='~/.vim/phpctags/phpctags'
 
 " tagbar scala
 "let g:tagbar_type_scala = {}
@@ -629,6 +709,16 @@ function! s:growl(title, message)
 endfunction
 
 "=====================================================================================
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+  else
+    set relativenumber
+  endif
+endfunc
+nnoremap <C-n> :call NumberToggle()<cr>
+
+"=====================================================================================
 " Themes and GUI settings
 "=====================================================================================
 
@@ -642,9 +732,9 @@ if $TERM == 'xterm-256color'
 	"colorscheme wombat256
 	"set t_Co=256
 	"Solarized stuff
-	let g:solarized_termtrans = 1
+	"let g:solarized_termtrans = 3
 	set background=dark
-	colorscheme solarized
+	colorscheme smyck
 endif
 
 if has("terminfo")
@@ -658,3 +748,32 @@ else
 
 endif
 
+" lazy method of appending this onto your .vimrc ":w! >> ~/.vimrc"
+" ------------------------------------------------------------------
+" this block of commands has been autogenerated by solarized.vim and
+" includes the current, non-default Solarized option values.
+" To use, place these commands in your .vimrc file (replacing any
+" existing colorscheme commands). See also ":help solarized"
+
+" ------------------------------------------------------------------
+" Solarized Colorscheme Config
+" ------------------------------------------------------------------
+" let g:solarized_underline=0    "default value is 1
+" let g:solarized_contrast="high"    "default value is normal
+" let g:solarized_visibility="high"    "default value is normal
+" let g:solarized_hitrail=1    "default value is 0
+" syntax enable
+" set background=light
+" colorscheme solarized
+" ------------------------------------------------------------------
+
+" The following items are available options, but do not need to be
+" included in your .vimrc as they are currently set to their defaults.
+
+" let g:solarized_termtrans=1
+" let g:solarized_degrade=0
+" let g:solarized_bold=1
+" let g:solarized_italic=1
+" let g:solarized_termcolors=16
+" let g:solarized_diffmode="normal"
+" let g:solarized_menu=1

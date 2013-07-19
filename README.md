@@ -1,16 +1,11 @@
 # Instructions:
 
-## Clone repository
+## Installation
 
 - `git clone git://github.com/iwyg/dotvim ~/.vim --recursive`
 - `git submodule update --init`
+- `cd ~/.vim && ./install`
 
-## after installation
-
-- create `tmp` folder in `~/.vim` 
-- create symbolic link to vimrc `ln -s ~/.vimrc ~/.vim/vimrc`
-- create symbolic link to gvimrc `ln -s ~/.gvimrc ~/.vim/gvimrc`
-- create symbolic link to jshintrc `ln -s ~/.jshintrc ~/.vim/jshintrc`
 
 ## dependencies
 
