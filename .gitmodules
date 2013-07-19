@@ -228,7 +228,7 @@
 	url = git://github.com/xsbeats/vim-blade.git
 [submodule "bundle/snippets"]
 	path = bundle/snippets
-	url = git://gihub.com/iwyg/custom-snippets.git
+	url = https://github.com/iwyg/custom-snippets.git
 [submodule "bundle/command-t"]
 	path = bundle/command-t
 	url = git://git.wincent.com/command-t.git
