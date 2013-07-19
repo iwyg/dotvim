@@ -102,7 +102,7 @@
 	url = git://github.com/cakebaker/scss-syntax.vim.git
 [submodule "bundle/vim-tagbar-phpctags"]
 	path = bundle/vim-tagbar-phpctags
-	url = git@github.com:techlivezheng/tagbar-phpctags.git
+	url = git://github.com/techlivezheng/tagbar-phpctags.git
 [submodule "phpctags"]
 	path = phpctags
 	url = git://github.com/techlivezheng/phpctags.git
@@ -120,7 +120,7 @@
 	url = git://github.com/tomtom/tlib_vim.git
 [submodule "bundle/vim-tabular"]
 	path = bundle/vim-tabular
-	url = git@github.com:godlygeek/tabular.git
+	url = git://github.com/godlygeek/tabular.git
 [submodule "bundle/vim-neocomplcache"]
 	path = bundle/vim-neocomplcache
 	url = git://github.com/Shougo/neocomplcache.git
