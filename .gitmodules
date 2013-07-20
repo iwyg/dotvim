@@ -18,7 +18,7 @@
 	url = git://github.com/stephpy/vim-php-cs-fixer.git
 [submodule "tools/rulesets/php_psr1"]
 	path = tools/rulesets/php_psr1
-	url = git://github.com/klaussilveira/phpcs-psr1.git
+	url = git://github.com/klaussilveira/phpcs-psr.git
 [submodule "bundle/vim-autocorrect"]
 	path = bundle/vim-autocorrect
 	url = git://github.com/panozzaj/vim-autocorrect.git
