@@ -135,7 +135,7 @@
 	url = git://github.com/iwyg/custom-snippets.git
 [submodule "bundle/vim-dart"]
 	path = bundle/vim-dart
-	url = https://github.com/bartekd/vim-dart.git
+	url = git://github.com/bartlomiejdanek/vim-dart.git
 [submodule "bundle/vim-json"]
 	path = bundle/vim-json
 	url = git://github.com/helino/vim-json.git
