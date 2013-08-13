@@ -9,3 +9,4 @@ autoload/pathogen.vim
 /cache
 .VimballRecord
 buildtags
+/node_modules/
