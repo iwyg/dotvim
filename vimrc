@@ -240,6 +240,7 @@ if !exists("autocommands_loaded")
 	"-------------------------------------------------------------------------------------
 	au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} set ft=markdown
 	au BufRead,BufNewFile *.{jshintrc,*rc} set ft=rc
+	au BufRead,BufNewFile *.{vimrc,gvimrc} set ft=vim
 	" Add json syntax highlighting:
 	"-------------------------------------------------------------------------------------
 	"au BufNewFile,BufRead *.json set ft=javascript
@@ -295,6 +296,7 @@ if has("autocmd")
 	autocmd FileType php setlocal ts=4 sts=4 sw=4 expandtab
 	autocmd FileType std setlocal ts=4 sts=4 sw=4 expandtab
 	autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
 
 	" Treat .rss files as XML
 	autocmd BufNewFile,BufRead *.rss setfiletype xml
@@ -357,8 +359,9 @@ endif
 " parser
 let s:javascript_executable = "/usr/local/bin/jshint"
 "let g:syntastic_php_exec = "/usr/local/bin/php"
-"
-"let g:syntastic_ruby_exec = "/usr/local/bin/ruby"
+
+let g:syntastic_ruby_exec = "/usr/local/bin/ruby"
+let g:syntastic_json_exec = "/usr/local/bin/jsonlint"
 "
 "let g:syntastic_quiet_warnings=1
 "let g:syntastic_enable_signs=1
@@ -372,6 +375,7 @@ let g:syntastic_loc_list_height=4
 
 let g:syntastic_php_checkers=['php', 'phpcs']
 let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_json_checkers = ['jsonlint']
 let g:syntastic_html_checkers = ['tidy']
 
 
@@ -384,12 +388,12 @@ let g:syntastic_html_checkers = ['tidy']
 
 "!sudo phpcs --config-set severity-error 5
 "!sudo phpcs --config-set severity-warning 8
-let g:syntastic_php_php_args = "-l -d error_reporting=E_ALL -d display_errors=1 -d log_errors=0 -d xdebug.cli_color=0"
+"let g:syntastic_php_php_args = "-l -d error_reporting=E_ALL -d display_errors=1 -d log_errors=0 -d xdebug.cli_color=0"
+let g:syntastic_php_phpcs_args = "--report=csv --standard=PSR2"
 
 "let g:syntastic_php_phpcs_args = "--report=csv --standard=PSR2 --sniffs=Generic.Formatting.SpaceAfterCast,Generic.Functions.OpeningFunctionBraceBsdAllman,Generic.WhiteSpace.ScopeIndent,Squiz.Scope.MemberVarScope,Squiz.ControlStructures.ForLoopDeclaration,Squiz.ControlStructures.ControlSignature"
 
-let g:syntastic_php_phpcs_args = "--report=csv --standard=PSR2 --sniffs=Generic.Formatting.SpaceAfterCast,Generic.WhiteSpace.ScopeIndent,Squiz.Scope.MemberVarScope"
-"let g:syntastic_php_phpcs_args = "--report=csv --standard=PSR2"
+"let g:syntastic_php_phpcs_args = "--report=csv --standard=PSR2 --sniffs=Generic.Formatting.SpaceAfterCast,Generic.WhiteSpace.ScopeIndent,Squiz.Scope.MemberVarScope"
 "
 "let g:syntastic_php_phpcs_args = '--report=csv --standard=PSR2'
 
@@ -425,7 +429,7 @@ noremap <Leader><F1> :Thumbnail<CR>
 " PHP CS FIXER:	
 "-------------------------------------------------------------------------------------
 let g:php_cs_fixer_path = "~/.vim/tools/php-cs-fixer.phar"	" define the path to the php-cs-fixer.phar
-let g:php_cs_fixer_level = "Symfony2"					    " which level ?
+let g:php_cs_fixer_level = "psr2"							" which level ?
 let g:php_cs_fixer_config = "default"						" configuration
 let g:php_cs_fixer_php_path = "/usr/local/bin/php"			" Path to PHP
 let g:php_cs_fixer_fixers_list = ""							" List of fixers
@@ -439,8 +443,11 @@ nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
 "-------------------------------------------------------------------------------------
 " PHP DOC:	
 "-------------------------------------------------------------------------------------
-let g:pdv_template_dir = $HOME ."/.vim/bundle/vim-pdv/templates"
-nnoremap <C-p> :call pdv#DocumentCurrentLine()<CR>
+let g:pdv_template_dir = $HOME ."/.vim/tools/pdv_templates"
+nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
+
+"let g:pdv_template_dir = $HOME ."/.vim/bundle/vim-pdv/templates"
+"nnoremap <C-p> :call pdv#DocumentCurrentLine()<CR>
 "nnoremap  <C-P> :call pdv#DocumentCurrentLine()<CR>
 
 "inoremap <C-P> <ESC>:call pdv#PhpDocSingle()<CR>i 
@@ -463,13 +470,13 @@ nnoremap <C-p> :call pdv#DocumentCurrentLine()<CR>
 ""let g:pdv_cfg_License = "PHP Version 3.0 {@link http://www.php.net/license/3_0.txt}"
 "let g:pdv_cfg_License = "http://soario.com/faq/licenses Soario Inc. Software License Version 1.0"
 "
-let g:pdv_cfg_Type = "Mixed"
-let g:pdv_cfg_Package = ""
-let g:pdv_cfg_Version = "$id$"
-let g:pdv_cfg_Author = "Thomas Appel <mail@thomas@appel.com>"
-let g:pdv_cfg_Copyright = "2012-2015 Thomas Appel. <mail@thomas@appel.com>"
-"let g:pdv_cfg_License = "PHP Version 3.0 {@link http://www.php.net/license/3_0.txt}"
-let g:pdv_cfg_License = "MIT"
+"let g:pdv_cfg_Type = "Mixed"
+"let g:pdv_cfg_Package = ""
+"let g:pdv_cfg_Version = "$Id$"
+"let g:pdv_cfg_Author = "Thomas Appel <mail@thomas@appel.com>"
+"let g:pdv_cfg_Copyright = "2012-2015 Thomas Appel. <mail@thomas@appel.com>"
+""let g:pdv_cfg_License = "PHP Version 3.0 {@link http://www.php.net/license/3_0.txt}"
+"let g:pdv_cfg_License = "MIT"
 "-------------------------------------------------------------------------------------
 " GIST VIM:
 "-------------------------------------------------------------------------------------
@@ -497,6 +504,7 @@ let g:Jsbeautify_jslint_expandtab = 1                       " expand tabs to spa
 "-------------------------------------------------------------------------------------
 let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$', '\.DS_*']
 let NERDTreeShowHidden = 1
+set guioptions-=L
 
 map <Leader>n :NERDTree<CR>
 map <Leader>nn :NERDTreeToggle<CR>
@@ -589,11 +597,8 @@ endif
 " TagbarToggle 
 nmap <Leader>tb :TagbarToggle<CR>
 let g:tagbar_ctags_bin='/usr/local/bin/ctags'
-let g:tagbar_phpctags_bin='/usr/local/bin/jsctags'
+let g:tagbar_phpctags_bin='/usr/local/bin/phpctags'
 
-"let g:tagbar_type_php = {
-"			\ 'ctagsbin' : '/usr/local/bin/phpctags',
-"			\ }
 let g:tagbar_type_javascript = {
 \ 'ctagsbin' : '/usr/local/bin/jsctags',
 \ 'ctagsargs' : '-f -'
