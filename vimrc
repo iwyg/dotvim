@@ -37,6 +37,11 @@ set ofu=syntaxcomplete#Complete
 " BASIC SETTINGS
 "=====================================================================================
 
+set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
+"python from powerline.vim import setup as powerline_setup
+"python powerline_setup()
+"python del powerline_setup
+
 "-------------------------------------------------------------------------------------
 " Leader:
 "-------------------------------------------------------------------------------------
@@ -358,7 +363,7 @@ endif
 "-------------------------------------------------------------------------------------
 " parser
 let s:javascript_executable = "/usr/local/bin/jshint"
-"let g:syntastic_php_exec = "/usr/local/bin/php"
+let g:syntastic_php_exec = "/usr/local/bin/php"
 
 let g:syntastic_ruby_exec = "/usr/local/bin/ruby"
 let g:syntastic_json_exec = "/usr/local/bin/jsonlint"
@@ -598,6 +603,7 @@ endif
 nmap <Leader>tb :TagbarToggle<CR>
 let g:tagbar_ctags_bin='/usr/local/bin/ctags'
 let g:tagbar_phpctags_bin='/usr/local/bin/phpctags'
+let g:tagbar_phpctags_memory_limit = '512M'
 
 let g:tagbar_type_javascript = {
 \ 'ctagsbin' : '/usr/local/bin/jsctags',
