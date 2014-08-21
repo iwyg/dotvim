@@ -138,7 +138,7 @@
 	url = git://github.com/bartlomiejdanek/vim-dart.git
 [submodule "bundle/vim-json"]
 	path = bundle/vim-json
-	url = git://github.com/helino/vim-json.git
+	url = https://github.com/elzr/vim-json.git
 [submodule "bundle/vim-puppet"]
 	path = bundle/vim-puppet
 	url = git://github.com/rodjek/vim-puppet.git
@@ -337,3 +337,6 @@
 [submodule "bundle/vimroom"]
 	path = bundle/vimroom
 	url = https://github.com/mikewest/vimroom
+[submodule "bundle/vim-toml"]
+	path = bundle/vim-toml
+	url = https://github.com/cespare/vim-toml.git
