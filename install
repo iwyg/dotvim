@@ -1,33 +1,59 @@
 #!/bin/sh
 
-#curl -Sso $HOME/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+# create temp directory
+mkdir -p tmp
+
+# install pathogen plugin manager
 curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
-#install powerline if not already installed 
+# install powerline if not already installed 
 if [ "which powerline" == "" ]; then
 	pip install powerline-status
 fi
+
+# install the markdown preview
+if [ "which livedown" == "" ]; then
+	npm install -g livedown
+fi
+
+# install composer
+if [ "which composer" == "" ]; then
+	cd tmp
+	curl -sS https://getcomposer.org/installer | php
+	mv composer.phar /usr/local/bin/composer
+	cd -
+	mkdir ~/.composer
+	echo "{\"require\": {}}" > ~/.composer/composer.json
+fi
+
+# install required php utilities
+composer global require squizlabs/php_codesniffer techlivezheng/phpctags fabpot/php-cs-fixer
+# install required javascript  utilities
+npm install -g jsctags
+
 
 mv ~/.vim/vimrc ~/.vim/vimconfig
 mv ~/.vim/gvimrc ~/.vim/gvimconfig
 rm ~/.vimrc
 rm ~/.gvimrc
 
-mkdir -p tmp
-
+# install the ANSI Escape Sequence plugin
 curl -Sso ~/.vim/tmp/AnsiEsc.vba.gz http://www.vim.org/scripts/download_script.php?src_id=14498
 cd tmp
 vim AnsiEsc.vba.gz -c ':so %' -c ':q'
 cd -
 
-rm -rf tmp
-#compile binaries for YCM
+# compile binaries for YCM
 cd bundle/YouCompleteMe
 git submodule update --init --recursive
 ./install.py --clang-completer --gocode-completer
 cd -
 
+# move back configfiles
 mv ~/.vim/vimconfig ~/.vim/vimrc
 mv ~/.vim/gvimconfig ~/.vim/gvimrc
-#symlink  configuration files
+# symlink  configuration files
 (ln -s ~/.vim/vimrc ~/.vimrc && ln -s ~/.vim/gvimrc ~/.gvimrc) || ln log
+
+# cleanup
+rm -rf tmp

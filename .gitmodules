@@ -310,12 +310,6 @@
 [submodule "bundle/vim-pdv"]
 	path = bundle/vim-pdv
 	url = https://github.com/tobyS/pdv.git
-[submodule "bundle/vim-vmustache"]
-	path = bundle/vim-vmustache
-	url = https://github.com/tobyS/vmustache.git
-[submodule "vim-handlebars-mustache"]
-	path = vim-handlebars-mustache
-	url = https://github.com/mustache/vim-mustache-handlebars.git
 [submodule "bundle/ultisnips"]
 	path = bundle/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
@@ -331,9 +325,6 @@
 [submodule "bundle/vim-phpunit-runner"]
 	path = bundle/vim-phpunit-runner
 	url = https://github.com/jonyamo/phpunit.vim.git
-[submodule "vim-quickrun"]
-	path = vim-quickrun
-	url = https://github.com/thinca/vim-quickrun.git
 [submodule "bundle/vim-quickrun-phpunit"]
 	path = bundle/vim-quickrun-phpunit
 	url = https://github.com/karakaram/vim-quickrun-phpunit.git
@@ -379,3 +370,15 @@
 [submodule "snippets"]
 	path = snippets
 	url = https://github.com/iwyg/vim-snippets.git
+[submodule "bundle/rcshell.vim"]
+	path = bundle/rcshell.vim
+	url = https://github.com/vim-scripts/rcshell.vim.git
+[submodule "bundle/vim-livedown"]
+	path = bundle/vim-livedown
+	url = https://github.com/shime/vim-livedown.git
+[submodule "bundle/vim-mustache-handlebars"]
+	path = bundle/vim-mustache-handlebars
+	url = https://github.com/mustache/vim-mustache-handlebars.git
+[submodule "bundle/vim-vmustache"]
+	path = bundle/vim-vmustache
+	url = https://github.com/tobyS/vmustache.git

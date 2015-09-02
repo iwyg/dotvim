@@ -331,10 +331,15 @@ inoremap <Leader>un <C-O>:call PhpInsertUse()<CR>
 noremap <Leader>un :call PhpInsertUse()<CR>
 
 "=====================================================================================
-" INSTANT MARKDOWN
+" Livedown: 
 "=====================================================================================
-let g:instant_markdown_slow = 1
-let g:instant_markdown_serverport = '8099'
+nmap gm :LivedownToggle<CR>
+"Autorun markdown preview
+let g:livedown_autorun = 1
+" should the browser window pop-up upon previewing
+let g:livedown_open = 1 
+" the port on which Livedown server will run
+let g:livedown_port = 1337
 "=====================================================================================
 " SYNTAX 
 "=====================================================================================
