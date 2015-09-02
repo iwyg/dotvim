@@ -16,9 +16,6 @@
 [submodule "bundle/vim-php-cs-fixer"]
 	path = bundle/vim-php-cs-fixer
 	url = git://github.com/stephpy/vim-php-cs-fixer.git
-[submodule "tools/rulesets/php_psr1"]
-	path = tools/rulesets/php_psr1
-	url = git://github.com/klaussilveira/phpcs-psr.git
 [submodule "bundle/vim-autocorrect"]
 	path = bundle/vim-autocorrect
 	url = git://github.com/panozzaj/vim-autocorrect.git
@@ -39,7 +36,7 @@
 	url = git://github.com/Shougo/neocomplcache.git
 [submodule "bundle/vim-javascript"]
 	path = bundle/vim-javascript
-	url = git://github.com/pangloss/vim-javascript.git
+	url = https://github.com/pangloss/vim-javascript.git
 [submodule "bundle/vim-cappuccino"]
 	path = bundle/vim-cappuccino
 	url = git://github.com/nanki/vim-objj.git
@@ -49,9 +46,6 @@
 [submodule "bundle/vim-underscore-templates"]
 	path = bundle/vim-underscore-templates
 	url = git://github.com/aaronj1335/underscore-templates.vim.git
-[submodule "bundle/vim-mustache"]
-	path = bundle/vim-mustache
-	url = git://github.com/juvenn/mustache.vim.git
 [submodule "bundle/jsbeautify"]
 	path = bundle/jsbeautify
 	url = git://github.com/xer0x/jsbeautify.git
@@ -82,9 +76,6 @@
 [submodule "bundle/vim-jade"]
 	path = bundle/vim-jade
 	url = git://github.com/digitaltoad/vim-jade.git
-[submodule "bundle/supertab"]
-	path = bundle/supertab
-	url = git://github.com/ervandew/supertab.git
 [submodule "bundle/vim-pman"]
 	path = bundle/vim-pman
 	url = git://github.com/berkes/vim-pman.git
@@ -103,9 +94,6 @@
 [submodule "bundle/vim-tagbar-phpctags"]
 	path = bundle/vim-tagbar-phpctags
 	url = git://github.com/techlivezheng/tagbar-phpctags.git
-[submodule "phpctags"]
-	path = phpctags
-	url = git://github.com/techlivezheng/phpctags.git
 [submodule "bundle/vim-xdebug"]
 	path = bundle/vim-xdebug
 	url = git://github.com/ludovicPelle/vim-xdebug.git
@@ -121,9 +109,6 @@
 [submodule "bundle/vim-tabular"]
 	path = bundle/vim-tabular
 	url = git://github.com/godlygeek/tabular.git
-[submodule "bundle/vim-neocomplcache"]
-	path = bundle/vim-neocomplcache
-	url = git://github.com/Shougo/neocomplcache.git
 [submodule "bundle/vim-snipmate"]
 	path = bundle/vim-snipmate
 	url = git://github.com/garbas/vim-snipmate.git
@@ -160,15 +145,6 @@
 [submodule "bundle/vim-phpcomplete"]
 	path = bundle/vim-phpcomplete
 	url = git://github.com/shawncplus/phpcomplete.vim.git
-[submodule "bundle/vim-pdv"]
-	path = bundle/vim-pdv
-	url = https://github.com/iwyg/pdv.git
-[submodule "bundle/vim-vmustache"]
-	path = bundle/vim-vmustache
-	url = git://github.com/tobyS/vmustache.git
-[submodule "bundle/ultisnips"]
-	path = bundle/ultisnips
-	url = https://github.com/SirVer/ultisnips.git
 [submodule "bundle/vim-livereload"]
 	path = bundle/vim-livereload
 	url = https://github.com/flomotlik/vim-livereload.git
@@ -226,15 +202,9 @@
 [submodule "bundle/syntax-blade-php"]
 	path = bundle/syntax-blade-php
 	url = git://github.com/xsbeats/vim-blade.git
-[submodule "bundle/snippets"]
-	path = bundle/snippets
-	url = https://github.com/iwyg/custom-snippets.git
 [submodule "bundle/vim-latex"]
 	path = bundle/vim-latex
 	url = https://github.com/jcf/vim-latex.git
-[submodule "bundle/command-t"]
-	path = bundle/command-t
-	url = https://github.com/wincent/Command-T.git
 [submodule "bundle/ctrlp"]
 	path = bundle/ctrlp
 	url = https://github.com/kien/ctrlp.vim.git
@@ -295,18 +265,9 @@
 [submodule "bundle/vim-css-color"]
 	path = bundle/vim-css-color
 	url = https://github.com/ap/vim-css-color.git
-[submodule "bundle/vim-twig"]
-	path = bundle/vim-twig
-	url = https://github.com/lunaru/vim-twig.git
-[submodule "bundle/vim-twig-syntax"]
-	path = bundle/vim-twig-syntax
-	url = https://github.com/mukiwu/vim-twig.git
 [submodule "bundle/phpcomplete-extended-laravel"]
 	path = bundle/phpcomplete-extended-laravel
 	url = https://github.com/m2mdas/phpcomplete-extended-laravel.git
-[submodule "bundle/clang_complete"]
-	path = bundle/clang_complete
-	url = https://github.com/Rip-Rip/clang_complete.git
 [submodule "bundle/vim-ios"]
 	path = bundle/vim-ios
 	url = https://github.com/eraserhd/vim-ios.git
@@ -340,3 +301,81 @@
 [submodule "bundle/vim-toml"]
 	path = bundle/vim-toml
 	url = https://github.com/cespare/vim-toml.git
+[submodule "bundle/vim-twig-indent"]
+	path = bundle/vim-twig-indent
+	url = https://github.com/tokutake/twig-indent.git
+[submodule "bundle/vim-twig"]
+	path = bundle/vim-twig
+	url = https://github.com/evidens/vim-twig.git
+[submodule "bundle/vim-pdv"]
+	path = bundle/vim-pdv
+	url = https://github.com/tobyS/pdv.git
+[submodule "bundle/vim-vmustache"]
+	path = bundle/vim-vmustache
+	url = https://github.com/tobyS/vmustache.git
+[submodule "vim-handlebars-mustache"]
+	path = vim-handlebars-mustache
+	url = https://github.com/mustache/vim-mustache-handlebars.git
+[submodule "bundle/ultisnips"]
+	path = bundle/ultisnips
+	url = https://github.com/SirVer/ultisnips.git
+[submodule "bundle/vim-tskeleton"]
+	path = bundle/vim-tskeleton
+	url = https://github.com/tomtom/tskeleton_vim.git
+[submodule "bundle/base16-vim"]
+	path = bundle/base16-vim
+	url = https://github.com/chriskempson/base16-vim.git
+[submodule "bundle/vim-thumbnail"]
+	path = bundle/vim-thumbnail
+	url = https://github.com/itchyny/thumbnail.vim.git
+[submodule "bundle/vim-phpunit-runner"]
+	path = bundle/vim-phpunit-runner
+	url = https://github.com/jonyamo/phpunit.vim.git
+[submodule "vim-quickrun"]
+	path = vim-quickrun
+	url = https://github.com/thinca/vim-quickrun.git
+[submodule "bundle/vim-quickrun-phpunit"]
+	path = bundle/vim-quickrun-phpunit
+	url = https://github.com/karakaram/vim-quickrun-phpunit.git
+[submodule "bundle/vim-quickrun"]
+	path = bundle/vim-quickrun
+	url = https://github.com/thinca/vim-quickrun.git
+[submodule "bundle/vim-phpunitqf"]
+	path = bundle/vim-phpunitqf
+	url = https://github.com/joonty/vim-phpunitqf.git
+[submodule "bundle/vim-yajs"]
+	path = bundle/vim-yajs
+	url = https://github.com/othree/yajs.vim.git
+[submodule "bundle/vim-jsx"]
+	path = bundle/vim-jsx
+	url = https://github.com/mxw/vim-jsx.git
+[submodule "bundle/vim-webdevicons"]
+	path = bundle/vim-webdevicons
+	url = https://github.com/ryanoasis/vim-webdevicons.git
+[submodule "bundle/rust-vim"]
+	path = bundle/rust-vim
+	url = https://github.com/wting/rust.vim.git
+[submodule "bundle/vim-elixir"]
+	path = bundle/vim-elixir
+	url = https://github.com/elixir-lang/vim-elixir.git
+[submodule "bundle/vim-swift"]
+	path = bundle/vim-swift
+	url = https://github.com/kballard/vim-swift.git
+[submodule "bundle/vim-objc"]
+	path = bundle/vim-objc
+	url = https://github.com/b4winckler/vim-objc.git
+[submodule "bundle/unite.vim"]
+	path = bundle/unite.vim
+	url = https://github.com/Shougo/unite.vim.git
+[submodule "bundle/YouCompleteMe"]
+	path = bundle/YouCompleteMe
+	url = https://github.com/Valloric/YouCompleteMe.git
+[submodule "bundle/neomru.vim"]
+	path = bundle/neomru.vim
+	url = https://github.com/Shougo/neomru.vim.git
+[submodule "bundle/unite-outline"]
+	path = bundle/unite-outline
+	url = https://github.com/h1mesuke/unite-outline.git
+[submodule "snippets"]
+	path = snippets
+	url = https://github.com/iwyg/vim-snippets.git

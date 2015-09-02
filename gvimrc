@@ -9,23 +9,36 @@ if has("gui_macvim")
 "	colorscheme mustang	
 "	colorscheme solarized	
 
-	colorscheme smyck	
+	set antialias
+	"colorscheme smyck	
+	colorscheme base16-ocean	
+	"colorscheme Laravel
+	"colorscheme legacy	
 	"colorscheme vitamins	
 	set background=dark
 	set transparency=0
+  
 
-   set guifont=Meslo\ LG\ M\ DZ:h12
-"	set guifont=Liberation\ Mono:h12
-"	
-"	set background=light
-"	colorscheme bclear	
+	"set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h12
+	set linespace=2
+"	set guifont=Source\ Code\ Pro\ Medium:h13
+    "set guifont=Source\ Code\ Pro\ for\ Powerline:h13
+    set guifont=Sauce\ Code\ Powerline\ Plus\ Nerd\ File\ Types\ Mono:h13
+"   set guifont=Meslo\ LG\ M\ DZ\ for\ Powerline:h12
+"   set guifont=Source\ Code\ Pro\ for\ Powerline:h13
+"   set guifont=Source\ Code\ Pro\ for\ Powerline:h13
+"   set guifont=Meslo\ LG\ M\ DZ:h12
+""	set guifont=Liberation\ Mono:h12
+""	
+""	set background=light
+""	colorscheme bclear	
 "	set guifont=DejaVu\ Sans\ Mono:h12
 "	set guifont=Source\ Code\ Pro:h13
 
 "	colorscheme dw_orange	
 "	colorscheme dw_orange	
 "	color lucius
-"	color xoria256
+"	color xoria256                                 
 "	color jellybeans+
 "	colorscheme tir_black	
 	"colorscheme macvim	

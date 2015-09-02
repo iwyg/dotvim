@@ -1,5 +1,5 @@
 " ======================================================================
-" Tron
+" Tron Contrast
 " ======================================================================
 " A Sublime Text 2 / Textmate theme.
 " Copyright (c) 2014 Dayle Rees.
@@ -16,7 +16,7 @@ syntax reset
 
 hi Cursor      guibg=#cc4455  guifg=white     ctermbg=4 ctermfg=15
 hi link CursorIM Cursor
-hi Normal      guibg=#14191f  guifg=#aec2e0    gui=none ctermbg=0 ctermfg=15
+hi Normal      guibg=#07090b  guifg=#aec2e0    gui=none ctermbg=0 ctermfg=15
 hi NonText     guibg=bg  guifg=#aec2e0   ctermbg=8 ctermfg=14
 hi Visual      guibg=#557799  guifg=white    gui=none ctermbg=9 ctermfg=15
 
@@ -100,6 +100,6 @@ hi link htmlH6 htmlH5
 
 " And finally.
 
-let g:colors_name = "Tron"
-let colors_name   = "Tron"
+let g:colors_name = "Tron Contrast"
+let colors_name   = "Tron Contrast"
 

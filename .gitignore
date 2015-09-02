@@ -10,3 +10,7 @@ autoload/pathogen.vim
 .VimballRecord
 buildtags
 /node_modules/
+plugin/AnsiEscPlugin.vim
+doc/*.txt
+autoload/*.vim
+plugin/*.vim

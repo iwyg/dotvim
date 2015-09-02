@@ -21,8 +21,8 @@ let g:dbgWaitTime = 30
 
 set ruler
 set cursorline
-set number
-set linespace=10
+
+let g:cssColorVimDoNotMessMyUpdatetime = 1
 
 "=====================================================================================
 "pathogen
@@ -37,16 +37,35 @@ set ofu=syntaxcomplete#Complete
 " BASIC SETTINGS
 "=====================================================================================
 
+"=====================================================================================
+" POWERLINE / AIR-LINE
+"=====================================================================================
+let g:airline_powerline_fonts = 1
+"-------------------------------------------------------------------------------------
 set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
+let g:Powerline_symbols = 'unicode'
+set fillchars+=stl:\ ,stlnc:\
+" Powerline quick setup
+"-------------------------------------------------------------------------------------
 "python from powerline.vim import setup as powerline_setup
 "python powerline_setup()
 "python del powerline_setup
+"python from powerline.ext.vim import source_plugin; source_plugin()
 
 "-------------------------------------------------------------------------------------
 " Leader:
 "-------------------------------------------------------------------------------------
 let mapleader=","
 command! -nargs=* Wrap set wrap linebreak nolist
+
+"-------------------------------------------------------------------------------------
+" auto source vimrc on save.
+"-------------------------------------------------------------------------------------
+if has("autocmd")
+  autocmd BufWritePost .vimrc nested :source $MYVIMRC
+endif
+
+nmap <leader>v :tabedit $MYVIMRC<CR>
 
 "-------------------------------------------------------------------------------------
 " Encoding:
@@ -56,8 +75,6 @@ set fileencoding=utf8
 "-------------------------------------------------------------------------------------
 "Set Line Numbers:
 "-------------------------------------------------------------------------------------
-set number
-"set relativenumber
 set undofile
 set ruler
 set title
@@ -72,15 +89,19 @@ set hidden
 "-------------------------------------------------------------------------------------
 " ctags runtime
 "-------------------------------------------------------------------------------------
-set tags=./.tags
+"set tags=./.tags
+set tags=./tags,tags,$HOME/.vim/tags/laravel/tags,$HOME/.vim/tags/selene/tags;$HOME
 
 " Cool tab completion stuff
 set wildmenu
-set wildmode=list:longest,full
+set wildmode=longest:list,full
+set whichwrap=b,s,h,l,<,>,[,]
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 
 " tag jumping
 nnoremap ü <C-]>
 nnoremap Ü <C-O>
+
 
 "-------------------------------------------------------------------------------------
 " cappuccino runtime
@@ -110,18 +131,78 @@ if has("mouse")
 endif	
 
 "-------------------------------------------------------------------------------------
+" ICONS:
+"-------------------------------------------------------------------------------------
+let g:webdevicons_enable_airline_tabline = 0
+let g:webdevicons_enable_airline_statusline = 0
+"-------------------------------------------------------------------------------------
+
+"-------------------------------------------------------------------------------------
 " History:
 "-------------------------------------------------------------------------------------
 set history=1000
 set undolevels=1000
 set nobackup
-set directory=~/.vim/tmp/swap/
+set directory=.,$TMPDIR
 
 "-------------------------------------------------------------------------------------
 " Toggle Linenumbers:
 "-------------------------------------------------------------------------------------
-nmap <Leader>R :set number!<CR>
+set relativenumber
+set number
 
+nmap <Leader>N :set number!<CR>
+nmap <Leader>RN :set relativenumber!<CR>
+
+if exists("+relativenumber")
+	if v:version >= 400
+		set number
+	endif
+	set relativenumber  " show relative line numbers
+	set numberwidth=3   " narrow number column
+	" cycles between relative / absolute / no numbering
+	if v:version >= 400
+		function! RelativeNumberToggle()
+			if (&number == 1 && &relativenumber == 1)
+				set nonumber
+				set relativenumber relativenumber?
+			elseif (&number == 0 && &relativenumber == 1)
+				set norelativenumber
+				set number number?
+			elseif (&number == 1 && &relativenumber == 0)
+				set norelativenumber
+				set nonumber number?
+			else
+				set number
+				set relativenumber relativenumber?
+			endif
+		endfunc
+	else
+		function! RelativeNumberToggle()
+			if (&relativenumber == 1)
+				set number number?
+			elseif (&number == 1)
+				set nonumber number?
+			else
+				set relativenumber relativenumber?
+			endif
+		endfunc
+	endif
+	nnoremap <silent> <leader>n :call RelativeNumberToggle()<CR>
+else                  " fallback
+	set number          " show line numbers
+	" inverts numbering
+	nnoremap <silent> <leader>tgn :set number! number?<CR>
+endif
+
+"-------------------------------------------------------------------------------------
+" COLOR PICKERS:
+"-------------------------------------------------------------------------------------
+"if exists("g:loaded_colorchooser") || !has('mac')
+"else 
+"endif
+nmap <leader>rgb :ColorRGB<CR>
+nmap <leader>hex :ColorHEX<CR>
 "-------------------------------------------------------------------------------------
 " Shortcut to rapidly toggle `set list`
 "-------------------------------------------------------------------------------------
@@ -143,12 +224,26 @@ set guioptions-=l
 set guioptions-=r
 
 "-------------------------------------------------------------------------------------
+"-------------------------------------------------------------------------------------
+" BEAVIOR
+"-------------------------------------------------------------------------------------
+"-------------------------------------------------------------------------------------
+
+
+let g:load_doxygen_syntax=0
+"call s:InitVariable("g:syntax_extra_php", 'doxygen')
+"call s:InitVariable("g:syntax_extra_inc", 'doxygen')
+let g:local_vimrc = {'names':['.vimrc'],'hash_fun':'LVRHashOfFile'}
+set scrolljump=4
+set scrolloff=3
+set foldenable
+
 " Searching
 "-------------------------------------------------------------------------------------
 set ignorecase
 set smartcase
 set incsearch
-set showmatch
+set showmatch "show matching brackets
 set hlsearch
 set gdefault
 set grepprg=ack
@@ -176,13 +271,16 @@ set smarttab
 set noexpandtab
 
 "-------------------------------------------------------------------------------------
+" Misc
+"-------------------------------------------------------------------------------------
+set linespace=1
+"-------------------------------------------------------------------------------------
 " Popup menu behavior
 "-------------------------------------------------------------------------------------
-set completeopt=longest,menu
+"set completeopt+=longest,menu ",preview
+set completeopt=menu,menuone,longest ",preview
 set pumheight=20
 set complete-=i
-
-
 "-------------------------------------------------------------------------------------
 "code folding
 "-------------------------------------------------------------------------------------
@@ -194,7 +292,7 @@ set complete-=i
 set foldmethod=syntax		"fold based on indent
 set foldnestmax=10			"deepest fold is 10 levels
 set nofoldenable			"dont fold by default
-set foldlevel=1
+set foldlevel=2
 
 "xml folding
 let g:xml_syntax_folding = 1
@@ -202,7 +300,10 @@ set foldmethod=syntax
 "php folding
 let g:php_syntax_folding = 1
 let php_folding = 1
-set foldmethod=indent
+set foldmethod=syntax
+
+let g:php_syntax_extensions_enabled = ['yml', 'xsl', 'xml', 'simplexml', 'imagick', 'intl', 'json', 'dom', 'reflection', 'spl']
+"let b:php_syntax_extensions_enabled = 1
 
 
 "=====================================================================================
@@ -219,13 +320,21 @@ let g:DisableAutoPHPFolding = 1
 "=====================================================================================
 " PHP Namespace
 "=====================================================================================
+
+"Expands the class name under the cursor to its fully qualified name.
+
 inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
 noremap <Leader>e :call PhpExpandClass()<CR>
+
+"Automatically adds the corresponding use statement for the class under the cursor.
+inoremap <Leader>un <C-O>:call PhpInsertUse()<CR>
+noremap <Leader>un :call PhpInsertUse()<CR>
 
 "=====================================================================================
 " INSTANT MARKDOWN
 "=====================================================================================
 let g:instant_markdown_slow = 1
+let g:instant_markdown_serverport = '8099'
 "=====================================================================================
 " SYNTAX 
 "=====================================================================================
@@ -234,12 +343,13 @@ if !exists("autocommands_loaded")
 
 	" Sass And Less CSS Sytax:
 	"-------------------------------------------------------------------------------------
-	au BufNewFile,BufRead *.less set filetype=less
-	au BufNewFile,BufRead *.scss set filetype=scss
-	au BufNewFile,BufRead *.sass set filetype=sass
-	au BufNewFile,BufRead *.ts set filetype=typescript
-	au BufRead,BufNewFile *.dart set filetype=dart
-	au BufRead,BufNewFile *.twig set filetype=htmljinja
+	au BufNewFile,BufRead *.less       set filetype=less
+	au BufNewFile,BufRead *.scss       set filetype=scss
+	au BufNewFile,BufRead *.sass       set filetype=sass
+	au BufNewFile,BufRead *.ts         set filetype=typescript
+	au BufRead,BufNewFile *.dart       set filetype=dart
+	"au BufRead,BufNewFile *.twig       set filetype=htmljinja
+	"au BufRead,BufNewFile *.twig       set filetype=twig
 	au BufRead,BufNewFile *.handlebars set filetype=html
 	" md, markdown, and mk are markdown and define buffer-local preview
 	"-------------------------------------------------------------------------------------
@@ -257,7 +367,7 @@ if !exists("autocommands_loaded")
 	"	au BufNewFile,BufRead *.ts setlocal filetype=typoscript 	
 	" Smarty:	
 	"-------------------------------------------------------------------------------------
-	"	au BufNewFile,BufRead *.tpl setlocal filetype=smarty 	
+	au BufNewFile,BufRead *.tpl setlocal filetype=smarty 	
 	" Underscore Templates:	
 	"-------------------------------------------------------------------------------------
 	au BufNewFile,BufRead *.jst set syntax=jst
@@ -267,6 +377,7 @@ if !exists("autocommands_loaded")
 	au BufNewFile,BufRead *.j set syntax=objj
 
 	"au BufWritePost *.php !phpctags %s &
+	au VimEnter * NERDTree
 
 endif
 
@@ -275,6 +386,41 @@ endif
 au BufReadPost *.php  set keywordprg=pman
 au BufReadPost *.vim  map K :exe ":help ".expand("<cword>")<CR>
 au BufReadPost .vimrc map K :exe ":help ".expand("<cword>")<CR>
+
+"-------------------------------------------------------------------------------------
+" RAINBOW PARANTHESES:
+"---------------------------------------o----------------------------------------------
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['black',       'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
+
+"-------------------------------------------------------------------------------------
+" Ctags:
+"-------------------------------------------------------------------------------------
+" plugin rbtags
+"-------------------------------------------------------------------------------------
+let g:rebtags_root_markers = ['.git', '.project', '.idea']
+let g:rebtags_ctags_config_file = '.ctags'
+"let g:rebtags_extra_arguments = '-R --fields=+aimS --languages=php'
 
 "-------------------------------------------------------------------------------------
 " Set Filetype Indentation:
@@ -291,17 +437,21 @@ if has("autocmd")
 	autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 	" Customisations based on house-style (arbitrary)
-	autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
-	autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
-	autocmd FileType scss setlocal ts=2 sts=2 sw=2 expandtab
-	autocmd FileType sass setlocal ts=2 sts=2 sw=2 expandtab
-	autocmd FileType xml setlocal ts=2 sts=2 sw=2 expandtab
-	autocmd FileType less setlocal ts=2 sts=2 sw=2 expandtab
-	autocmd FileType xslt setlocal ts=2 sts=2 sw=2 expandtab
-	autocmd FileType php setlocal ts=4 sts=4 sw=4 expandtab
-	autocmd FileType std setlocal ts=4 sts=4 sw=4 expandtab
-	autocmd FileType javascript setlocal ts=2 sts=2 sw=2 expandtab
-	autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType html,xhtml,htmljinja,twig,toml setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType css                 setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType scss                setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType sass                setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType xml                 setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType less                setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType xslt                setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType php                 setlocal ts=4 sts=4 sw=4 expandtab
+	autocmd FileType std                 setlocal ts=4 sts=4 sw=4 expandtab
+	autocmd FileType javascript          setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType json                setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType blade               setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType twig                setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType toml                setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType py                  setlocal ts=8 sts=4 sw=4 expandtab
 
 	" Treat .rss files as XML
 	autocmd BufNewFile,BufRead *.rss setfiletype xml
@@ -319,54 +469,65 @@ let php_htmlInStrings=1
 " AUTOCOMPLETION
 "=====================================================================================
 if has("autocmd")
-	autocmd FileType javascript              set omnifunc=javascriptcomplete#CompleteJS
-	autocmd FileType html,htmljinja          set omnifunc=htmlcomplete#CompleteTags
-	autocmd FileType smarty                  set omnifunc=htmlcomplete#CompleteTags
-	autocmd FileType xml                     set omnifunc=xmlcomplete#CompleteTags
-	autocmd FileType xsl                     set omnifunc=xmlcomplete#CompleteTags
+	autocmd FileType javascript                      set omnifunc=javascriptcomplete#CompleteJS
+	autocmd FileType html,htmljinja					 set omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType smarty                          set omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType xml                             set omnifunc=xmlcomplete#CompleteTags
+	autocmd FileType xsl                             set omnifunc=xmlcomplete#CompleteTags
 
-	autocmd FileType css                     setlocal omnifunc=csscomplete#CompleteCSS
-	autocmd FileType html,markdown,htmljinja setlocal omnifunc=htmlcomplete#CompleteTags
-	autocmd FileType javascript              setlocal omnifunc=javascriptcomplete#CompleteJS
-	autocmd FileType typescript              setlocal omnifunc=javascriptcomplete#CompleteJS
-	autocmd FileType python                  setlocal omnifunc=pythoncomplete#Complete
-	autocmd FileType smarty                  set omnifunc=htmlcomplete#CompleteTags
-	autocmd FileType xml                     setlocal omnifunc=xmlcomplete#CompleteTags
-	autocmd FileType xslt                    setlocal omnifunc=xmlcomplete#CompleteTags
-	autocmd FileType php                     setlocal omnifunc=phpcomplete#CompletePHP
-	autocmd FileType php                     set omnifunc=phpcomplete#CompletePHP
+	autocmd FileType css,scss,sass,less              setlocal omnifunc=csscomplete#CompleteCSS
+	autocmd FileType html,markdown,htmljinja,blade   setlocal omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType javascript                      setlocal omnifunc=javascriptcomplete#CompleteJS
+	autocmd FileType typescript                      setlocal omnifunc=javascriptcomplete#CompleteJS
+	autocmd FileType python                          setlocal omnifunc=pythoncomplete#Complete
+	autocmd FileType smarty                          set omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType xml                             setlocal omnifunc=xmlcomplete#CompleteTags
+	autocmd FileType xslt                            setlocal omnifunc=xmlcomplete#CompleteTags
+	autocmd FileType php							 setlocal omnifunc=phpcomplete#CompletePHP
+	autocmd FileType ruby                            setlocal omnifunc=rubycomplete#Complete
+	autocmd FileType twig							 set omnifunc=phpcomplete#CompletePHP
+	autocmd FileType twig							 set omnifunc=xmlcomplete#CompleteTags
+	autocmd FileType blade							 set omnifunc=phpcomplete#CompletePHP
 
 endif
 
-
-"=====================================================================================
-" PLUGIN SETTINGS
-"=====================================================================================
-
-"" Snipmate:	
-""-------------------------------------------------------------------------------------
-"
-"let g:snipMate = {}
-"let g:snipMate.scope_aliases = {
-"			\'javascript' : 'javascript,javascript-backbonejs,javascript-requirejs,javascript-underscorejs',
-"			\'php' : 'php,symphony,phpunit',
-"			\'xslt' : 'xslt,xml'
-"			\} 
-"let g:snipMate['no_match_completion_feedkeys_chars'] = ""
-"
-"""let g:snips_trigger_key = '<F2>'
-""let g:snips_trigger_key = '<F2>'
-
+"-------------------------------------------------------------------------------------
+" PHPcomplete:
 "-------------------------------------------------------------------------------------
 
+"=====================================================================================
+" Enables use of tags when the plugin tries to find variables. 
+" When enabled the plugin will search for the variables in the tag files with kind 'v', 
+" lines like $some_var = new Foo; but these usually yield highly inaccurate results and can be fairly slow.
+let g:phpcomplete_search_tags_for_variables = 1
+"=====================================================================================
+" When enabled the preview window's content will include information extracted from 
+" docblock comments of the completions. Enabling this option will add return types to the 
+" completion menu for functions too.
+let g:phpcomplete_parse_docblock_comments = 1
+"=====================================================================================
+"When enabled the taglist() lookups will be cached and subsequent searches for the same pattern will 
+"not check the tagfiles any more, thus making the lookups faster. Cache expiration is based on 
+"the mtimes of the tag files.
+let g:phpcomplete_cache_taglists = 1
+
+"-------------------------------------------------------------------------------------
+" Thumbnail Buffer View:	
+"-------------------------------------------------------------------------------------
+"noremap <Leader><F1> :Thumbnail<CR>
+"noremap <Leader><F1> :Thumbnail<CR>
+map <Leader>tnb :Thumbnail<CR>
+
+"-------------------------------------------------------------------------------------
 " Syntastic:	
 "-------------------------------------------------------------------------------------
 " parser
-let s:javascript_executable = "/usr/local/bin/jshint"
+"let s:javascript_executable = "/usr/local/share/npm/bin/jshint"
+let s:javascript_executable = "/usr/local/bin/jsxhint"
 let g:syntastic_php_exec = "/usr/local/bin/php"
 
 let g:syntastic_ruby_exec = "/usr/local/bin/ruby"
-let g:syntastic_json_exec = "/usr/local/bin/jsonlint"
+let g:syntastic_json_exec = "/usr/local/share/npm/bin/jsonlint"
 "
 "let g:syntastic_quiet_warnings=1
 "let g:syntastic_enable_signs=1
@@ -379,61 +540,63 @@ let g:syntastic_loc_list_height=4
 "let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
 
 let g:syntastic_php_checkers=['php', 'phpcs']
-let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['jsxhint']
 let g:syntastic_json_checkers = ['jsonlint']
 let g:syntastic_html_checkers = ['tidy']
+" Ignore Angular ng-* attributes error
+let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+let g:syntastic_php_phpmd_post_args = "text unusedcode"
 
+"let g:syntastic_python_exec = "/usr/local/bin/python"
 
-"let g:syntastic_mode_map = {'active_filetypes':
-":w
-"			\	['vim', 'js', 'javascript', 'less', 'html', 'xsl', 'json', 'xslt', 'xml', 'css', 'php', 'rb'], 
-"			\	'mode': 'active', 
-"			\	'passive_filetypes': ['py', 'scss']
-"			\}
-
-"!sudo phpcs --config-set severity-error 5
-"!sudo phpcs --config-set severity-warning 8
-"let g:syntastic_php_php_args = "-l -d error_reporting=E_ALL -d display_errors=1 -d log_errors=0 -d xdebug.cli_color=0"
-let g:syntastic_php_phpcs_args = "--report=csv --standard=PSR2"
-
-"let g:syntastic_php_phpcs_args = "--report=csv --standard=PSR2 --sniffs=Generic.Formatting.SpaceAfterCast,Generic.Functions.OpeningFunctionBraceBsdAllman,Generic.WhiteSpace.ScopeIndent,Squiz.Scope.MemberVarScope,Squiz.ControlStructures.ForLoopDeclaration,Squiz.ControlStructures.ControlSignature"
-
-"let g:syntastic_php_phpcs_args = "--report=csv --standard=PSR2 --sniffs=Generic.Formatting.SpaceAfterCast,Generic.WhiteSpace.ScopeIndent,Squiz.Scope.MemberVarScope"
-"
-"let g:syntastic_php_phpcs_args = '--report=csv --standard=PSR2'
-
-"let g:syntastic_php_phpcs_args = "--standard=PSR1"
-"let g:syntastic_phpcs_conf = "--standard=PSR1 --sniffs=Generic.Formatting.SpaceAfterCast,Generic.Functions.OpeningFunctionBraceBsdAllman,Generic.WhiteSpace.ScopeIndent,Squiz.Scope.MemberVarScope,Squiz.Scope.MemberVarScope,Squiz.ControlStructures.ForLoopDeclaration,Squiz.ControlStructures.ControlSignature"
-"let g:syntastic_phpcs_conf = "--standard=PSR2 --sniffs=Generic.Formatting.SpaceAfterCast,Generic.Functions.OpeningFunctionBraceBsdAllman,Squiz.Scope.MemberVarScope,Squiz.ControlStructures.ForLoopDeclaration,Squiz.ControlStructures.ControlSignature"
-"
-
-"let g:syntastic_php_phpcs_args = '--report=csv --standard=Symfony2'
-
+let g:syntastic_python_exec = "/usr/local/bin/python3.4"
+let g:syntastic_python_checkers=['/usr/local/bin/python3.4']
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+nnoremap <silent> ` :Errors<CR>
 
 map <Leader>SC :SyntasticCheck<CR>
 
-" Thumbnail Buffer View
-noremap <Leader><F1> :Thumbnail<CR>
-
 " for Syntastic
-"let g:syntastic_auto_loc_list=1 "Auto open errors window upon detection
-"let g:syntastic_enable_signs=1
-"let g:syntastic_auto_jump=1
+let g:syntastic_auto_loc_list=0 "Auto open errors window upon detection
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_jump=0
 "let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
 "let g:syntastic_enable_balloons=1 
 
 "set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
 "set statusline+=%*
+"force PSR-2 standard 
+let g:syntastic_php_phpcs_args = "--report=csv --standard=PSR2"
+" Read the clang complete file
+"let g:syntastic_objc_config_file = '.clang_complete'
+" Tell it to use clang instead of gcc
+let g:syntastic_objc_checker = 'clang'
+
+"-------------------------------------------------------------------------------------
+" PHPUNIT:
+"-------------------------------------------------------------------------------------
+
+function! RunPHPUnitTest()
+    "cd %:p:h
+    pwd
+    let result = system("vendor/bin/phpunit " . bufname("%"))
+    split __PHPUnit_Result__
+    normal! ggdG
+    setlocal buftype=nofile
+    call append(0, split(result, '\v\n'))
+    cd -
+endfunction
+
+nnoremap <leader>u :call RunPHPUnitTest()<cr>
 
 "-------------------------------------------------------------------------------------
 " PHP CS FIXER:	
 "-------------------------------------------------------------------------------------
-let g:php_cs_fixer_path = "~/.vim/tools/php-cs-fixer.phar"	" define the path to the php-cs-fixer.phar
+let g:php_cs_fixer_path = "~/.composer/vendor/bin/php-cs-fixer"	" define the path to the php-cs-fixer.phar
 let g:php_cs_fixer_level = "psr2"							" which level ?
 let g:php_cs_fixer_config = "default"						" configuration
 let g:php_cs_fixer_php_path = "/usr/local/bin/php"			" Path to PHP
@@ -491,7 +654,7 @@ nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
 " ULTISNIPS:
 "-------------------------------------------------------------------------------------
 let g:UltiSnipsUsePythonVersion = 2
-let g:UltiSnipsSnippetsDir = "$HOME/.vim/bundle/custom-snippets"
+let g:UltiSnipsSnippetsDir = "$HOME/.vim/snippets"
 
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -505,109 +668,46 @@ let g:Jsbeautify_jslint_whitespace = 1						" JSbreautyfy JSlint
 let g:Jsbeautify_jslint_expandtab = 1                       " expand tabs to spaces
 
 "-------------------------------------------------------------------------------------
+" Jsx:	
+"-------------------------------------------------------------------------------------
+" allow jsx in .js files
+let g:jsx_ext_required = 0
+"-------------------------------------------------------------------------------------
 " NERDTree:	
 "-------------------------------------------------------------------------------------
 let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$', '\.DS_*']
 let NERDTreeShowHidden = 1
 set guioptions-=L
 
+map <Leader>nf :NERDTreeFind<CR>
+map <Leader>ncd :NERDTreeCWD<CR>
 map <Leader>n :NERDTree<CR>
 map <Leader>nn :NERDTreeToggle<CR>
 
 "-------------------------------------------------------------------------------------
-" Supertab:	
+" SpellBad:
 "-------------------------------------------------------------------------------------
-"let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
-"let g:SuperTabDefaultCompletionType = "context"
-"-------------------------------------------------------------------------------------
-" Neocomplcache:	
-"-------------------------------------------------------------------------------------
-
-"let g:acp_enableAtStartup = 0								" Disable AutoComplPop.
-"let g:neocomplcache_enable_at_startup = 1					" Use neocomplcache.
-"let g:neocomplcache_enable_smart_case = 1					" Use smartcase.
-"let g:neocomplcache_enable_camel_case_completion = 1 		" Use camel case completion.
-"let g:neocomplcache_enable_underbar_completion = 1			" Use underbar completion.
-"let g:neocomplcache_min_syntax_length = 3					" Set minimum syntax keyword length.
-"let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'	
-"
-"" Define dictionary.
-"let g:neocomplcache_dictionary_filetype_lists = {
-"    \ 'default' : '',
-"    \ 'vimshell' : $HOME.'/.zsh_history',
-"    \ 'scheme' : $HOME.'/.gosh_completions'
-"    \ }
-"
-"if !exists('g:neocomplcache_keyword_patterns')				" Define keyword.
-"  let g:neocomplcache_keyword_patterns = {}
-"endif
-"let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-"
-""imap <C-k><Plug>(neocomplcache_snippets_expand)				" Plugin key-mappings.
-""smap <C-k><Plug>(neocomplcache_snippets_expand)
-""inoremap <expr><C-g>neocomplcache#undo_completion()
-""inoremap <expr><C-l>neocomplcache#complete_common_string()
-"
-"" SuperTab like snippets behavior.
-"imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-"
-"" Recommended key-mappings.
-"" <CR>: close popup and save indent.
-"inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-"" <TAB>: completion.
-"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-"" <C-h>, <BS>: close popup and delete backword char.
-"inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-"inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-"inoremap <expr><C-y>  neocomplcache#close_popup()
-"inoremap <expr><C-e>  neocomplcache#cancel_popup()
-
-" AutoComplPop like behavior.
-"let g:neocomplcache_enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplcache_enable_auto_select = 1
-"let g:neocomplcache_disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
-"inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-
-
-"" Enable heavy omni completion.
-"if !exists('g:neocomplcache_omni_patterns')
-"  let g:neocomplcache_omni_patterns = {}
-"endif
-"let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-""autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-"let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
-"let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
-
-
-" Enable heavy omni completion.
-if !exists('g:neocomplcache_omni_patterns')
-	let g:neocomplcache_omni_patterns = {}
-endif
-
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-
 if has("gui_running")
 	highlight SpellBad term=underline gui=undercurl guisp=Orange
 endif
 
+"-------------------------------------------------------------------------------------
+" YCM:
+"-------------------------------------------------------------------------------------
+let g:ycm_min_num_of_chars_for_completion = 2
+let g:ycm_min_num_identifier_candidate_chars = 0
+let g:ycm_auto_trigger = 1
 "-------------------------------------------------------------------------------------
 " TAGBAR:
 "-------------------------------------------------------------------------------------
 " TagbarToggle 
 nmap <Leader>tb :TagbarToggle<CR>
 let g:tagbar_ctags_bin='/usr/local/bin/ctags'
-let g:tagbar_phpctags_bin='/usr/local/bin/phpctags'
+let g:tagbar_phpctags_bin='~/.composer/vendor/bin/phpctags'
 let g:tagbar_phpctags_memory_limit = '512M'
 
 let g:tagbar_type_javascript = {
-\ 'ctagsbin' : '/usr/local/bin/jsctags',
-\ 'ctagsargs' : '-f -'
+\ 'ctagsbin' : '/usr/local/share/npm/bin/jsctags'
 \ }
 
 
@@ -691,74 +791,77 @@ if has("autocmd")
 	autocmd BufWritePre *.py,*.js,*.xsl,*.html,*.php,*.xml,*.css,*.less :call <SID>StripTrailingWhitespaces()
 endif	
 
-"-------------------------------------------------------------------------------------
-" Compile Current LESS Buffer To CSS:	
-"-------------------------------------------------------------------------------------
-
-autocmd FileWritePost,BufWritePost *.less :call LessCSSCompress()
-function! LessCSSCompress()
-	let cwd = expand('<afile>:p:h')
-	let name = expand('<afile>:t:r')
-	if !isdirectory(cwd.'/..css/')
-		cal system('mkdir -p '.cwd.'/../css/')
-	endif	  
-	if (executable('lessc'))
-		let stdout = system('lessc '.cwd.'/'.name.'.less > '.cwd.'/../css/'.name.'.css &')
-		if stdout != ''
-			echo stdout
-		endif
-		"	call s:growl('lessc', 'successfully compiled'.name.'less')
-	endif
-endfunction
-
-"-------------------------------------------------------------------------------------
-" Growl:	
-"-------------------------------------------------------------------------------------
-
-function! s:growl(title, message)
-	execute printf('silent !growlnotify -t %s -m %s', shellescape(a:title, 1), shellescape(a:message, 1))
-endfunction
-
-"=====================================================================================
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set number
-  else
-    set relativenumber
-  endif
-endfunc
-nnoremap <C-n> :call NumberToggle()<cr>
-
 "=====================================================================================
 " Themes and GUI settings
 "=====================================================================================
+"highlight Cursor guifg=white guibg=black
+"highlight iCursor guifg=white guibg=steelblue
+"set guicursor=n-v-c:block-Cursor
+"set guicursor+=i:ver100-iCursor
+"set guicursor+=n-v-c:blinkon0
+"set guicursor+=i:blinkwait10
 
 "-------------------------------------------------------------------------------------
-" XTerm:	
 "-------------------------------------------------------------------------------------
-if $TERM == 'xterm-color' && &t_Co == 8
-	set t_Co=16
-endif
-if $TERM == 'xterm-256color'
-	"colorscheme wombat256
-	"set t_Co=256
-	"Solarized stuff
-	"let g:solarized_termtrans = 3
-	set background=dark
-	colorscheme smyck
-endif
+" Appearance:	
+"-------------------------------------------------------------------------------------
+"-------------------------------------------------------------------------------------
+
+"-------------------------------------------------------------------------------------
+" xterm:	
+
 
 if has("terminfo")
 	set t_Co=16
-	set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
-	set t_AF=[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm
+	"set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
+	"set t_AF=[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm
 else
-	set t_Co=16
+	set t_Co=256
 	set t_Sf=[3%dm
 	set t_Sb=[4%dm
-
 endif
 
+if $TERM == 'xterm-color' && &t_Co == 8
+	set t_Co=16
+endif
+
+if $TERM == 'xterm-256color'
+	set t_Co=256
+	set background=dark
+	"colorscheme smyck
+	colorscheme base16-ocean
+endif
+
+if &term =~ '^xterm'
+	let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+	let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
+
+"-------------------------------------------------------------------------------------
+" cursor:	
+"if &term =~ "xterm\\|rxvt"
+"	" use an orange cursor in insert mode
+"	let t_SI = "\<Esc>]12;orange\x7"
+"	" use a red cursor otherwise
+"	let t_EI = "\<Esc>]12;red\x7"
+"	silent !echo -ne "\033]12;red\007"
+"	" reset cursor when vim exits
+"	autocmd VimLeave * silent !echo -ne "\033]112\007"
+"	" use \003]12;gray\007 for gnome-terminal
+"endif
+"if &term =~ '^xterm'
+"	"solid underscore
+"	let t_SI .= "\<Esc>[4 q"
+"	" solid block
+"	let t_EI .= "\<Esc>[2 q"
+"	" 1 or 0 -> blinking block
+"	" 3 -> blinking underscore
+"	" Recent versions of xterm (282 or above) also support
+"	" 5 -> blinking vertical bar
+"	" 6 -> solid vertical bar
+"endif
+
+"
 " lazy method of appending this onto your .vimrc ":w! >> ~/.vimrc"
 " ------------------------------------------------------------------
 " this block of commands has been autogenerated by solarized.vim and
@@ -788,3 +891,15 @@ endif
 " let g:solarized_termcolors=16
 " let g:solarized_diffmode="normal"
 " let g:solarized_menu=1
+
+" @plugin php-vim
+
+function! PhpSyntaxOverride()
+  "hi! def link phpDocTags  phpDefine
+  "hi! def link phpDocParam phpType
+endfunction
+
+augroup phpSyntaxOverride
+  autocmd!
+  autocmd FileType php call PhpSyntaxOverride()
+augroup END

@@ -16,11 +16,16 @@ set linespace=3
 
 let g:colors_name = "smyck"
 
-hi Normal               cterm=none ctermbg=none     ctermfg=15      gui=none        guibg=#282828   guifg=#F7F7F7
-hi LineNr               cterm=none ctermbg=none     ctermfg=8       gui=none        guibg=#282828   guifg=#8F8F8F
-hi StatusLine           cterm=none ctermbg=8        ctermfg=15      gui=none        guibg=#5D5D5D   guifg=#FBFBFB
-hi StatusLineNC         cterm=none ctermbg=15       ctermfg=8       gui=none        guibg=#5D5D5D   guifg=#FBFBFB
-hi Search               cterm=none ctermbg=6        ctermfg=15      gui=none        guibg=#2EB5C1   guifg=#F7F7F7
+hi Normal               cterm=none ctermbg=none     ctermfg=15      gui=none        guibg=#14191f   guifg=#F7F7F7
+hi LineNr               cterm=none ctermbg=none     ctermfg=8       gui=none        guibg=#14191f   guifg=#8F8F8F
+"hi Normal               cterm=none ctermbg=none     ctermfg=15      gui=none        guibg=#282828   guifg=#F7F7F7
+"hi LineNr               cterm=none ctermbg=none     ctermfg=8       gui=none        guibg=#282828   guifg=#8F8F8F
+hi StatusLine           cterm=none ctermbg=8        ctermfg=15      gui=none        guibg=#222222   guifg=#FBFBFB
+"hi StatusLineNC         cterm=none ctermbg=15       ctermfg=8       gui=none        guibg=#5D5D5D   guifg=#FBFBFB
+hi StatusLineNC         cterm=none ctermbg=15       ctermfg=8       gui=none        guibg=#222222   guifg=#FBFBFB
+hi VertSplit			cterm=none ctermbg=4        ctermfg=11      gui=none        guibg=bg        guifg=#324357
+"hi Search               cterm=none ctermbg=6        ctermfg=15      gui=none        guibg=#2EB5C1   guifg=#F7F7F7
+hi Search               cterm=none ctermbg=6        ctermfg=15      gui=none        guibg=#6e1f47   guifg=#F7F7F7
 hi IncSearch            cterm=none ctermbg=3        ctermfg=8       gui=none        guibg=#F6DC69   guifg=#8F8F8F
 hi ColumnMargin         cterm=none ctermbg=0                        gui=none        guibg=#000000
 hi Error                cterm=none ctermbg=1        ctermfg=15      gui=none                        guifg=#F7F7F7
@@ -51,19 +56,32 @@ hi Title                cterm=none ctermbg=none     ctermfg=4       gui=none    
 " ----------------------------------------------------------------------------
 " Syntax Highlighting
 " ----------------------------------------------------------------------------
-hi Keyword              cterm=none ctermbg=none ctermfg=10          gui=none        guifg=#D1FA71
-hi Comment              cterm=none ctermbg=none ctermfg=8           gui=none        guifg=#8F8F8F
-hi Delimiter            cterm=none ctermbg=none ctermfg=15          gui=none        guifg=#F7F7F7
+"hi Comment              cterm=none ctermbg=none ctermfg=8           gui=none        guifg=#8F8F8F
+hi Comment              cterm=none ctermbg=none ctermfg=8           gui=none        guifg=#5D5D5D
+"hi Comment              cterm=none ctermbg=none ctermfg=8           gui=none        guifg=#6e1f47
+
+hi Constant             cterm=none ctermbg=none ctermfg=12          gui=none        guifg=#96D9F1
+hi String               cterm=none ctermbg=none ctermfg=3           gui=none        guifg=#F6DC69
+hi Character            cterm=none ctermbg=none ctermfg=3           gui=none        guifg=#F7F7F7
+hi Number               cterm=none ctermbg=none ctermfg=3           gui=none        guifg=#C7F026
+hi Boolean              cterm=none ctermbg=none ctermfg=3           gui=none        guifg=#C7F026
+hi Float                cterm=none ctermbg=none ctermfg=3           gui=none        guifg=#C7F026
+
 hi Identifier           cterm=none ctermbg=none ctermfg=12          gui=none        guifg=#96D9F1
+"hi Function             cterm=none ctermbg=none ctermfg=12          gui=none        guifg=#FAB1AB
+hi Statement            cterm=none ctermbg=none ctermfg=10          gui=none        guifg=#D1FA71
+
+hi Conditional          cterm=none ctermbg=none ctermfg=10          gui=none        guifg=#D1FA71
+hi Repeat               cterm=none ctermbg=none ctermfg=10          gui=none        guifg=#D1FA71
+hi Label                cterm=none ctermbg=none ctermfg=10          gui=none        guifg=#D1FA71
+
+hi Keyword              cterm=none ctermbg=none ctermfg=10          gui=none        guifg=#D1FA71
+hi Delimiter            cterm=none ctermbg=none ctermfg=15          gui=none        guifg=#F7F7F7
 hi Structure            cterm=none ctermbg=none ctermfg=12          gui=none        guifg=#9DEEF2
 hi Ignore               cterm=none ctermbg=none ctermfg=8           gui=none        guifg=bg
-hi Constant             cterm=none ctermbg=none ctermfg=12          gui=none        guifg=#96D9F1
 hi PreProc              cterm=none ctermbg=none ctermfg=10          gui=none        guifg=#D1FA71
 hi Type                 cterm=none ctermbg=none ctermfg=12          gui=none        guifg=#96D9F1
-hi Statement            cterm=none ctermbg=none ctermfg=10          gui=none        guifg=#D1FA71
 hi Special              cterm=none ctermbg=none ctermfg=6           gui=none        guifg=#d7d7d7
-hi String               cterm=none ctermbg=none ctermfg=3           gui=none        guifg=#F6DC69
-hi Number               cterm=none ctermbg=none ctermfg=3           gui=none        guifg=#F6DC69
 hi Underlined           cterm=none ctermbg=none ctermfg=magenta     gui=underline   guibg=#272727
 hi Symbol               cterm=none ctermbg=none ctermfg=9           gui=none        guifg=#FAB1AB
 hi Method               cterm=none ctermbg=none ctermfg=15          gui=none        guifg=#F7F7F7

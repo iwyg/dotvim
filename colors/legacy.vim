@@ -1,5 +1,5 @@
 " ======================================================================
-" Tron
+" Legacy
 " ======================================================================
 " A Sublime Text 2 / Textmate theme.
 " Copyright (c) 2014 Dayle Rees.
@@ -14,7 +14,7 @@ syntax reset
 
 " Colors for the User Interface.
 
-hi Cursor      guibg=#cc4455  guifg=white     ctermbg=4 ctermfg=15
+hi Cursor      guibg=#ffffff  guifg=white     ctermbg=4 ctermfg=15
 hi link CursorIM Cursor
 hi Normal      guibg=#14191f  guifg=#aec2e0    gui=none ctermbg=0 ctermfg=15
 hi NonText     guibg=bg  guifg=#aec2e0   ctermbg=8 ctermfg=14
@@ -22,7 +22,7 @@ hi Visual      guibg=#557799  guifg=white    gui=none ctermbg=9 ctermfg=15
 
 hi Linenr      guibg=bg       guifg=#aaaaaa  gui=none ctermbg=bg ctermfg=7
 
-hi Directory   guibg=bg       guifg=#337700  gui=none ctermbg=bg ctermfg=10
+hi Directory   guibg=bg       guifg=#cccccc  gui=none ctermbg=bg ctermfg=10
 
 hi IncSearch   guibg=#0066cc  guifg=white    gui=none ctermbg=1 ctermfg=15
 hi link Seach IncSearch
@@ -36,25 +36,26 @@ hi link  MoreMsg     ModeMsg
 hi Question    guibg=bg guifg=#267fb5   ctermbg=bg ctermfg=10
 hi link  WarningMsg  ErrorMsg
 
-hi StatusLine     guibg=#ffeecc  guifg=black     ctermbg=14 ctermfg=0
-hi StatusLineNC   guibg=#cc4455  guifg=white    gui=none ctermbg=4  ctermfg=11
-hi VertSplit      guibg=#cc4455  guifg=white    gui=none ctermbg=4  ctermfg=11
+hi StatusLine     guibg=bg  guifg=black     ctermbg=14 ctermfg=0
+hi StatusLineNC   guibg=bg  guifg=white    gui=none ctermbg=4  ctermfg=11
+hi VertSplit      guibg=bg  guifg=#324357    gui=none ctermbg=4  ctermfg=11
 
 hi DiffAdd     guibg=#446688  guifg=fg    gui=none ctermbg=1 ctermfg=fg
 hi DiffChange  guibg=#558855  guifg=fg    gui=none ctermbg=2 ctermfg=fg
 hi DiffDelete  guibg=#884444  guifg=fg    gui=none ctermbg=4 ctermfg=fg
-hi DiffText    guibg=#884444  guifg=fg     ctermbg=4 ctermfg=fg
+hi DiffText    guibg=#884444  guifg=fg    ctermbg=4 ctermfg=fg
 
 " Colors for Syntax Highlighting.
 
-hi Comment  guibg=bg  guifg=#324357  gui=none    ctermbg=8   ctermfg=7
+"hi Comment  guibg=bg  guifg=#324357  gui=none    ctermbg=8   ctermfg=7
+hi Comment     guibg=bg     guifg=#446688  gui=none    ctermbg=8   ctermfg=7
 
 hi Constant    guibg=bg    guifg=white        ctermbg=8   ctermfg=15
-hi String      guibg=bg    guifg=#6ee2ff    ctermbg=bg  ctermfg=14
+hi String      guibg=bg    guifg=#FF410D    ctermbg=bg  ctermfg=14
 hi Character   guibg=bg    guifg=#ffffff      ctermbg=bg  ctermfg=14
-hi Number      guibg=bg    guifg=#6ee2ff      ctermbg=1   ctermfg=15
-hi Boolean     guibg=bg    guifg=#6ee2ff  gui=none    ctermbg=1   ctermfg=15
-hi Float       guibg=bg    guifg=#6ee2ff      ctermbg=1   ctermfg=15
+hi Number      guibg=bg    guifg=#C7F026      ctermbg=1   ctermfg=15
+hi Boolean     guibg=bg    guifg=#C7F026  gui=none    ctermbg=1   ctermfg=15
+hi Float       guibg=bg    guifg=#C7F026      ctermbg=1   ctermfg=15
 
 hi Identifier  guibg=bg    guifg=#aec2e0      ctermbg=bg  ctermfg=12
 hi Function    guibg=bg    guifg=#ffffff      ctermbg=bg  ctermfg=12
@@ -73,17 +74,17 @@ hi link Define    Include
 hi link Macro     Include
 hi link PreCondit Include
 
-hi Type       guibg=bg   guifg=#267fb5      ctermbg=bg  ctermfg=12
-hi StorageClass   guibg=bg   guifg=#ffffff      ctermbg=bg  ctermfg=10
-hi Structure      guibg=bg   guifg=#aec2e0      ctermbg=bg  ctermfg=10
-hi Typedef    guibg=bg   guifg=#267fb5    ctermbg=bg  ctermfg=10
+hi Type           guibg=bg       guifg=#267fb5  ctermbg=bg  ctermfg=12
+hi StorageClass   guibg=bg       guifg=#ffffff  ctermbg=bg  ctermfg=10
+hi Structure      guibg=bg       guifg=#aec2e0  ctermbg=bg  ctermfg=10
+hi Typedef        guibg=bg       guifg=#267fb5  ctermbg=bg  ctermfg=10
 
-hi Special    guibg=bg   guifg=#bbddff      ctermbg=1   ctermfg=15
-hi SpecialChar    guibg=bg   guifg=#bbddff      ctermbg=1   ctermfg=15
-hi Tag        guibg=bg   guifg=#bbddff      ctermbg=1   ctermfg=15
-hi Delimiter      guibg=bg   guifg=fg       ctermbg=1   ctermfg=fg
-hi SpecialComment guibg=#334455  guifg=#4d6785    ctermbg=1   ctermfg=15
-hi Debug      guibg=bg   guifg=#ff9999  gui=none    ctermbg=8   ctermfg=12
+hi Special        guibg=bg       guifg=#bbddff  ctermbg=1   ctermfg=15
+hi SpecialChar    guibg=bg       guifg=#bbddff  ctermbg=1   ctermfg=15
+hi Tag            guibg=bg       guifg=#bbddff  ctermbg=1   ctermfg=15
+hi Delimiter      guibg=bg       guifg=fg       ctermbg=1   ctermfg=fg
+hi SpecialComment guibg=#334455  guifg=#4d6785  ctermbg=1   ctermfg=15
+hi Debug          guibg=bg       guifg=#ff9999  gui=none    ctermbg=8   ctermfg=12
 
 hi Underlined guibg=bg guifg=#99ccff gui=underline ctermbg=bg ctermfg=9 cterm=underline
 
@@ -100,6 +101,6 @@ hi link htmlH6 htmlH5
 
 " And finally.
 
-let g:colors_name = "Tron"
-let colors_name   = "Tron"
+let g:colors_name = "Legacy"
+let colors_name   = "Legacy"
 

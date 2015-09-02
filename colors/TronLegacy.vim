@@ -101,3 +101,4 @@ hi cssClassName ctermfg=214 ctermbg=NONE cterm=NONE guifg=#ffb20d guibg=NONE gui
 hi cssValueLength ctermfg=190 ctermbg=NONE cterm=NONE guifg=#c7f026 guibg=NONE gui=NONE
 hi cssCommonAttr ctermfg=31 ctermbg=NONE cterm=NONE guifg=#267fb5 guibg=NONE gui=NONE
 hi cssBraces ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE gui=NONE
+

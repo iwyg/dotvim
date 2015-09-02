@@ -1,6 +1,33 @@
-curl -Sso ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
-mkdir tmp
-(ln -s ~/.vimrc ~/.vim/vimrc && ln -s ~/.gvimrc ~/.vim/gvimrc) || ln log
-cd bundle/command-t/ruby/command-t
-ruby extconf.rb
-make
+#!/bin/sh
+
+#curl -Sso $HOME/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
+#install powerline if not already installed 
+if [ "which powerline" == "" ]; then
+	pip install powerline-status
+fi
+
+mv ~/.vim/vimrc ~/.vim/vimconfig
+mv ~/.vim/gvimrc ~/.vim/gvimconfig
+rm ~/.vimrc
+rm ~/.gvimrc
+
+mkdir -p tmp
+
+curl -Sso ~/.vim/tmp/AnsiEsc.vba.gz http://www.vim.org/scripts/download_script.php?src_id=14498
+cd tmp
+vim AnsiEsc.vba.gz -c ':so %' -c ':q'
+cd -
+
+rm -rf tmp
+#compile binaries for YCM
+cd bundle/YouCompleteMe
+git submodule update --init --recursive
+./install.py --clang-completer --gocode-completer
+cd -
+
+mv ~/.vim/vimconfig ~/.vim/vimrc
+mv ~/.vim/gvimconfig ~/.vim/gvimrc
+#symlink  configuration files
+(ln -s ~/.vim/vimrc ~/.vimrc && ln -s ~/.vim/gvimrc ~/.gvimrc) || ln log

@@ -4,6 +4,11 @@
     "maxerr"        : 100,    // Maximum error before stopping.
 
 
+	"globals": {
+		"define": true, 
+		"require": true
+	},
+
     // Predefined globals whom JSHint will ignore.
     "browser"       : true,   // Standard browser globals e.g. `window`, `document`.
 
@@ -13,12 +18,16 @@
     "wsh"           : true,   // Windows Scripting Host.
 
     "jquery"        : true,
+    "requirejs"     : true,
+    "angularjs"     : true,
     "prototypejs"   : false,
     "mootools"      : false,
     "dojo"          : false,
 
     "predef"        : [  // Extra globals.
-        //"Android",
+        "require",
+        "define",
+        "angular"
     ],
 
 
@@ -28,7 +37,8 @@
 
 
     // EcmaScript 5
-    "es5"           : true,   // Allow EcmaScript 5 syntax.
+    //"es5"           : true,   // Allow EcmaScript 5 syntax.
+    "es6"           : true,   // Allow EcmaScript 6 syntax.
     "strict"        : true,  // Require `use strict` pragma  in every file.
     "globalstrict"  : false,  // Allow global "use strict" (also enables 'strict').
 
@@ -55,6 +65,8 @@
     "shadow"        : false,  // Allows re-define variables later in code e.g. `var x=1; x=2;`.
     "supernew"      : false,  // Tolerate `new function () { ... };` and `new Object;`.
     "undef"         : true,   // Require all non-global variables be declared before they are used.
+
+	"esnext": true,
 
 
     // Styling prefrences.
