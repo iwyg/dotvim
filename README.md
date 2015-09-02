@@ -9,12 +9,7 @@
 
 ## dependencies
 
-- vim or graphical vim with PERL Support
-- NodeJS with NPM 
-- jshint: `npm install jshin -g`
-- jsctags: `npm install jsctags -g` 
-- exuberant ctags: `brew install ctags`
-- lessc: `brew install lesscss`
-- Compass & SASS
-- PHP_Codesniffer: see http://pear.php.net/package/PHP_CodeSniffer/ 
-- PHP_CSFIXER
+- vim or graphical vim with PERL and Python Support
+- Nodejs with NPM 
+- Python >= 2.7
+- PHP >=5.3
