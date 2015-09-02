@@ -11,8 +11,9 @@ autoload/pathogen.vim
 buildtags
 /node_modules/
 plugin/AnsiEscPlugin.vim
-doc/*.txt
-doc/tags-ja
+doc
+doc/*
+bundle/**/doc
 autoload/*.vim
 plugin/*.vim
 bin/*
@@ -20,3 +21,4 @@ plugin/*.py
 plugin/**/*.py
 plugin/*.pyc
 plugin/**/*.pyc
+doc/
