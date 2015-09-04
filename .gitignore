@@ -22,3 +22,4 @@ plugin/**/*.py
 plugin/*.pyc
 plugin/**/*.pyc
 doc/
+bundles_loaded/
