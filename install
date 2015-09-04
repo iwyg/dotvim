@@ -15,7 +15,7 @@ mkdir -p tmp
 #curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 # install submodules
-git submodule --init update --recursive
+git submodule update --init --recursive
 
 # install powerline if not already installed 
 if [ "which powerline" == "" ]; then
