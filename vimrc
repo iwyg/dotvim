@@ -7,6 +7,7 @@ set nocompatible
 " Pathogen:
 "-----------------------------------------------------------------------------------------------------
 runtime bundle/vim-pathogen/autoload/pathogen.vim
+"let g:pathogen_disabled = ['YouCompleteMe']
 execute pathogen#infect('bundles_loaded/{}')
 syntax on
 filetype plugin indent on
@@ -18,7 +19,7 @@ filetype plugin indent on
 " set leaderkey to ,:
 let mapleader=","
 
-"enable mouse interaction:
+" enable mouse interaction:
 if has("mouse")
     set mouse=a
 endif
@@ -34,6 +35,11 @@ set directory=.,$TMPDIR
 
 " set omicimpletion
 set ofu=syntaxcomplete#Complete
+
+" Status bar
+set laststatus=2
+"disable statusline for poweline
+"set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 
 " Cool tab completion stuff
 set wildmenu
@@ -58,9 +64,6 @@ set cpoptions+=$
 
 set relativenumber
 set number
-" Status bar
-set laststatus=2
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 
 " hide scrollbars
 set guioptions-=l
@@ -94,6 +97,7 @@ let g:php_syntax_extensions_enabled = ['yml', 'xsl', 'xml', 'simplexml', 'imagic
 
 " ctags
 set tags=./tags
+
 " searching: 
 set ignorecase
 set smartcase
@@ -124,7 +128,8 @@ set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
 let g:Powerline_symbols = 'unicode'
 set fillchars+=stl:\ ,stlnc:\
 " troubleshooting Powerline loosing color on saveing buffers
-"let g:miniBufExplForceSyntaxEnable = 1
+let g:miniBufExplForceSyntaxEnable = 1
+
 
 " Enable file type detection
 filetype on
@@ -414,8 +419,8 @@ nnoremap <leader>pu :call RunPHPUnitTest()<cr>
 "-----------------------------------------------------------------------------------------------------
 " PHP Vim:
 function! PhpSyntaxOverride()
-  hi! def link phpDocTags  phpDefine
-  hi! def link phpDocParam phpType
+  "hi! def link phpDocTags  phpDefine
+  "hi! def link phpDocParam phpType
 endfunction
 
 augroup phpSyntaxOverride
@@ -442,7 +447,7 @@ let g:rbpt_colorpairs = [
     \ ['darkred',     'DarkOrchid3'],
     \ ['red',         'firebrick3'],
     \ ]
-if (has('autocmd'))
+if has('autocmd') && exists('RainbowParenthesesToggle')
 	au VimEnter * RainbowParenthesesToggle
 	au Syntax * RainbowParenthesesLoadRound
 	au Syntax * RainbowParenthesesLoadSquare
@@ -459,6 +464,15 @@ if has("gui_running")
 endif
 "-----------------------------------------------------------------------------------------------------
 " Syntastic: 
+"settings:
+let g:syntastic_quiet_messages = {'level': 'warnings'}
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=1
+let g:syntastic_auto_jump=0
+let g:syntastic_check_on_open=1
+let g:syntastic_echo_current_error=1
+let g:syntastic_loc_list_height=4
+let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
 "let s:javascript_executable = "/usr/local/share/npm/bin/jshint"
 let s:javascript_executable = "/usr/local/bin/jsxhint"
 let g:syntastic_php_exec = "/usr/local/bin/php"
@@ -471,21 +485,9 @@ let g:syntastic_javascript_checkers = ['jsxhint']
 let g:syntastic_json_checkers = ['jsonlint']
 let g:syntastic_html_checkers = ['tidy']
 let g:syntastic_python_checkers=['/usr/local/bin/python3.4']
-"settings:
-let g:syntastic_quiet_messages = {'level': 'warnings'}
-let g:syntastic_enable_signs=1
-let g:syntastic_auto_loc_list=1
-let g:syntastic_auto_jump=0
-let g:syntastic_check_on_open=1
-let g:syntastic_echo_current_error=1
-let g:syntastic_loc_list_height=4
-let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
 " Ignore Angular ng-* attributes error
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 let g:syntastic_php_phpmd_post_args = "text unusedcode"
-
-"let g:syntastic_python_exec = "/usr/local/bin/python"
-
 
 "force PSR-2 standard 
 let g:syntastic_php_phpcs_args = "--report=csv --standard=PSR2"
@@ -497,9 +499,9 @@ let g:syntastic_php_phpcs_args = "--report=csv --standard=PSR2"
 let g:syntastic_enable_balloons=0 
 
 " stausline formatting
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 nnoremap <silent> ` :Errors<CR>
 " run Syntasitc syntax check manualy:
 map <Leader>SC :SyntasticCheck<CR>
@@ -515,13 +517,20 @@ let g:tagbar_type_javascript = {
 \ 'ctagsbin' : 'jsctags'
 \ }
 "-----------------------------------------------------------------------------------------------------
-"Ultisnips:
+" Ultisnips:
+let g:UltiSnipsEnableSnipMate= 0
 let g:UltiSnipsUsePythonVersion = 2
-let g:UltiSnipsSnippetsDir = "$HOME/.vim/snippets"
+let g:UltiSnipsEnableSnipmate=0
+let g:UltiSnipsSnippetsDir = $HOME.'/.vim/snippets/Ultisnips'
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/snippets/UltiSnips']
 
-let g:UltiSnipsExpandTrigger="<tab>"
+" Don't use TAB if YCM is installed
+let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+" Edit snippts file for current filetype:
+noremap <leader>use :UltiSnipsEdit<CR>
 "-----------------------------------------------------------------------------------------------------
 " Vim Go: 
 let g:go_auto_type_info = 1
@@ -533,10 +542,12 @@ let g:webdevicons_enable_airline_tabline = 0
 let g:webdevicons_enable_airline_statusline = 0
 
 "-----------------------------------------------------------------------------------------------------
-" YMC:
+" YCM:
 let g:ycm_min_num_of_chars_for_completion = 2
 let g:ycm_min_num_identifier_candidate_chars = 0
-let g:ycm_auto_trigger = 1
+let g:ycm_auto_trigger = 0
+
+let g:ycm_key_list_previous_completion=['<Up>']
 
 "-----------------------------------------------------------------------------------------------------
 " XDEBUG:
@@ -549,3 +560,20 @@ let g:dbgWaitTime = 30
 " setupt colorscheme and background
 let myCs='base16-ocean'
 call SetCurrentColorScheme(myCs, 'dark')
+
+"-----------------------------------------------------------------------------------------------------
+" Helper Functions:
+"-----------------------------------------------------------------------------------------------------
+" setupt colorscheme and background
+" trailing spaces
+function! <SID>StripTrailingWhitespaces()
+	" Preparation: save last search, and cursor position.
+	let _s=@/
+	let l = line(".")
+	let c = col(".")
+	" Do the business:
+	%s/\s\+$//e
+	" Clean up: restore previous search history, and cursor position
+	let @/=_s
+	call cursor(l, c)
+endfunction
