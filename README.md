@@ -1,10 +1,11 @@
-# Instructions:
+# VIM Setup
 
 ## Installation
 
-- `git clone git://github.com/iwyg/dotvim ~/.vim --recursive`
-- `git submodule update --init`
-- `cd ~/.vim && ./install`
+```bash
+$ git clone git://github.com/iwyg/dotvim ~/.vim --recursive
+$ cd ~/.vim && ./install
+```
 
 
 ## dependencies

@@ -6,6 +6,9 @@ mkdir -p tmp
 # install pathogen plugin manager
 #curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
+# install submodules
+git submodule --init update --recursive
+
 # install powerline if not already installed 
 if [ "which powerline" == "" ]; then
 	pip install powerline-status
