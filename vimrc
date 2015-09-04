@@ -2,6 +2,7 @@
 " Disable Vi Compatibility:
 "-----------------------------------------------------------------------------------------------------
 set nocompatible
+filetype off
 
 "-----------------------------------------------------------------------------------------------------
 " Pathogen:
@@ -18,10 +19,13 @@ filetype plugin indent on
 "-----------------------------------------------------------------------------------------------------
 " set leaderkey to ,:
 let mapleader=","
+" setupt colorscheme and background
+let myCs='base16-ocean'
+let myBg='dark'
 
 " enable mouse interaction:
 if has("mouse")
-    set mouse=a
+	set mouse=a
 endif
 
 set virtualedit=all
@@ -96,7 +100,7 @@ let g:xml_syntax_folding = 1
 let g:php_syntax_extensions_enabled = ['yml', 'xsl', 'xml', 'simplexml', 'imagick', 'intl', 'json', 'dom', 'reflection', 'spl']
 
 " ctags
-set tags=./tags
+set tags=./tags,tags
 
 " searching: 
 set ignorecase
@@ -112,13 +116,13 @@ set grepprg=ack
 command! -nargs=* Wrap set wrap linebreak nolist
 
 "source helper functions;
-source $HOME/.vim/fnrc
+"source $HOME/.vim/fnrc
 
 " set cursor shape in terminal:
 " see http://vim.wikia.com/wiki/Change_cursor_shape_in_different_modes
 if &term =~ '^xterm'
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+	let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+	let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
 "-------------------------------------------------------------------------------------
@@ -135,58 +139,58 @@ let g:miniBufExplForceSyntaxEnable = 1
 filetype on
 
 if has("autocmd")
-    " auto source vimrc on save:
+	" auto source vimrc on save:
 	autocmd! BufWritePost $MYVIMRC nested :source $MYVIMRC
-    " toggle line highlighting on insert mode
-    autocmd InsertEnter,InsertLeave * set cul!
+	" toggle line highlighting on insert mode
+	autocmd InsertEnter,InsertLeave * set cul!
 
-    " omnicompletion:
-    autocmd FileType javascript                      set omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType html,htmljinja                  set omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType smarty                          set omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType xml                             set omnifunc=xmlcomplete#CompleteTags
-    autocmd FileType xsl                             set omnifunc=xmlcomplete#CompleteTags
+	" omnicompletion:
+	autocmd FileType javascript                      set omnifunc=javascriptcomplete#CompleteJS
+	autocmd FileType html,htmljinja                  set omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType smarty                          set omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType xml                             set omnifunc=xmlcomplete#CompleteTags
+	autocmd FileType xsl                             set omnifunc=xmlcomplete#CompleteTags
 
-    autocmd FileType css,scss,sass,less              setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown,htmljinja,blade   setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript                      setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType typescript                      setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python                          setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType smarty                          set omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType xml                             setlocal omnifunc=xmlcomplete#CompleteTags
-    autocmd FileType xslt                            setlocal omnifunc=xmlcomplete#CompleteTags
-    autocmd FileType php                             setlocal omnifunc=phpcomplete#CompletePHP
-    autocmd FileType ruby                            setlocal omnifunc=rubycomplete#Complete
-    autocmd FileType twig                            set omnifunc=phpcomplete#CompletePHP
-    autocmd FileType twig                            set omnifunc=xmlcomplete#CompleteTags
-    autocmd FileType blade                           set omnifunc=phpcomplete#CompletePHP
+	autocmd FileType css,scss,sass,less              setlocal omnifunc=csscomplete#CompleteCSS
+	autocmd FileType html,markdown,htmljinja,blade   setlocal omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType javascript                      setlocal omnifunc=javascriptcomplete#CompleteJS
+	autocmd FileType typescript                      setlocal omnifunc=javascriptcomplete#CompleteJS
+	autocmd FileType python                          setlocal omnifunc=pythoncomplete#Complete
+	autocmd FileType smarty                          set omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType xml                             setlocal omnifunc=xmlcomplete#CompleteTags
+	autocmd FileType xslt                            setlocal omnifunc=xmlcomplete#CompleteTags
+	autocmd FileType php                             setlocal omnifunc=phpcomplete#CompletePHP
+	autocmd FileType ruby                            setlocal omnifunc=rubycomplete#Complete
+	autocmd FileType twig                            set omnifunc=phpcomplete#CompletePHP
+	autocmd FileType twig                            set omnifunc=xmlcomplete#CompleteTags
+	autocmd FileType blade                           set omnifunc=phpcomplete#CompletePHP
 
-    " Syntax of these languages is fussy over tabs Vs spaces
-    autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+	" Syntax of these languages is fussy over tabs Vs spaces
+	autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+	autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
-    " Customisations based on house-style (arbitrary)
-    autocmd FileType html,xhtml,htmljinja,twig,toml setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType css                 setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType scss                setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType sass                setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType xml                 setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType less                setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType xslt                setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType php                 setlocal ts=4 sts=4 sw=4 expandtab
-    autocmd FileType std                 setlocal ts=4 sts=4 sw=4 expandtab
-    autocmd FileType javascript          setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType json                setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType blade               setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType twig                setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType toml                setlocal ts=2 sts=2 sw=2 expandtab
-    autocmd FileType py                  setlocal ts=8 sts=4 sw=4 expandtab
+	" Customisations based on house-style (arbitrary)
+	autocmd FileType html,xhtml,htmljinja,twig,toml setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType css                 setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType scss                setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType sass                setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType xml                 setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType less                setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType xslt                setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType php                 setlocal ts=4 sts=4 sw=4 expandtab
+	autocmd FileType std                 setlocal ts=4 sts=4 sw=4 expandtab
+	autocmd FileType javascript          setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType json                setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType blade               setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType twig                setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType toml                setlocal ts=2 sts=2 sw=2 expandtab
+	autocmd FileType py                  setlocal ts=8 sts=4 sw=4 expandtab
 
-    " Treat .rss files as XML
-    autocmd BufNewFile,BufRead *.rss setfiletype xml
-    " Treat .std template files as php
-    autocmd BufNewFile,BufRead *.std setfiletype php
-    " strip trailing space on buffer save
+	" Treat .rss files as XML
+	autocmd BufNewFile,BufRead *.rss setfiletype xml
+	" Treat .std template files as php
+	autocmd BufNewFile,BufRead *.std setfiletype php
+	" strip trailing space on buffer save
 	autocmd BufWritePre *.py,*.js,*.xsl,*.html,*.php,*.xml,*.css,*.less :call <SID>StripTrailingWhitespaces()
 
 	" Manual Mapping: 	
@@ -203,16 +207,16 @@ endif
 " Doxygen:
 if has("autocmd")
 	au Syntax cuda
-		\ if (exists('b:load_doxygen_syntax') && b:load_doxygen_syntax)
-		\       || (exists('g:load_doxygen_syntax') && g:load_doxygen_syntax)
-		\   | runtime! syntax/doxygen.vim
-		\ | endif
+				\ if (exists('b:load_doxygen_syntax') && b:load_doxygen_syntax)
+				\       || (exists('g:load_doxygen_syntax') && g:load_doxygen_syntax)
+				\   | runtime! syntax/doxygen.vim
+				\ | endif
 endif
 
 if !exists("autocommands_loaded")
 	let autocommands_loaded = 1
 
-" Sass And Less CSS Sytax:
+	" Sass And Less CSS Sytax:
 	au BufNewFile,BufRead *.less       set filetype=less
 	au BufNewFile,BufRead *.scss       set filetype=scss
 	au BufNewFile,BufRead *.sass       set filetype=sass
@@ -226,20 +230,20 @@ if !exists("autocommands_loaded")
 	au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} set ft=markdown
 	au BufRead,BufNewFile *.{jshintrc,*rc} set ft=rc
 	au BufRead,BufNewFile *.{vimrc,gvimrc} set ft=vim
-" Json:
+	" Json:
 	"-------------------------------------------------------------------------------------
 	"au BufNewFile,BufRead *.json set ft=javascript
 
 	"	au BufRead,BufNewFile *.txt call s:setupWrapping()
-" Typoscript:
+	" Typoscript:
 	"	au BufNewFile,BufRead mozex.textarea.* setlocal filetype=typoscript
 	"	au BufNewFile,BufRead *.ts setlocal filetype=typoscript 	
-" Smarty:	
+	" Smarty:	
 	au BufNewFile,BufRead *.tpl setlocal filetype=smarty 	
-" Underscore Templates:	
+	" Underscore Templates:	
 	au BufNewFile,BufRead *.jst set syntax=jst
 	au BufNewFile,BufRead *.tpl set syntax=jst
-" ObjectiveJ: 	
+	" ObjectiveJ: 	
 	au BufNewFile,BufRead *.j set syntax=objj
 
 	"au BufWritePost *.php !phpctags %s &
@@ -404,49 +408,46 @@ noremap <Leader>un :call PhpInsertUse()<CR>
 " PHPUnit:
 " function to run Unittest against current buffer
 function! RunPHPUnitTest()
-    "cd %:p:h
-    pwd
-    let result = system("vendor/bin/phpunit " . bufname("%"))
-    split __PHPUnit_Result__
-    normal! ggdG
-    setlocal buftype=nofile
-    call append(0, split(result, '\v\n'))
-    cd -
+	"cd %:p:h
+	pwd
+	let result = system("vendor/bin/phpunit " . bufname("%"))
+	split __PHPUnit_Result__
+	normal! ggdG
+	setlocal buftype=nofile
+	call append(0, split(result, '\v\n'))
+	cd -
 endfunction
 
 " runs PHPUnit test:
 nnoremap <leader>pu :call RunPHPUnitTest()<cr>
 "-----------------------------------------------------------------------------------------------------
 " PHP Vim:
-function! PhpSyntaxOverride()
-  "hi! def link phpDocTags  phpDefine
-  "hi! def link phpDocParam phpType
-endfunction
+" @see https://github.com/StanAngeloff/php.vim
 
-augroup phpSyntaxOverride
-  autocmd!
-  autocmd FileType php call PhpSyntaxOverride()
-augroup END
+function! PhpSyntaxOverride()
+	hi! def link phpDocTags  phpDefine
+	hi! def link phpDocParam phpType
+endfunction
 "-----------------------------------------------------------------------------------------------------
 " Rainbow Parantheses:
 let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['black',       'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
-    \ ['red',         'firebrick3'],
-    \ ]
+			\ ['brown',       'RoyalBlue3'],
+			\ ['Darkblue',    'SeaGreen3'],
+			\ ['darkgray',    'DarkOrchid3'],
+			\ ['darkgreen',   'firebrick3'],
+			\ ['darkcyan',    'RoyalBlue3'],
+			\ ['darkred',     'SeaGreen3'],
+			\ ['darkmagenta', 'DarkOrchid3'],
+			\ ['brown',       'firebrick3'],
+			\ ['gray',        'RoyalBlue3'],
+			\ ['black',       'SeaGreen3'],
+			\ ['darkmagenta', 'DarkOrchid3'],
+			\ ['Darkblue',    'firebrick3'],
+			\ ['darkgreen',   'RoyalBlue3'],
+			\ ['darkcyan',    'SeaGreen3'],
+			\ ['darkred',     'DarkOrchid3'],
+			\ ['red',         'firebrick3'],
+			\ ]
 if has('autocmd') && exists('RainbowParenthesesToggle')
 	au VimEnter * RainbowParenthesesToggle
 	au Syntax * RainbowParenthesesLoadRound
@@ -514,8 +515,8 @@ let g:tagbar_phpctags_bin='phpctags'
 let g:tagbar_phpctags_memory_limit = '512M'
 
 let g:tagbar_type_javascript = {
-\ 'ctagsbin' : 'jsctags'
-\ }
+			\ 'ctagsbin' : 'jsctags'
+			\ }
 "-----------------------------------------------------------------------------------------------------
 " Ultisnips:
 let g:UltiSnipsEnableSnipMate= 0
@@ -554,12 +555,6 @@ let g:ycm_key_list_previous_completion=['<Up>']
 "-----------------------------------------------------------------------------------------------------
 let g:dbgWaitTime = 30
 
-"-----------------------------------------------------------------------------------------------------
-" Post Setup:
-"-----------------------------------------------------------------------------------------------------
-" setupt colorscheme and background
-let myCs='base16-ocean'
-call SetCurrentColorScheme(myCs, 'dark')
 
 "-----------------------------------------------------------------------------------------------------
 " Helper Functions:
@@ -576,4 +571,90 @@ function! <SID>StripTrailingWhitespaces()
 	" Clean up: restore previous search history, and cursor position
 	let @/=_s
 	call cursor(l, c)
+
 endfunction
+
+" Rel line number helper:
+if exists("+relativenumber")
+	if v:version >= 400
+		set number
+	endif
+	set relativenumber  " show relative line numbers
+	set numberwidth=3   " narrow number column
+	" cycles between relative / absolute / no numbering
+	if v:version >= 400
+		function! RelativeNumberToggle()
+			if (&number == 1 && &relativenumber == 1)
+				set nonumber
+				set relativenumber relativenumber?
+			elseif (&number == 0 && &relativenumber == 1)
+				set norelativenumber
+				set number number?
+			elseif (&number == 1 && &relativenumber == 0)
+				set norelativenumber
+				set nonumber number?
+			else
+				set number
+				set relativenumber relativenumber?
+			endif
+		endfunc
+	else
+		function! RelativeNumberToggle()
+			if (&relativenumber == 1)
+				set number number?
+			elseif (&number == 1)
+				set nonumber number?
+			else
+				set relativenumber relativenumber?
+			endif
+		endfunc
+	endif
+	nnoremap <silent> <leader>n :call RelativeNumberToggle()<CR>
+else                  " fallback
+	set number          " show line numbers
+	" inverts numbering
+	nnoremap <silent> <leader>tgn :set number! number?<CR>
+endif
+
+function! <SID>SetCurrentColorScheme(scheme, background)
+	let scheme = a:scheme
+	let bg  = a:background
+	if has("terminfo")
+		set t_Co=16
+		"set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
+		"set t_AF=[%?%p1%{8}%<%t%p1%{30}%+%e%p1%{82}%+%;%dm
+	else
+		set t_Co=256
+		set t_Sf=[3%dm
+		set t_Sb=[4%dm
+	endif
+
+	if $TERM == 'xterm-color' && &t_Co == 8
+		set t_Co=16
+	endif
+
+	if $TERM == 'xterm-256color'
+		set t_Co=256
+		exec 'set background=' . bg
+		exec 'colorscheme ' . scheme
+	endif
+
+endfunction
+
+"-----------------------------------------------------------------------------------------------------
+" Post Setup:
+"-----------------------------------------------------------------------------------------------------
+" Apply colorscheme and background
+call <SID>SetCurrentColorScheme(myCs, myBg)
+
+"-----------------------------------------------------------------------------------------------------
+" @plugin php-vim
+function! PhpSyntaxOverride()
+  hi def link phpDocTags  phpDefine
+  hi def link phpDocParam phpType
+endfunction
+
+augroup phpSyntaxOverride
+  autocmd!
+  autocmd FileType php call PhpSyntaxOverride()
+augroup END
