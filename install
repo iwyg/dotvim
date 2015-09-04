@@ -4,7 +4,7 @@
 mkdir -p tmp
 
 # install pathogen plugin manager
-curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+#curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 # install powerline if not already installed 
 if [ "which powerline" == "" ]; then
@@ -36,6 +36,12 @@ mv ~/.vim/vimrc ~/.vim/vimconfig
 mv ~/.vim/gvimrc ~/.vim/gvimconfig
 rm ~/.vimrc
 rm ~/.gvimrc
+
+# link bundles to the bundles_loaded firectory 
+mkdir -p ~/.vim/bundles_loaded
+cd bundles_loaded
+ln -s ../bundle/* .
+cd -
 
 # install the ANSI Escape Sequence plugin
 curl -Sso ~/.vim/tmp/AnsiEsc.vba.gz http://www.vim.org/scripts/download_script.php?src_id=14498
