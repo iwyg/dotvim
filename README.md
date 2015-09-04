@@ -14,3 +14,4 @@ $ cd ~/.vim && ./install
 - Nodejs with NPM 
 - Python >= 2.7
 - PHP >=5.3
+- Go >= 1.5

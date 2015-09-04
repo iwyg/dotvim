@@ -1,5 +1,13 @@
 #!/bin/sh
 
+# exit script if golang is not available
+if [ "which go" == "" ]; then
+	echo "install go lang first"
+	exit 1
+fi
+
+VIMDIR="`pwd`"
+
 # create temp directory
 mkdir -p tmp
 
@@ -12,11 +20,15 @@ git submodule --init update --recursive
 # install powerline if not already installed 
 if [ "which powerline" == "" ]; then
 	pip install powerline-status
+else
+	echo "powerline alread installed"
 fi
 
 # install the markdown preview
 if [ "which livedown" == "" ]; then
 	npm install -g livedown
+else
+	echo "livedown alread installed"
 fi
 
 # install composer
@@ -27,6 +39,8 @@ if [ "which composer" == "" ]; then
 	cd -
 	mkdir ~/.composer
 	echo "{\"require\": {}}" > ~/.composer/composer.json
+else
+	echo "composer already installed"
 fi
 
 # install required php utilities
@@ -35,19 +49,19 @@ composer global require squizlabs/php_codesniffer techlivezheng/phpctags fabpot/
 npm install -g jsctags
 
 
-mv ~/.vim/vimrc ~/.vim/vimconfig
-mv ~/.vim/gvimrc ~/.vim/gvimconfig
+mv $VIMDIR/vimrc $VIMDIR/vimconfig
+mv $VIMDIR/gvimrc $VIMDIR/gvimconfig
 rm ~/.vimrc
 rm ~/.gvimrc
 
 # link bundles to the bundles_loaded firectory 
-mkdir -p ~/.vim/bundles_loaded
+mkdir -p $VIMDIR/bundles_loaded
 cd bundles_loaded
 ln -s ../bundle/* .
 cd -
 
 # install the ANSI Escape Sequence plugin
-curl -Sso ~/.vim/tmp/AnsiEsc.vba.gz http://www.vim.org/scripts/download_script.php?src_id=14498
+curl -Sso $VIMDIR/tmp/AnsiEsc.vba.gz http://www.vim.org/scripts/download_script.php?src_id=14498
 cd tmp
 vim AnsiEsc.vba.gz -c ':so %' -c ':q'
 cd -
@@ -59,10 +73,10 @@ git submodule update --init --recursive
 cd -
 
 # move back configfiles
-mv ~/.vim/vimconfig ~/.vim/vimrc
-mv ~/.vim/gvimconfig ~/.vim/gvimrc
+mv $VIMDIR/vimconfig ~/.vim/vimrc
+mv $VIMDIR/gvimconfig ~/.vim/gvimrc
 # symlink  configuration files
-(ln -s ~/.vim/vimrc ~/.vimrc && ln -s ~/.vim/gvimrc ~/.gvimrc) || ln log
+(ln -s $VIMDIR/vimrc ~/.vimrc && ln -s $VIMDIR/gvimrc ~/.gvimrc) || ln log
 
 # cleanup
 rm -rf tmp
