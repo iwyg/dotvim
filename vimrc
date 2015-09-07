@@ -128,11 +128,11 @@ endif
 "-------------------------------------------------------------------------------------
 " Powerline:
 "-------------------------------------------------------------------------------------
-set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
-let g:Powerline_symbols = 'unicode'
-set fillchars+=stl:\ ,stlnc:\
-" troubleshooting Powerline loosing color on saveing buffers
-let g:miniBufExplForceSyntaxEnable = 1
+"set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
+"let g:Powerline_symbols = 'unicode'
+"set fillchars+=stl:\ ,stlnc:\
+"" troubleshooting Powerline loosing color on saveing buffers
+"let g:miniBufExplForceSyntaxEnable = 1
 
 
 " Enable file type detection
@@ -300,6 +300,11 @@ nmap <leader>L :set list!<CR>
 "-----------------------------------------------------------------------------------------------------
 " Plugins:
 "-----------------------------------------------------------------------------------------------------
+" Airline:
+"-----------------------------------------------------------------------------------------------------
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
 " Color Pickers:
 " Show RGB colors:
 nmap <leader>rgb :ColorRGB<CR>
@@ -314,6 +319,13 @@ let NERDTreeHijackNetrw=1 " Use NERDTree as split explorer
 let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$', '\.DS_*']
 let NERDTreeShowHidden = 1
 set guioptions-=L
+
+" open NERDTree automatically when vim starts up if no files were specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" close vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " find current buffer in NERDTree:
 map <Leader>nf :NERDTreeFind<CR>
@@ -537,18 +549,18 @@ noremap <leader>use :UltiSnipsEdit<CR>
 let g:go_auto_type_info = 1
 let g:go_fmt_fail_silently = 1
 let g:go_highlight_structs = 1
+nnoremap <leader>gr :GoRun<CR>
 "-----------------------------------------------------------------------------------------------------
-" Webdev Icons:
-let g:webdevicons_enable_airline_tabline = 0
-let g:webdevicons_enable_airline_statusline = 0
-
+" Devicons:
+let g:airline_powerline_fonts = 1
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
 "-----------------------------------------------------------------------------------------------------
 " YCM:
 let g:ycm_min_num_of_chars_for_completion = 2
 let g:ycm_min_num_identifier_candidate_chars = 0
-let g:ycm_auto_trigger = 0
+let g:ycm_auto_trigger = 1
 
-let g:ycm_key_list_previous_completion=['<Up>']
+"let g:ycm_key_list_previous_completion=['<Up>']
 
 "-----------------------------------------------------------------------------------------------------
 " XDEBUG:

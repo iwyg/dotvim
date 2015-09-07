@@ -23,7 +23,8 @@ if has("gui_macvim")
 	set linespace=2
 "	set guifont=Source\ Code\ Pro\ Medium:h13
     "set guifont=Source\ Code\ Pro\ for\ Powerline:h13
-    set guifont=Sauce\ Code\ Powerline\ Plus\ Nerd\ File\ Types\ Mono:h13
+	"set guifont=Sauce\ Code\ Powerline\ Plus\ Nerd\ File\ Types\ Mono:h13
+	set guifont=Sauce\ Code\ Powerline\ Plus\ Nerd\ File\ Types\ Mono\ Plus\ Font\ Awesome\ Plus\ Octicons:h13
 "   set guifont=Meslo\ LG\ M\ DZ\ for\ Powerline:h12
 "   set guifont=Source\ Code\ Pro\ for\ Powerline:h13
 "   set guifont=Source\ Code\ Pro\ for\ Powerline:h13

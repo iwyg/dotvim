@@ -331,9 +331,6 @@
 [submodule "bundle/vim-jsx"]
 	path = bundle/vim-jsx
 	url = https://github.com/mxw/vim-jsx.git
-[submodule "bundle/vim-webdevicons"]
-	path = bundle/vim-webdevicons
-	url = https://github.com/ryanoasis/vim-webdevicons.git
 [submodule "bundle/rust-vim"]
 	path = bundle/rust-vim
 	url = https://github.com/wting/rust.vim.git
@@ -385,3 +382,15 @@
 [submodule "bundle/matchit"]
 	path = bundle/matchit
 	url = https://github.com/vim-scripts/matchit.zip.git
+[submodule "bundle/vim-devicons"]
+	path = bundle/vim-devicons
+	url = https://github.com/ryanoasis/vim-devicons.git
+[submodule "bundle/vim-ariline"]
+	path = bundle/vim-ariline
+	url = https://github.com/bling/vim-airline.git
+[submodule "bundle/nerdtree-git-plugin"]
+	path = bundle/nerdtree-git-plugin
+	url = https://github.com/Xuyuanp/nerdtree-git-plugin.git
+[submodule "bundle/vim-nerdtree-tabs"]
+	path = bundle/vim-nerdtree-tabs
+	url = https://github.com/jistr/vim-nerdtree-tabs.git

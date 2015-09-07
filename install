@@ -17,12 +17,13 @@ mkdir -p tmp
 # install submodules
 git submodule update --init --recursive
 
-# install powerline if not already installed 
-if [ "which powerline" == "" ]; then
-	pip install powerline-status
-else
-	echo "powerline alread installed"
-fi
+## install powerline if not already installed 
+## switched from powerline to airline
+#if [ "which powerline" == "" ]; then
+#	pip install powerline-status
+#else
+#	echo "powerline alread installed"
+#fi
 
 # install the markdown preview
 if [ "which livedown" == "" ]; then
