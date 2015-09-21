@@ -204,7 +204,7 @@
 	url = https://github.com/marijnh/tern_for_vim.git
 [submodule "bundle/vim-composer"]
 	path = bundle/vim-composer
-	url = https://github.com/vim-scripts/composer.vim.git
+	url = https://github.com/vim-php/vim-composer.git
 [submodule "bundle/sudoedit"]
 	path = bundle/sudoedit
 	url = https://github.com/chrisbra/SudoEdit.vim.git
@@ -394,3 +394,12 @@
 [submodule "bundle/vim-nerdtree-tabs"]
 	path = bundle/vim-nerdtree-tabs
 	url = https://github.com/jistr/vim-nerdtree-tabs.git
+[submodule "bundle/vim-react-snippets"]
+	path = bundle/vim-react-snippets
+	url = https://github.com/justinj/vim-react-snippets.git
+[submodule "bundle/syntastic-react"]
+	path = bundle/syntastic-react
+	url = https://github.com/jaxbot/syntastic-react.git
+[submodule "bundle/promtline"]
+	path = bundle/promtline
+	url = https://github.com/edkolev/promptline.vim.git

@@ -13,7 +13,7 @@ execute pathogen#infect('bundles_loaded/{}')
 syntax on
 filetype plugin indent on
 
-
+set nocompatible
 "-----------------------------------------------------------------------------------------------------
 " Behaviour And Settings:
 "-----------------------------------------------------------------------------------------------------
@@ -300,16 +300,25 @@ nmap <leader>L :set list!<CR>
 "-----------------------------------------------------------------------------------------------------
 " Plugins:
 "-----------------------------------------------------------------------------------------------------
-" Airline:
+" Ack:
+" if silver searcher is installed, use Ag instread of Ack:
+if executable('ag')
+	let g:ackprg = 'ag --vimgrep'
+endif
 "-----------------------------------------------------------------------------------------------------
+" Airline:
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
+"-----------------------------------------------------------------------------------------------------
 " Color Pickers:
 " Show RGB colors:
 nmap <leader>rgb :ColorRGB<CR>
 " Show HEX colors:
 nmap <leader>hex :ColorHEX<CR>
+"-----------------------------------------------------------------------------------------------------
+" Composer:
+let g:composer_cmd = "/usr/local/bin/composer"
 "-----------------------------------------------------------------------------------------------------
 " NetRW:
 let g:netrw_liststyle=3
@@ -318,6 +327,9 @@ let g:netrw_liststyle=3
 let NERDTreeHijackNetrw=1 " Use NERDTree as split explorer 
 let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$', '\.DS_*']
 let NERDTreeShowHidden = 1
+let NERDTreeAutoDeleteBuffer = 1
+let NERDTreeChDirMode = 1
+
 set guioptions-=L
 
 " open NERDTree automatically when vim starts up if no files were specified
@@ -347,6 +359,7 @@ let g:Jsbeautify_jslint_expandtab = 1                       " expand tabs to spa
 " Jsx:  
 " allow jsx in .js files
 let g:jsx_ext_required = 0
+let g:jsx_pragma_required = 0
 "-----------------------------------------------------------------------------------------------------
 " Json:  
 " prettyfy json:
@@ -492,6 +505,7 @@ let g:syntastic_php_exec = "/usr/local/bin/php"
 let g:syntastic_ruby_exec = "/usr/local/bin/ruby"
 let g:syntastic_json_exec = "/usr/local/share/npm/bin/jsonlint"
 let g:syntastic_python_exec = "/usr/local/bin/python3.4"
+let g:syntastic_javascript_jsxhint_exec = 'jsx-jshint-wrapper'
 "checkers:
 let g:syntastic_php_checkers=['php', 'phpcs']
 let g:syntastic_javascript_checkers = ['jsxhint']
@@ -535,7 +549,7 @@ let g:UltiSnipsEnableSnipMate= 0
 let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsEnableSnipmate=0
 let g:UltiSnipsSnippetsDir = $HOME.'/.vim/snippets/Ultisnips'
-let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/snippets/UltiSnips']
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/snippets/UltiSnips', $HOME.'/.vim/bundles_enabled/vim-react-snippets']
 
 " Don't use TAB if YCM is installed
 let g:UltiSnipsExpandTrigger="<c-j>"
@@ -662,8 +676,8 @@ call <SID>SetCurrentColorScheme(myCs, myBg)
 "-----------------------------------------------------------------------------------------------------
 " @plugin php-vim
 function! PhpSyntaxOverride()
-  hi def link phpDocTags  phpDefine
-  hi def link phpDocParam phpType
+  "hi def link phpDocTags  phpDefine
+  "hi def link phpDocParam phpType
 endfunction
 
 augroup phpSyntaxOverride

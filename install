@@ -67,6 +67,11 @@ cd tmp
 vim AnsiEsc.vba.gz -c ':so %' -c ':q'
 cd -
 
+# compile binaries for vimproc
+cd bundle/vimproc
+make
+cd -
+
 # compile binaries for YCM
 cd bundle/YouCompleteMe
 git submodule update --init --recursive
@@ -74,10 +79,10 @@ git submodule update --init --recursive
 cd -
 
 # move back configfiles
-mv $VIMDIR/vimconfig ~/.vim/vimrc
-mv $VIMDIR/gvimconfig ~/.vim/gvimrc
+mv $VIMDIR/vimconfig $VIMDIR/vimrc
+mv $VIMDIR/gvimconfig $VIMDIR/gvimrc
 # symlink  configuration files
-(ln -s $VIMDIR/vimrc ~/.vimrc && ln -s $VIMDIR/gvimrc ~/.gvimrc) || ln log
+(ln -s $VIMDIR/vimrc $HOME/.vimrc && ln -s $VIMDIR/gvimrc $HOME/.gvimrc) || ln log
 
 # cleanup
 rm -rf tmp
