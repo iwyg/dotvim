@@ -8,12 +8,11 @@ filetype off
 " Pathogen:
 "-----------------------------------------------------------------------------------------------------
 runtime bundle/vim-pathogen/autoload/pathogen.vim
-"let g:pathogen_disabled = ['YouCompleteMe']
+"let g:pathogen_disabled = ['nerdtree-git-plugin']
 execute pathogen#infect('bundles_loaded/{}')
-syntax on
 filetype plugin indent on
+syntax on
 
-set nocompatible
 "-----------------------------------------------------------------------------------------------------
 " Behaviour And Settings:
 "-----------------------------------------------------------------------------------------------------
@@ -22,6 +21,7 @@ let mapleader=","
 " setupt colorscheme and background
 let myCs='base16-ocean'
 let myBg='dark'
+let myFont='Sauce\ Code\ Pro\ Medium\ Plus\ Nerd\ File\ Types\ Plus\ Font\ Awesome\ Plus\ Octicons:h13'
 
 " enable mouse interaction:
 if has("mouse")
@@ -52,8 +52,9 @@ set whichwrap=b,s,h,l,<,>,[,]
 
 " encoding:
 set encoding=utf8
-set fileencoding=utf8
-" format
+"set fileencoding=utf8
+
+" format:
 set title
 set backspace=indent,eol,start
 set wrap
@@ -72,17 +73,20 @@ set number
 " hide scrollbars
 set guioptions-=l
 set guioptions-=r
+
 " formatting:
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set smarttab
+" use tabs by default:
 set noexpandtab
 
 " set completeopt+=longest,menu ",preview
 set completeopt=menu,menuone,longest ",preview
 set pumheight=20
 set complete-=i
+
 " Use the same symbols as TextMate for tabstops and EOLs
 set listchars=tab:›\ ,eol:¬,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 
@@ -291,6 +295,7 @@ vmap <M-C-TAB> :bp<CR>
 
 " toggle line numbers:
 nmap <Leader>N :set number!<CR>
+
 " toggle relative line numbers:
 nmap <Leader>RN :set relativenumber!<CR>
 
@@ -307,8 +312,10 @@ if executable('ag')
 endif
 "-----------------------------------------------------------------------------------------------------
 " Airline:
+
+let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = '|'
 "-----------------------------------------------------------------------------------------------------
 " Color Pickers:
@@ -319,6 +326,11 @@ nmap <leader>hex :ColorHEX<CR>
 "-----------------------------------------------------------------------------------------------------
 " Composer:
 let g:composer_cmd = "/usr/local/bin/composer"
+"-----------------------------------------------------------------------------------------------------
+" GunDo:
+nmap <leader>gt GundoToggle<CR>
+nmap <leader>go GundoOpen<CR>
+nmap <leader>gc GundoClose<CR>
 "-----------------------------------------------------------------------------------------------------
 " NetRW:
 let g:netrw_liststyle=3
@@ -347,6 +359,24 @@ map <Leader>ncwd :NERDTreeCWD<CR>
 map <Leader>n :NERDTree<CR>
 " toggle NERDTree:
 map <Leader>nt :NERDTreeToggle<CR>
+"-----------------------------------------------------------------------------------------------------
+" NERDTree Git Plugin: 
+" icon mapping:
+
+let g:NERDTreeMapNextHunk = 'c'
+let g:NERDTreeMapPrevHunk = 'c'
+
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
 "-----------------------------------------------------------------------------------------------------
 " CssColor:
 let g:cssColorVimDoNotMessMyUpdatetime = 1
@@ -381,7 +411,7 @@ let g:local_vimrc = {'names':['.vimrc'],'hash_fun':'LVRHashOfFile'}
 " Enables use of tags when the plugin tries to find variables. 
 " When enabled the plugin will search for the variables in the tag files with kind 'v', 
 " lines like $some_var = new Foo; but these usually yield highly inaccurate results and can be fairly slow.
-let g:phpcomplete_search_tags_for_variables = 1
+let g:phpcomplete_search_tags_for_variables = 0
 
 " When enabled the preview window's content will include information extracted from 
 " docblock comments of the completions. Enabling this option will add return types to the 
@@ -392,6 +422,21 @@ let g:phpcomplete_parse_docblock_comments = 1
 "not check the tagfiles any more, thus making the lookups faster. Cache expiration is based on 
 "the mtimes of the tag files.
 let g:phpcomplete_cache_taglists = 1
+
+"This option controls the number of characters the user needs to type before the tags will be searched 
+"for namespaces and classes in typed out namespaces in "use ..." context. Setting this to 0 is not 
+"recommended because that means the code have to scan every tag, and vim's taglist() function runs 
+"extremly slow with a "match everything" pattern.
+let g:phpcomplete_min_num_of_chars_for_namespace_completion = 2
+
+"When enabled the <C-]> will be mapped to phpcomplete#JumpToDefinition() which will try to make a more 
+"educated guess of the current symbol's location than simple tag search. If the symbol's location cannot 
+"be found the original <C-]> functionality will be invoked
+let g:phpcomplete_enhance_jump_to_definition = 1
+
+let g:phpcomplete_mappings = {
+  \ 'jump_to_def': '<C-ü>',
+  \ }
 "-----------------------------------------------------------------------------------------------------
 " PHP Pdv:
 let g:pdv_template_dir = $HOME ."/.vim/tools/pdv_templates"
@@ -537,7 +582,7 @@ map <Leader>SC :SyntasticCheck<CR>
 " toggle TagBar:
 nmap <Leader>tb :TagbarToggle<CR>
 let g:tagbar_ctags_bin='ctags'
-let g:tagbar_phpctags_bin='phpctags'
+let g:tagbar_phpctags_bin=$HOME.'/.composer/vendor/bin/phpctags'
 let g:tagbar_phpctags_memory_limit = '512M'
 
 let g:tagbar_type_javascript = {
@@ -566,11 +611,11 @@ let g:go_highlight_structs = 1
 nnoremap <leader>gr :GoRun<CR>
 "-----------------------------------------------------------------------------------------------------
 " Devicons:
-let g:airline_powerline_fonts = 1
 let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
+let g:WebDevIconsNerdTreeBeforeGlyphPadding = ''
 "-----------------------------------------------------------------------------------------------------
 " YCM:
-let g:ycm_min_num_of_chars_for_completion = 2
+let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_min_num_identifier_candidate_chars = 0
 let g:ycm_auto_trigger = 1
 
@@ -606,7 +651,7 @@ if exists("+relativenumber")
 		set number
 	endif
 	set relativenumber  " show relative line numbers
-	set numberwidth=3   " narrow number column
+	set numberwidth=4   " narrow number column
 	" cycles between relative / absolute / no numbering
 	if v:version >= 400
 		function! RelativeNumberToggle()
@@ -642,9 +687,11 @@ else                  " fallback
 	nnoremap <silent> <leader>tgn :set number! number?<CR>
 endif
 
-function! <SID>SetCurrentColorScheme(scheme, background)
+function! <SID>SetCurrentColorScheme(scheme, background, font)
 	let scheme = a:scheme
 	let bg  = a:background
+	let font  = a:font
+
 	if has("terminfo")
 		set t_Co=16
 		"set t_AB=[%?%p1%{8}%<%t%p1%{40}%+%e%p1%{92}%+%;%dm
@@ -657,23 +704,19 @@ function! <SID>SetCurrentColorScheme(scheme, background)
 
 	if $TERM == 'xterm-color' && &t_Co == 8
 		set t_Co=16
-	endif
 
-	if $TERM == 'xterm-256color'
+	elseif $TERM == 'xterm-256color'
 		set t_Co=256
 		exec 'set background=' . bg
 		exec 'colorscheme ' . scheme
-	endif
 
+	elseif has('gui_running')
+		"syntax enable
+	endif
 endfunction
 
 "-----------------------------------------------------------------------------------------------------
-" Post Setup:
-"-----------------------------------------------------------------------------------------------------
-" Apply colorscheme and background
-call <SID>SetCurrentColorScheme(myCs, myBg)
-
-"-----------------------------------------------------------------------------------------------------
+call <SID>SetCurrentColorScheme(myCs, myBg, myFont)
 " @plugin php-vim
 function! PhpSyntaxOverride()
   "hi def link phpDocTags  phpDefine

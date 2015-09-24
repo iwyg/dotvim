@@ -403,3 +403,12 @@
 [submodule "bundle/promtline"]
 	path = bundle/promtline
 	url = https://github.com/edkolev/promptline.vim.git
+[submodule "bundle/vim-plist"]
+	path = bundle/vim-plist
+	url = https://github.com/darfink/vim-plist.git
+[submodule "bundle/unite-tag"]
+	path = bundle/unite-tag
+	url = https://github.com/tsukkee/unite-tag.git
+[submodule "bundle/vim-easytags"]
+	path = bundle/vim-easytags
+	url = https://github.com/xolox/vim-easytags.git
