@@ -163,9 +163,6 @@
 [submodule "bundle/git-mou"]
 	path = bundle/git-mou
 	url = git://github.com/cfddream/vim-mou.git
-[submodule "bundle/vim-instant-markdown"]
-	path = bundle/vim-instant-markdown
-	url = git://github.com/suan/vim-instant-markdown.git
 [submodule "bundle/vim-latte"]
 	path = bundle/vim-latte
 	url = git://github.com/Janiczek/vim-latte.git
@@ -178,9 +175,6 @@
 [submodule "bundle/vdebug"]
 	path = bundle/vdebug
 	url = git://github.com/joonty/vdebug.git
-[submodule "bundle/thumbnail-vim"]
-	path = bundle/thumbnail-vim
-	url = git://github.com/itchyny/thumbnail.vim.git
 [submodule "bundle/grunt"]
 	path = bundle/grunt
 	url = https://github.com/mklabs/grunt.vim.git
@@ -397,9 +391,6 @@
 [submodule "bundle/vim-react-snippets"]
 	path = bundle/vim-react-snippets
 	url = https://github.com/justinj/vim-react-snippets.git
-[submodule "bundle/syntastic-react"]
-	path = bundle/syntastic-react
-	url = https://github.com/jaxbot/syntastic-react.git
 [submodule "bundle/promtline"]
 	path = bundle/promtline
 	url = https://github.com/edkolev/promptline.vim.git
@@ -412,3 +403,63 @@
 [submodule "bundle/vim-easytags"]
 	path = bundle/vim-easytags
 	url = https://github.com/xolox/vim-easytags.git
+[submodule "bundle/padawan"]
+	path = bundle/padawan
+	url = https://github.com/mkusher/padawan.vim.git
+[submodule "bundle/limelight"]
+	path = bundle/limelight
+	url = https://github.com/junegunn/limelight.vim.git
+[submodule "bundle/goyo"]
+	path = bundle/goyo
+	url = https://github.com/junegunn/goyo.vim.git
+[submodule "bundle/vim-phpnamespace"]
+	path = bundle/vim-phpnamespace
+	url = https://github.com/dantleech/vim-phpnamespace.git
+[submodule "bundle/yajs"]
+	path = bundle/yajs
+	url = https://github.com/othree/yajs.vim.git
+[submodule "bundle/vim-snippets"]
+	path = bundle/vim-snippets
+	url = https://github.com/honza/vim-snippets.git
+[submodule "bundle/mysnippets"]
+	path = bundle/mysnippets
+	url = https://github.com/iwyg/vim-snippets.git
+[submodule "bundle/typescript-vim"]
+	path = bundle/typescript-vim
+	url = https://github.com/leafgarland/typescript-vim.git
+[submodule "bundle/typescript-tools"]
+	path = bundle/typescript-tools
+	url = https://github.com/clausreinke/typescript-tools.git
+[submodule "bundle/yats"]
+	path = bundle/yats
+	url = https://github.com/HerringtonDarkholme/yats.vim.git
+[submodule "bundle/tsuquyomi"]
+	path = bundle/tsuquyomi
+	url = https://github.com/Quramy/tsuquyomi.git
+[submodule "bundle/vim-es6"]
+	path = bundle/vim-es6
+	url = https://github.com/isRuslan/vim-es6.git
+[submodule "bundle/vim-gitgutter"]
+	path = bundle/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
+[submodule "bundle/vim-markdown"]
+	path = bundle/vim-markdown
+	url = https://github.com/plasticboy/vim-markdown.git
+[submodule "bundle/vim.typoscript"]
+	path = bundle/vim.typoscript
+	url = https://github.com/elmar-hinz/vim.typoscript.git
+[submodule "bundle/vim-jsdoc"]
+	path = bundle/vim-jsdoc
+	url = https://github.com/heavenshell/vim-jsdoc.git
+[submodule "bundle/javascript-libraries-syntax"]
+	path = bundle/javascript-libraries-syntax
+	url = https://github.com/othree/javascript-libraries-syntax.vim.git
+[submodule "bundle/vim-syntaxcomplete"]
+	path = bundle/vim-syntaxcomplete
+	url = https://github.com/vim-scripts/SyntaxComplete.git
+[submodule "bundle/vim-typescript"]
+	path = bundle/vim-typescript
+	url = https://github.com/leafgarland/typescript-vim.git
+[submodule "bundle/terminus"]
+	path = bundle/terminus
+	url = https://github.com/wincent/terminus.git

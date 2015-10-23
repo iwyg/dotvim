@@ -1,20 +1,15 @@
 #!/bin/sh
 
-# exit script if golang is not available
-if [ "which go" == "" ]; then
-	echo "install go lang first"
-	exit 1
-fi
 
 VIMDIR="`pwd`"
 
 # create temp directory
 mkdir -p tmp
 
-# install pathogen plugin manager
+# Install pathogen plugin manager:
 #curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
-# install submodules
+# Install submodules:
 git submodule update --init --recursive
 
 ## install powerline if not already installed 
@@ -25,14 +20,30 @@ git submodule update --init --recursive
 #	echo "powerline alread installed"
 #fi
 
-# install the markdown preview
-if [ "which livedown" == "" ]; then
-	npm install -g livedown
+# Install homebrew packagemanager:
+if [ "which brew" == "" ]; then
+	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 else
-	echo "livedown alread installed"
+	echo "Homebrew already installed"
 fi
 
-# install composer
+# Update homebrew packagemanager:
+brew -v update
+# Install recent git version
+brew -v install git --HEAD --with-blk-sha1 --with-gettext --with-pcre --with-persistent-https
+
+# Install golang:
+if [ "which go" == "" ]; then
+	brew -v install go
+fi
+# Install the nodejs and npm:
+if [ "which npm" == "" ]; then
+	brew -v install node 
+else
+	echo "nodejs and npm already installed"
+fi
+
+# Install composer:
 if [ "which composer" == "" ]; then
 	cd tmp
 	curl -sS https://getcomposer.org/installer | php
@@ -44,11 +55,12 @@ else
 	echo "composer already installed"
 fi
 
-# install required php utilities
-composer global require squizlabs/php_codesniffer techlivezheng/phpctags fabpot/php-cs-fixer
-# install required javascript  utilities
-npm install -g jsctags
 
+# install required php utilities
+composer global require squizlabs/php_codesniffer techlivezheng/phpctags fabpot/php-cs-fixer mkusher/padawan
+# install required javascript  utilities
+npm -g update
+npm -g install jsxhintrc jsctags babel webpack livedown
 
 mv $VIMDIR/vimrc $VIMDIR/vimconfig
 mv $VIMDIR/gvimrc $VIMDIR/gvimconfig

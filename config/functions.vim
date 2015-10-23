@@ -26,7 +26,7 @@ if exists("+relativenumber")
 		set number
 	endif
 	set relativenumber  " show relative line numbers
-	set numberwidth=4   " narrow number column
+	set numberwidth=3   " narrow number column
 	" cycles between relative / absolute / no numbering
 	if v:version >= 400
 		function! RelativeNumberToggle()
@@ -93,7 +93,7 @@ endfunction
 "-----------------------------------------------------------------------------------------------------
 " Php Vim Syntax Override:
 " @plugin php-vim
-function! PhpSyntaxOverride()
-  "hi def link phpDocTags  phpDefine
-  "hi def link phpDocParam phpType
-endfunction
+"function! PhpSyntaxOverride()
+"  hi def link phpDocTags  phpDefine
+"  hi def link phpDocParam phpType
+"endfunction

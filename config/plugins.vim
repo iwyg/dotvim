@@ -1,4 +1,3 @@
-
 "-----------------------------------------------------------------------------------------------------
 " Plugins:
 "-----------------------------------------------------------------------------------------------------
@@ -22,7 +21,7 @@ nmap <leader>rgb :ColorRGB<CR>
 nmap <leader>hex :ColorHEX<CR>
 "-----------------------------------------------------------------------------------------------------
 " Composer:
-let g:composer_cmd = "/usr/local/bin/composer"
+let g:composer_cmd = $COMPOSER_BIN
 "-----------------------------------------------------------------------------------------------------
 " GunDo:
 nmap <leader>gt GundoToggle<CR>
@@ -31,37 +30,35 @@ nmap <leader>gc GundoClose<CR>
 "-----------------------------------------------------------------------------------------------------
 " EasyTags:
 let g:easytags_async = 1
-
 " vim tag based tagfiles
 let g:easytags_dynamic_files = 1
 " Update tags on buffer write
 let g:easytags_events = ['BufWritePost']
 
 " languages: 
-
 let g:easytags_languages = {
-\   'javascript': {
-\     'cmd': 'jsctags',
-\       'args': [],
-\       'fileoutput_opt': '-f',
-\       'stdout_opt': '-f-',
-\       'recurse_flag': '-R'
-\   },
-\   'php': {
-\     'cmd': 'phpctags',
-\       'args': [],
-\       'fileoutput_opt': '-f',
-\       'stdout_opt': '-f-',
-\       'recurse_flag': '-R'
-\   }
-\}
+			\   'javascript': {
+			\     'cmd': 'jsctags',
+			\       'args': [],
+			\       'fileoutput_opt': '-f',
+			\       'stdout_opt': '-f-',
+			\       'recurse_flag': '-R'
+			\   },
+			\   'php': {
+			\     'cmd': 'ctags',
+			\       'args': ['--fields=+aimS'],
+			\       'fileoutput_opt': '-f',
+			\       'stdout_opt': '-f-',
+			\       'recurse_flag': '-R'
+			\   }
+			\}
 "-----------------------------------------------------------------------------------------------------
 " NetRW:
 let g:netrw_liststyle=3
 "-----------------------------------------------------------------------------------------------------
 " NERDTree:
 let NERDTreeHijackNetrw=1 " Use NERDTree as split explorer 
-let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$', '\.DS_*']
+let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$', '\.DS_*', '*.swp']
 let NERDTreeShowHidden = 1
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeChDirMode = 1
@@ -91,16 +88,16 @@ let g:NERDTreeMapNextHunk = 'c'
 let g:NERDTreeMapPrevHunk = 'c'
 
 let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ "Unknown"   : "?"
-    \ }
+			\ "Modified"  : "✹",
+			\ "Staged"    : "✚",
+			\ "Untracked" : "✭",
+			\ "Renamed"   : "➜",
+			\ "Unmerged"  : "═",
+			\ "Deleted"   : "✖",
+			\ "Dirty"     : "✗",
+			\ "Clean"     : "✔︎",
+			\ "Unknown"   : "?"
+			\ }
 "-----------------------------------------------------------------------------------------------------
 " CssColor:
 let g:cssColorVimDoNotMessMyUpdatetime = 1
@@ -112,8 +109,17 @@ let g:Jsbeautify_jslint_expandtab = 1                       " expand tabs to spa
 "-----------------------------------------------------------------------------------------------------
 " Jsx:  
 " allow jsx in .js files
-let g:jsx_ext_required = 0
+let g:jsx_ext_required = 1
 let g:jsx_pragma_required = 0
+"-----------------------------------------------------------------------------------------------------
+" Javascript:
+let javascript_ignore_javaScriptdoc = 0
+"-----------------------------------------------------------------------------------------------------
+" JsDoc:
+" allow es6 syntax
+let g:jsdoc_enable_es6 = 1
+" promt for interfactive input
+let g:jsdoc_allow_input_prompt = 1
 "-----------------------------------------------------------------------------------------------------
 " Json:  
 " prettyfy json:
@@ -128,11 +134,51 @@ let g:livedown_open = 1
 " the port on which Livedown server will run
 let g:livedown_port = 1337
 "-----------------------------------------------------------------------------------------------------
+" Markdown:
+let g:vim_markdown_frontmatter=1
+"-----------------------------------------------------------------------------------------------------
+" Linelight:
+" You can invoke :Limelight for a visual range. There are also <Plug> mappings
+" for normal and visual mode for the purpose.
+nmap <Leader>l <Plug>(Limelight)
+xmap <Leader>l <Plug>(Limelight)
+
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+
+" Color name (:help gui-colors) or RGB color
+let g:limelight_conceal_guifg = 'DarkGray'
+let g:limelight_conceal_guifg = '#777777'
+
+" Default: 0.5
+let g:limelight_default_coefficient = 0.7
+
+" Number of preceding/following paragraphs to include (default: 0)
+let g:limelight_paragraph_span = 1
+
+" Beginning/end of paragraph
+"   When there's no empty line between the paragraphs
+"   and each paragraph starts with indentation
+let g:limelight_bop = '^\s'
+let g:limelight_eop = '\ze\n^\s'
+
+" Highlighting priority (default: 10)
+"   Set it to -1 not to overrule hlsearch
+let g:limelight_priority = -1
+
+"-----------------------------------------------------------------------------------------------------
+" GoYo:
+"autocmd! User GoyoEnter Limelight
+"autocmd! User GoyoLeave Limelight!
+nmap <leader>fuckit :Goyo<CR>
+nmap <leader>gt :Goyo<CR>
+"-----------------------------------------------------------------------------------------------------
 " Local Vimrc:
 let g:local_vimrc = {'names':['.vimrc'],'hash_fun':'LVRHashOfFile'}
 "-----------------------------------------------------------------------------------------------------
 " Padavan:
-let g:padawan#composer_command = "/usr/local/bin/composer"
+let g:padawan#composer_command = $COMPOSER_BIN
 
 "-----------------------------------------------------------------------------------------------------
 " PHPcomplete:
@@ -163,8 +209,8 @@ let g:phpcomplete_min_num_of_chars_for_namespace_completion = 2
 let g:phpcomplete_enhance_jump_to_definition = 1
 
 let g:phpcomplete_mappings = {
-  \ 'jump_to_def': '<C-ü>',
-  \ }
+			\ 'jump_to_def': '<C-ü>',
+			\ }
 "-----------------------------------------------------------------------------------------------------
 " PHP Pdv:
 let g:pdv_template_dir = $HOME ."/.vim/tools/pdv_templates"
@@ -203,6 +249,10 @@ inoremap <Leader>un <C-O>:call PhpInsertUse()<CR>
 "Automatically adds the corresponding use statement for the class under the cursor in normal mode:
 noremap <Leader>un :call PhpInsertUse()<CR>
 "-----------------------------------------------------------------------------------------------------
+" PHPNamespace:
+nnoremap <silent><leader>nspi :call PhpNamespaceInsert()<CR>
+inoremap <silent><leader>nspg :call PhpNamespaceGet()<CR>
+"-----------------------------------------------------------------------------------------------------
 " PHPUnit:
 " function to run Unittest against current buffer
 function! RunPHPUnitTest()
@@ -226,6 +276,8 @@ function! PhpSyntaxOverride()
 	hi! def link phpDocTags  phpDefine
 	hi! def link phpDocParam phpType
 endfunction
+
+let g:php_syntax_extensions_enabled = ['yml', 'xsl', 'xml', 'simplexml', 'imagick', 'intl', 'json', 'dom', 'reflection', 'spl']
 "-----------------------------------------------------------------------------------------------------
 " Rainbow Parantheses:
 let g:rbpt_colorpairs = [
@@ -263,39 +315,44 @@ if has("gui_running")
 endif
 "-----------------------------------------------------------------------------------------------------
 " Syntastic: 
-"settings:
+" settings:
 let g:syntastic_quiet_messages = {'level': 'warnings'}
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=1
+let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_jump=0
 let g:syntastic_check_on_open=1
 let g:syntastic_echo_current_error=1
 let g:syntastic_loc_list_height=4
 let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
-"let s:javascript_executable = "/usr/local/share/npm/bin/jshint"
-let s:javascript_executable = "/usr/local/bin/jsxhint"
+" executables:
+let g:syhtastic_javascript_executable = "/usr/local/bin/eslint"
+let g:syhtastic_jsx_executable = "/usr/local/bin/eslint"
 let g:syntastic_php_exec = "/usr/local/bin/php"
 let g:syntastic_ruby_exec = "/usr/local/bin/ruby"
 let g:syntastic_json_exec = "/usr/local/share/npm/bin/jsonlint"
 let g:syntastic_python_exec = "/usr/local/bin/python3.4"
-let g:syntastic_javascript_jsxhint_exec = 'jsx-jshint-wrapper'
-"checkers:
-let g:syntastic_php_checkers=['php', 'phpcs']
-let g:syntastic_javascript_checkers = ['jsxhint']
+" checkers:
+let g:syntastic_php_checkers=['phpcs', 'php', 'phpmd']
+let g:syntastic_jsx_checkers = ['eslint']
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_typescript_checkers = ['tslint']
 let g:syntastic_json_checkers = ['jsonlint']
-let g:syntastic_html_checkers = ['tidy']
+let g:syntastic_html_checkers = ['tidy', 'jshint']
 let g:syntastic_python_checkers=['/usr/local/bin/python3.4']
+let g:syntastic_go_checkers=['gofmt', 'go']
+let g:syntastic_sass_checkers=['sassc']
+let g:syntastic_scss_checkers=['sassc']
 " Ignore Angular ng-* attributes error
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 let g:syntastic_php_phpmd_post_args = "text unusedcode"
 
-"force PSR-2 standard 
+" PHP force PSR-2 standard 
 let g:syntastic_php_phpcs_args = "--report=csv --standard=PSR2"
 " Read the clang complete file
 "let g:syntastic_objc_config_file = '.clang_complete'
 " Tell it to use clang instead of gcc
 "let g:syntastic_objc_checker = 'clang'
-
 let g:syntastic_enable_balloons=0 
 
 " stausline formatting
@@ -310,24 +367,70 @@ map <Leader>SC :SyntasticCheck<CR>
 " toggle TagBar:
 nmap <Leader>tb :TagbarToggle<CR>
 let g:tagbar_ctags_bin='ctags'
-let g:tagbar_phpctags_bin=$HOME.'/.composer/vendor/bin/phpctags'
-let g:tagbar_phpctags_memory_limit = '512M'
+let g:tagbar_type_php = {
+			\ 'ctagstype' : 'php',
+			\ 'ctagsbin' : 'ctags',
+			\ 'ctagsargs': '-R --fields=+aimS -f -',
+			\ 'kinds'     : [
+				\ 'd:Constants:0:0',
+				\ 'v:Variables:0:0',
+				\ 'f:Functions:1',
+				\ 'i:Interfaces:0',
+				\ 'c:Classes:0',
+				\ 'p:Properties:0:0',
+				\ 'm:Methods:1',
+				\ 'n:Namespaces:0',
+				\ 't:Traits:0',
+			\ ],
+			\ 'sro'        : '::',
+			\ 'kind2scope' : {
+			\ 'c' : 'class',
+			\ 'm' : 'method',
+			\ 'f' : 'function',
+			\ 'i' : 'interface',
+			\ 'n' : 'namespace',
+			\ 't' : 'trait',
+			\ },
+			\ 'scope2kind' : {
+			\ 'class'     : 'c',
+			\ 'method'    : 'm',
+			\ 'function'  : 'f',
+			\ 'interface' : 'i',
+			\ 'namespace' : 'n',
+			\ 'trait'     : 't',
+			\ }
+			\ }
+
+let g:tagbar_type_typescript = {
+			\ 'ctagstype': 'typescript',
+			\ 'kinds': [
+			\ 'c:classes',
+			\ 'n:modules',
+			\ 'f:functions',
+			\ 'v:variables',
+			\ 'v:varlambdas',
+			\ 'm:members',
+			\ 'i:interfaces',
+			\ 'e:enums',
+			\ ]
+			\ }
 
 let g:tagbar_type_javascript = {
-			\ 'ctagsbin' : 'jsctags'
-			\ }
+\ 'ctagsbin' : 'jsctags'
+\ }
 "-----------------------------------------------------------------------------------------------------
 " Ultisnips:
 let g:UltiSnipsEnableSnipMate= 0
 let g:UltiSnipsUsePythonVersion = 2
 let g:UltiSnipsEnableSnipmate=0
-let g:UltiSnipsSnippetsDir = $HOME.'/.vim/snippets/Ultisnips'
-let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/snippets/UltiSnips', $HOME.'/.vim/bundles_enabled/vim-react-snippets']
-
+let g:UltiSnipsSnippetsDir = '~/.vim/snippets/UltiSnips'
+let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 " Don't use TAB if YCM is installed
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+" filetype extensions
+
 
 " Edit snippts file for current filetype:
 noremap <leader>use :UltiSnipsEdit<CR>
@@ -348,11 +451,14 @@ let g:ycm_min_num_identifier_candidate_chars = 0
 let g:ycm_auto_trigger = 1
 
 "let g:ycm_key_list_previous_completion=['<Up>']
-" Helps with php completion
+" Helps with language specific completion
 let g:ycm_semantic_triggers = {}
 let g:ycm_semantic_triggers.php = ['->', '::', '(', 'use ', 'namespace ', '\']
-
+let g:ycm_semantic_triggers.javascript = ['.', 'import ', 'let ', '= ']
 "-----------------------------------------------------------------------------------------------------
 " XDEBUG:
 "-----------------------------------------------------------------------------------------------------
 let g:dbgWaitTime = 30
+"-----------------------------------------------------------------------------------------------------
+" Xml:
+let g:xml_syntax_folding = 1
