@@ -89,11 +89,3 @@ function! SetCurrentColorScheme(scheme, background)
 	endif
 
 endfunction
-
-"-----------------------------------------------------------------------------------------------------
-" Php Vim Syntax Override:
-" @plugin php-vim
-"function! PhpSyntaxOverride()
-"  hi def link phpDocTags  phpDefine
-"  hi def link phpDocParam phpType
-"endfunction

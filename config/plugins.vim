@@ -33,7 +33,8 @@ let g:easytags_async = 1
 " vim tag based tagfiles
 let g:easytags_dynamic_files = 1
 " Update tags on buffer write
-let g:easytags_events = ['BufWritePost']
+" will mess up syntax
+"let g:easytags_events = ['BufWritePost']
 
 " languages: 
 let g:easytags_languages = {
@@ -176,108 +177,108 @@ nmap <leader>gt :Goyo<CR>
 "-----------------------------------------------------------------------------------------------------
 " Local Vimrc:
 let g:local_vimrc = {'names':['.vimrc'],'hash_fun':'LVRHashOfFile'}
-"-----------------------------------------------------------------------------------------------------
-" Padavan:
-let g:padawan#composer_command = $COMPOSER_BIN
-
-"-----------------------------------------------------------------------------------------------------
-" PHPcomplete:
-" Enables use of tags when the plugin tries to find variables. 
-" When enabled the plugin will search for the variables in the tag files with kind 'v', 
-" lines like $some_var = new Foo; but these usually yield highly inaccurate results and can be fairly slow.
-let g:phpcomplete_search_tags_for_variables = 0
-
-" When enabled the preview window's content will include information extracted from 
-" docblock comments of the completions. Enabling this option will add return types to the 
-" completion menu for functions too.
-let g:phpcomplete_parse_docblock_comments = 1
-
-"When enabled the taglist() lookups will be cached and subsequent searches for the same pattern will 
-"not check the tagfiles any more, thus making the lookups faster. Cache expiration is based on 
-"the mtimes of the tag files.
-let g:phpcomplete_cache_taglists = 1
-
-"This option controls the number of characters the user needs to type before the tags will be searched 
-"for namespaces and classes in typed out namespaces in "use ..." context. Setting this to 0 is not 
-"recommended because that means the code have to scan every tag, and vim's taglist() function runs 
-"extremly slow with a "match everything" pattern.
-let g:phpcomplete_min_num_of_chars_for_namespace_completion = 2
-
-"When enabled the <C-]> will be mapped to phpcomplete#JumpToDefinition() which will try to make a more 
-"educated guess of the current symbol's location than simple tag search. If the symbol's location cannot 
-"be found the original <C-]> functionality will be invoked
-let g:phpcomplete_enhance_jump_to_definition = 1
-
-let g:phpcomplete_mappings = {
-			\ 'jump_to_def': '<C-ü>',
-			\ }
-"-----------------------------------------------------------------------------------------------------
-" PHP Pdv:
-let g:pdv_template_dir = $HOME ."/.vim/tools/pdv_templates"
-nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
-"-----------------------------------------------------------------------------------------------------
-" PHPCSFixer:
-let g:php_cs_fixer_path = "~/.composer/vendor/bin/php-cs-fixer"	" define the path to the php-cs-fixer.phar
-let g:php_cs_fixer_level = "psr2"							" which level ?
-let g:php_cs_fixer_config = "default"						" configuration
-let g:php_cs_fixer_php_path = "/usr/local/bin/php"			" Path to PHP
-let g:php_cs_fixer_fixers_list = ""							" List of fixers
-let g:php_cs_fixer_enable_default_mapping = 1				" Enable the mapping by default (<leader>pcd)
-let g:php_cs_fixer_dry_run = 0								" Call command with dry-run option
-let g:php_cs_fixer_verbose = 1
-
-" call PHPCSFixer on current directory:
-nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
-" call PHPCSFixer on current buffer:
-nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
-"-----------------------------------------------------------------------------------------------------
-" PHPFolding:
-map <F5> <Esc>:EnableFastPHPFolds<Cr>
-map <F6> <Esc>:EnablePHPFolds<Cr>
-map <F7> <Esc>:DisablePHPFolds<Cr>
-" disable auto folding
-let g:DisableAutoPHPFolding = 1
-"-----------------------------------------------------------------------------------------------------
-" PHP Namespace:
-"Expands the class name under the cursor to its fully qualified name in insert mode:
-inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
-"Expands the class name under the cursor to its fully qualified name in normale:
-noremap <Leader>e :call PhpExpandClass()<CR>
-
-"Automatically adds the corresponding use statement for the class under the cursor in insert mode:
-inoremap <Leader>un <C-O>:call PhpInsertUse()<CR>
-"Automatically adds the corresponding use statement for the class under the cursor in normal mode:
-noremap <Leader>un :call PhpInsertUse()<CR>
-"-----------------------------------------------------------------------------------------------------
-" PHPNamespace:
-nnoremap <silent><leader>nspi :call PhpNamespaceInsert()<CR>
-inoremap <silent><leader>nspg :call PhpNamespaceGet()<CR>
-"-----------------------------------------------------------------------------------------------------
-" PHPUnit:
-" function to run Unittest against current buffer
-function! RunPHPUnitTest()
-	"cd %:p:h
-	pwd
-	let result = system("vendor/bin/phpunit " . bufname("%"))
-	split __PHPUnit_Result__
-	normal! ggdG
-	setlocal buftype=nofile
-	call append(0, split(result, '\v\n'))
-	cd -
-endfunction
-
-" runs PHPUnit test:
-nnoremap <leader>pu :call RunPHPUnitTest()<cr>
+""-----------------------------------------------------------------------------------------------------
+"" Padavan:
+"let g:padawan#composer_command = $COMPOSER_BIN
+"
+""-----------------------------------------------------------------------------------------------------
+"" PHPcomplete:
+"" Enables use of tags when the plugin tries to find variables. 
+"" When enabled the plugin will search for the variables in the tag files with kind 'v', 
+"" lines like $some_var = new Foo; but these usually yield highly inaccurate results and can be fairly slow.
+"let g:phpcomplete_search_tags_for_variables = 0
+"
+"" When enabled the preview window's content will include information extracted from 
+"" docblock comments of the completions. Enabling this option will add return types to the 
+"" completion menu for functions too.
+"let g:phpcomplete_parse_docblock_comments = 1
+"
+""When enabled the taglist() lookups will be cached and subsequent searches for the same pattern will 
+""not check the tagfiles any more, thus making the lookups faster. Cache expiration is based on 
+""the mtimes of the tag files.
+"let g:phpcomplete_cache_taglists = 1
+"
+""This option controls the number of characters the user needs to type before the tags will be searched 
+""for namespaces and classes in typed out namespaces in "use ..." context. Setting this to 0 is not 
+""recommended because that means the code have to scan every tag, and vim's taglist() function runs 
+""extremly slow with a "match everything" pattern.
+"let g:phpcomplete_min_num_of_chars_for_namespace_completion = 2
+"
+""When enabled the <C-]> will be mapped to phpcomplete#JumpToDefinition() which will try to make a more 
+""educated guess of the current symbol's location than simple tag search. If the symbol's location cannot 
+""be found the original <C-]> functionality will be invoked
+"let g:phpcomplete_enhance_jump_to_definition = 1
+"
+"let g:phpcomplete_mappings = {
+"			\ 'jump_to_def': '<C-ü>',
+"			\ }
+""-----------------------------------------------------------------------------------------------------
+"" PHP Pdv:
+"let g:pdv_template_dir = $HOME ."/.vim/tools/pdv_templates"
+"nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
+""-----------------------------------------------------------------------------------------------------
+"" PHPCSFixer:
+"let g:php_cs_fixer_path = "~/.composer/vendor/bin/php-cs-fixer"	" define the path to the php-cs-fixer.phar
+"let g:php_cs_fixer_level = "psr2"							" which level ?
+"let g:php_cs_fixer_config = "default"						" configuration
+"let g:php_cs_fixer_php_path = "/usr/local/bin/php"			" Path to PHP
+"let g:php_cs_fixer_fixers_list = ""							" List of fixers
+"let g:php_cs_fixer_enable_default_mapping = 1				" Enable the mapping by default (<leader>pcd)
+"let g:php_cs_fixer_dry_run = 0								" Call command with dry-run option
+"let g:php_cs_fixer_verbose = 1
+"
+"" call PHPCSFixer on current directory:
+"nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
+"" call PHPCSFixer on current buffer:
+"nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
+""-----------------------------------------------------------------------------------------------------
+"" PHPFolding:
+"map <F5> <Esc>:EnableFastPHPFolds<Cr>
+"map <F6> <Esc>:EnablePHPFolds<Cr>
+"map <F7> <Esc>:DisablePHPFolds<Cr>
+"" disable auto folding
+"let g:DisableAutoPHPFolding = 1
+""-----------------------------------------------------------------------------------------------------
+"" PHP Namespace:
+""Expands the class name under the cursor to its fully qualified name in insert mode:
+"inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
+""Expands the class name under the cursor to its fully qualified name in normale:
+"noremap <Leader>e :call PhpExpandClass()<CR>
+"
+""Automatically adds the corresponding use statement for the class under the cursor in insert mode:
+"inoremap <Leader>un <C-O>:call PhpInsertUse()<CR>
+""Automatically adds the corresponding use statement for the class under the cursor in normal mode:
+"noremap <Leader>un :call PhpInsertUse()<CR>
+""-----------------------------------------------------------------------------------------------------
+"" PHPNamespace:
+"nnoremap <silent><leader>nspi :call PhpNamespaceInsert()<CR>
+"inoremap <silent><leader>nspg :call PhpNamespaceGet()<CR>
+""-----------------------------------------------------------------------------------------------------
+"" PHPUnit:
+"" function to run Unittest against current buffer
+"function! RunPHPUnitTest()
+"	"cd %:p:h
+"	pwd
+"	let result = system("vendor/bin/phpunit " . bufname("%"))
+"	split __PHPUnit_Result__
+"	normal! ggdG
+"	setlocal buftype=nofile
+"	call append(0, split(result, '\v\n'))
+"	cd -
+"endfunction
+"
+"" runs PHPUnit test:
+"nnoremap <leader>pu :call RunPHPUnitTest()<cr>
 "-----------------------------------------------------------------------------------------------------
 " PHP Vim:
 " @see https://github.com/StanAngeloff/php.vim
 
-function! PhpSyntaxOverride()
-	hi! def link phpDocTags  phpDefine
-	hi! def link phpDocParam phpType
-endfunction
-
-let g:php_syntax_extensions_enabled = ['yml', 'xsl', 'xml', 'simplexml', 'imagick', 'intl', 'json', 'dom', 'reflection', 'spl']
+"function! PhpSyntaxOverride()
+"	hi! def link phpDocTags  phpDefine
+"	hi! def link phpDocParam phpType
+"endfunction
+"
+"let g:php_syntax_extensions_enabled = ['yml', 'xsl', 'xml', 'simplexml', 'imagick', 'intl', 'json', 'dom', 'reflection', 'spl']
 "-----------------------------------------------------------------------------------------------------
 " Rainbow Parantheses:
 let g:rbpt_colorpairs = [
@@ -455,6 +456,7 @@ let g:ycm_auto_trigger = 1
 let g:ycm_semantic_triggers = {}
 let g:ycm_semantic_triggers.php = ['->', '::', '(', 'use ', 'namespace ', '\']
 let g:ycm_semantic_triggers.javascript = ['.', 'import ', 'let ', '= ']
+
 "-----------------------------------------------------------------------------------------------------
 " XDEBUG:
 "-----------------------------------------------------------------------------------------------------

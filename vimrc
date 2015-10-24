@@ -204,3 +204,13 @@ source $HOME/.vim/config/plugins.vim
 "-----------------------------------------------------------------------------------------------------
 " Post Setup:
 call SetCurrentColorScheme(myCs, myBg)
+" Php Syntax Override:
+function! PhpSyntaxOverride()
+"  hi! def link phpDocTags  phpDefine
+"  hi! def link phpDocParam phpType
+endfunction
+
+augroup phpSyntaxOverride
+  autocmd!
+  autocmd FileType php call PhpSyntaxOverride()
+augroup END
