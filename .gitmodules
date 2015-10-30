@@ -223,18 +223,12 @@
 [submodule "bundle/vimproc"]
 	path = bundle/vimproc
 	url = https://github.com/Shougo/vimproc.vim.git
-[submodule "bundle/vimunite"]
-	path = bundle/vimunite
-	url = https://github.com/Shougo/unite.vim.git
 [submodule "bundle/phpcomplete-extended"]
 	path = bundle/phpcomplete-extended
 	url = https://github.com/m2mdas/phpcomplete-extended.git
 [submodule "bundle/phpcomplete.vim"]
 	path = bundle/phpcomplete.vim
 	url = git://github.com/shawncplus/phpcomplete.vim.git
-[submodule "bundle/vim-airline"]
-	path = bundle/vim-airline
-	url = https://github.com/bling/vim-airline.git
 [submodule "bundle/vim-piv"]
 	path = bundle/vim-piv
 	url = https://github.com/spf13/PIV.git
@@ -346,9 +340,6 @@
 [submodule "bundle/neomru.vim"]
 	path = bundle/neomru.vim
 	url = https://github.com/Shougo/neomru.vim.git
-[submodule "bundle/unite-outline"]
-	path = bundle/unite-outline
-	url = https://github.com/h1mesuke/unite-outline.git
 [submodule "snippets"]
 	path = snippets
 	url = https://github.com/iwyg/vim-snippets.git
@@ -379,9 +370,6 @@
 [submodule "bundle/vim-devicons"]
 	path = bundle/vim-devicons
 	url = https://github.com/ryanoasis/vim-devicons.git
-[submodule "bundle/vim-ariline"]
-	path = bundle/vim-ariline
-	url = https://github.com/bling/vim-airline.git
 [submodule "bundle/nerdtree-git-plugin"]
 	path = bundle/nerdtree-git-plugin
 	url = https://github.com/Xuyuanp/nerdtree-git-plugin.git
@@ -397,9 +385,6 @@
 [submodule "bundle/vim-plist"]
 	path = bundle/vim-plist
 	url = https://github.com/darfink/vim-plist.git
-[submodule "bundle/unite-tag"]
-	path = bundle/unite-tag
-	url = https://github.com/tsukkee/unite-tag.git
 [submodule "bundle/vim-easytags"]
 	path = bundle/vim-easytags
 	url = https://github.com/xolox/vim-easytags.git
@@ -469,3 +454,15 @@
 [submodule "bundle/vimshell"]
 	path = bundle/vimshell
 	url = https://github.com/Shougo/vimshell.vim.git
+[submodule "bundle/lightline.vim"]
+	path = bundle/lightline.vim
+	url = https://github.com/itchyny/lightline.vim.git
+[submodule "bundle/vim-airline"]
+	path = bundle/vim-airline
+	url = https://github.com/bling/vim-airline.git
+[submodule "bundle/groovy.vim"]
+	path = bundle/groovy.vim
+	url = https://github.com/rdolgushin/groovy.vim.git
+[submodule "bundle/vim-gradle"]
+	path = bundle/vim-gradle
+	url = https://github.com/tfnico/vim-gradle.git

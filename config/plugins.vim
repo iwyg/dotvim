@@ -10,7 +10,7 @@ endif
 " Airline:
 
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = '|'
 "-----------------------------------------------------------------------------------------------------
@@ -27,6 +27,11 @@ let g:composer_cmd = $COMPOSER_BIN
 nmap <leader>gt GundoToggle<CR>
 nmap <leader>go GundoOpen<CR>
 nmap <leader>gc GundoClose<CR>
+"-----------------------------------------------------------------------------------------------------
+" Eclim:
+let g:EclimCompletionMethod = 'omnifunc'
+" enable syntastic
+let g:EclimPhpSyntasticEnabled = 1
 "-----------------------------------------------------------------------------------------------------
 " EasyTags:
 let g:easytags_async = 1
@@ -57,30 +62,43 @@ let g:easytags_languages = {
 " NetRW:
 let g:netrw_liststyle=3
 "-----------------------------------------------------------------------------------------------------
-" NERDTree:
-let NERDTreeHijackNetrw=1 " Use NERDTree as split explorer 
-let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$', '\.DS_*', '*.swp']
-let NERDTreeShowHidden = 1
-let NERDTreeAutoDeleteBuffer = 1
-let NERDTreeChDirMode = 1
-
-set guioptions-=L
-
-" open NERDTree automatically when vim starts up if no files were specified
+""" VimFiler:
+""" let vimfiler be the default file explorer
+let g:vimfiler_as_default_explorer = 1
+""" tree icons
+let g:vimfiler_tree_leaf_icon = "|"
+let g:vimfiler_tree_opened_icon = "▼"
+let g:vimfiler_tree_closed_icon = "▶︎"
+""" auto open vimfiler explorer if no startfiles are present 
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | VimFiler | endif
+"-----------------------------------------------------------------------------------------------------
+" NERDTree:
+if exists(":NERDTree")
+	let NERDTreeHijackNetrw=1 " Use NERDTree as split explorer 
+	let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$', '\.DS_*', '*.swp']
+	let NERDTreeShowHidden = 1
+	let NERDTreeAutoDeleteBuffer = 1
+	let NERDTreeChDirMode = 1
 
-" close vim if the only window left open is a NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+	set guioptions-=L
 
-" find current buffer in NERDTree:
-map <Leader>nf :NERDTreeFind<CR>
-" find current Working Directory in NERDTree:
-map <Leader>ncwd :NERDTreeCWD<CR>
-" open NERDTree:
-map <Leader>n :NERDTree<CR>
-" toggle NERDTree:
-map <Leader>nt :NERDTreeToggle<CR>
+	" open NERDTree automatically when vim starts up if no files were specified
+	autocmd StdinReadPre * let s:std_in=1
+	autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+	" close vim if the only window left open is a NERDTree
+	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+	" find current buffer in NERDTree:
+	map <Leader>nf :NERDTreeFind<CR>
+	" find current Working Directory in NERDTree:
+	map <Leader>ncwd :NERDTreeCWD<CR>
+	" open NERDTree:
+	map <Leader>n :NERDTree<CR>
+	" toggle NERDTree:
+	map <Leader>nt :NERDTreeToggle<CR>
+endif
 "-----------------------------------------------------------------------------------------------------
 " NERDTree Git Plugin: 
 " icon mapping:
@@ -170,8 +188,8 @@ let g:limelight_priority = -1
 
 "-----------------------------------------------------------------------------------------------------
 " GoYo:
-"autocmd! User GoyoEnter Limelight
-"autocmd! User GoyoLeave Limelight!
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
 nmap <leader>fuckit :Goyo<CR>
 nmap <leader>gt :Goyo<CR>
 "-----------------------------------------------------------------------------------------------------
@@ -214,61 +232,61 @@ let g:local_vimrc = {'names':['.vimrc'],'hash_fun':'LVRHashOfFile'}
 "			\ }
 ""-----------------------------------------------------------------------------------------------------
 "" PHP Pdv:
-"let g:pdv_template_dir = $HOME ."/.vim/tools/pdv_templates"
-"nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
-""-----------------------------------------------------------------------------------------------------
-"" PHPCSFixer:
-"let g:php_cs_fixer_path = "~/.composer/vendor/bin/php-cs-fixer"	" define the path to the php-cs-fixer.phar
-"let g:php_cs_fixer_level = "psr2"							" which level ?
-"let g:php_cs_fixer_config = "default"						" configuration
-"let g:php_cs_fixer_php_path = "/usr/local/bin/php"			" Path to PHP
-"let g:php_cs_fixer_fixers_list = ""							" List of fixers
-"let g:php_cs_fixer_enable_default_mapping = 1				" Enable the mapping by default (<leader>pcd)
-"let g:php_cs_fixer_dry_run = 0								" Call command with dry-run option
-"let g:php_cs_fixer_verbose = 1
-"
-"" call PHPCSFixer on current directory:
-"nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
-"" call PHPCSFixer on current buffer:
-"nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
-""-----------------------------------------------------------------------------------------------------
-"" PHPFolding:
-"map <F5> <Esc>:EnableFastPHPFolds<Cr>
-"map <F6> <Esc>:EnablePHPFolds<Cr>
-"map <F7> <Esc>:DisablePHPFolds<Cr>
-"" disable auto folding
-"let g:DisableAutoPHPFolding = 1
-""-----------------------------------------------------------------------------------------------------
-"" PHP Namespace:
-""Expands the class name under the cursor to its fully qualified name in insert mode:
-"inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
-""Expands the class name under the cursor to its fully qualified name in normale:
-"noremap <Leader>e :call PhpExpandClass()<CR>
-"
-""Automatically adds the corresponding use statement for the class under the cursor in insert mode:
-"inoremap <Leader>un <C-O>:call PhpInsertUse()<CR>
-""Automatically adds the corresponding use statement for the class under the cursor in normal mode:
-"noremap <Leader>un :call PhpInsertUse()<CR>
-""-----------------------------------------------------------------------------------------------------
-"" PHPNamespace:
-"nnoremap <silent><leader>nspi :call PhpNamespaceInsert()<CR>
-"inoremap <silent><leader>nspg :call PhpNamespaceGet()<CR>
-""-----------------------------------------------------------------------------------------------------
-"" PHPUnit:
-"" function to run Unittest against current buffer
-"function! RunPHPUnitTest()
-"	"cd %:p:h
-"	pwd
-"	let result = system("vendor/bin/phpunit " . bufname("%"))
-"	split __PHPUnit_Result__
-"	normal! ggdG
-"	setlocal buftype=nofile
-"	call append(0, split(result, '\v\n'))
-"	cd -
-"endfunction
-"
-"" runs PHPUnit test:
-"nnoremap <leader>pu :call RunPHPUnitTest()<cr>
+let g:pdv_template_dir = $HOME ."/.vim/tools/pdv_templates"
+nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
+"-----------------------------------------------------------------------------------------------------
+" PHPCSFixer:
+let g:php_cs_fixer_path = "~/.composer/vendor/bin/php-cs-fixer"	" define the path to the php-cs-fixer.phar
+let g:php_cs_fixer_level = "psr2"							" which level ?
+let g:php_cs_fixer_config = "default"						" configuration
+let g:php_cs_fixer_php_path = "/usr/local/bin/php"			" Path to PHP
+let g:php_cs_fixer_fixers_list = ""							" List of fixers
+let g:php_cs_fixer_enable_default_mapping = 1				" Enable the mapping by default (<leader>pcd)
+let g:php_cs_fixer_dry_run = 0								" Call command with dry-run option
+let g:php_cs_fixer_verbose = 1
+
+" call PHPCSFixer on current directory:
+nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
+" call PHPCSFixer on current buffer:
+nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
+"-----------------------------------------------------------------------------------------------------
+" PHPFolding:
+map <F5> <Esc>:EnableFastPHPFolds<Cr>
+map <F6> <Esc>:EnablePHPFolds<Cr>
+map <F7> <Esc>:DisablePHPFolds<Cr>
+" disable auto folding
+let g:DisableAutoPHPFolding = 1
+"-----------------------------------------------------------------------------------------------------
+" PHP Namespace:
+"Expands the class name under the cursor to its fully qualified name in insert mode:
+inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
+"Expands the class name under the cursor to its fully qualified name in normale:
+noremap <Leader>e :call PhpExpandClass()<CR>
+
+"Automatically adds the corresponding use statement for the class under the cursor in insert mode:
+inoremap <Leader>un <C-O>:call PhpInsertUse()<CR>
+"Automatically adds the corresponding use statement for the class under the cursor in normal mode:
+noremap <Leader>un :call PhpInsertUse()<CR>
+"-----------------------------------------------------------------------------------------------------
+" PHPNamespace:
+nnoremap <silent><leader>nspi :call PhpNamespaceInsert()<CR>
+inoremap <silent><leader>nspg :call PhpNamespaceGet()<CR>
+"-----------------------------------------------------------------------------------------------------
+" PHPUnit:
+" function to run Unittest against current buffer
+function! RunPHPUnitTest()
+	"cd %:p:h
+	pwd
+	let result = system("vendor/bin/phpunit " . bufname("%"))
+	split __PHPUnit_Result__
+	normal! ggdG
+	setlocal buftype=nofile
+	call append(0, split(result, '\v\n'))
+	cd -
+endfunction
+
+" runs PHPUnit test:
+nnoremap <leader>pu :call RunPHPUnitTest()<cr>
 "-----------------------------------------------------------------------------------------------------
 " PHP Vim:
 " @see https://github.com/StanAngeloff/php.vim
@@ -443,8 +461,19 @@ let g:go_highlight_structs = 1
 nnoremap <leader>gr :GoRun<CR>
 "-----------------------------------------------------------------------------------------------------
 " Devicons:
-let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
-let g:WebDevIconsNerdTreeBeforeGlyphPadding = ''
+let g:webdevicons_enable_unite = 0
+let g:webdevicons_enable_airline_statusline = 0
+let g:webdevicons_enable_airline_tabline = 0
+""" enable devicons for NERDTree
+if exists(":NERDTree")
+	let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
+	let g:WebDevIconsNerdTreeBeforeGlyphPadding = ''
+endif
+
+""" enable devicons for vimfiler
+if exists(":VimFiler")
+	let g:webdevicons_enable_vimfiler = 1
+endif
 "-----------------------------------------------------------------------------------------------------
 " YCM:
 let g:ycm_min_num_of_chars_for_completion = 1

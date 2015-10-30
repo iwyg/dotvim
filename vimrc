@@ -22,10 +22,12 @@ let mapleader=","
 " enable mouse interaction:
 if has("mouse")
 	set mouse=a
+	set ttymouse=xterm2
 endif
-set shell=/bin/zsh
 " remove timeout for escape sequence:
 set timeoutlen=1000 ttimeoutlen=0
+" set the working shell:
+set shell=/bin/zsh
 
 set ruler
 set cursorline
@@ -84,8 +86,9 @@ set smarttab
 set noexpandtab
 
 " set completeopt+=longest,menu ",preview
-set completeopt=menu,menuone,longest ",preview
-set pumheight=20
+"set completeopt=menu,menuone,longest ",preview
+set completeopt=longest,menuone
+set pumheight=0
 set complete-=i
 
 " Use the same symbols as TextMate for tabstops and EOLs
@@ -138,6 +141,7 @@ endif
 "let g:miniBufExplForceSyntaxEnable = 1
 
 
+
 if has("autocmd")
 	" auto source vimrc on save:
 	autocmd! BufWritePost $MYVIMRC nested :source $MYVIMRC
@@ -150,10 +154,16 @@ endif
 "PHP: 
 let php_sql_query = 1
 let php_htmlInStrings = 1
-
 "-----------------------------------------------------------------------------------------------------
 " Basic Mappings:
 "-----------------------------------------------------------------------------------------------------
+" System Clipboard Copy And Paste:
+set pastetoggle=<F2> "F2 before pasting to preserve indentation
+" Copy paste to/from clipboard:
+vnoremap <D-c> "*y
+map <silent><Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>"
+map <silent><Leader><S-p> :set paste<CR>O<esc>"*]p:set nopaste<cr>"
+map <silent><D-v> :set paste<CR>o<esc>"*]p:set nopaste<cr>"
 
 "nnoremap <silent> <F5> :call <SID>StripTrailingWhitespaces()<CR>
 nnoremap <silent> <F5> :call StripTrailingWhitespaces()<CR>
@@ -167,6 +177,10 @@ inoremap <up>    <nop>
 inoremap <down>  <nop>
 inoremap <left>  <nop>
 inoremap <right> <nop>
+
+" omnicompetion
+inoremap <leader>oc <C-X><C-O>
+"imap <leader>oc <C-X><C-O>
 
 " edit open vimrc:
 nmap <leader>v :e $MYVIMRC<CR>
