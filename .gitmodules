@@ -466,3 +466,15 @@
 [submodule "bundle/vim-gradle"]
 	path = bundle/vim-gradle
 	url = https://github.com/tfnico/vim-gradle.git
+[submodule "bundle/neocomplete.vim"]
+	path = bundle/neocomplete.vim
+	url = https://github.com/Shougo/neocomplete.vim.git
+[submodule "bundle/vim-php-refactoring-toolbox"]
+	path = bundle/vim-php-refactoring-toolbox
+	url = https://github.com/adoy/vim-php-refactoring-toolbox.git
+[submodule "bundle/vim-srcexplorer"]
+	path = bundle/vim-srcexplorer
+	url = https://github.com/wesleyche/SrcExpl.git
+[submodule "bundle/vim-ag"]
+	path = bundle/vim-ag
+	url = https://github.com/rking/ag.vim.git

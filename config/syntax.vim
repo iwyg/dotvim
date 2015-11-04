@@ -26,8 +26,10 @@ if !exists("autocommands_loaded")
 	" md, markdown, and mk are markdown and define buffer-local preview
 	"-------------------------------------------------------------------------------------
 	au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} set ft=markdown
-	au BufRead,BufNewFile *.{jshintrc,*rc} set ft=rc
+	au BufRead,BufNewFile .*{rc} set ft=sh
+	"au BufRead,BufNewFile *.{jshintrc,*rc} set ft=rc
 	au BufRead,BufNewFile *.{vimrc,gvimrc} set ft=vim
+
 	" Json:
 	"-------------------------------------------------------------------------------------
 	"au BufNewFile,BufRead *.json set ft=javascript

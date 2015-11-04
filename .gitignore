@@ -24,3 +24,4 @@ plugin/**/*.pyc
 doc/
 bundles_loaded/
 bundle/vimproc/autoload/*
+eclim/
