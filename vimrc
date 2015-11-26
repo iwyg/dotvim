@@ -1,4 +1,4 @@
-"""-----------------------------------------------------------------------------------------------------
+
 """ Disable Vi Compatibility:
 """-----------------------------------------------------------------------------------------------------
 set nocompatible
@@ -21,9 +21,9 @@ syntax on
 let mapleader=","
 
 """ enable mouse interaction:
-if has("mouse")
-	set mouse=a
-	set ttymouse=xterm2
+if has("mouse") && !has("nvim")
+    set mouse=a
+    set ttymouse=xterm2
 endif
 """ remove timeout for escape sequence:
 set timeoutlen=1000 ttimeoutlen=0
@@ -99,7 +99,7 @@ set complete-=i
 
 """ auto close preview
 if has("autocmd")
-	autocmd CompleteDone * pclose
+    autocmd CompleteDone * pclose
 endif
 
 """ Use the same symbols as TextMate for tabstops and EOLs
@@ -132,15 +132,23 @@ set grepprg=ack
 """ wrap text:
 command! -nargs=* Wrap set wrap linebreak nolist
 
+
+""" Cursor: {{{
+""" enables cursor shape in NeoVim
+if has('nvim')
+    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+endif
 """ set cursor shape in terminal (iterm) and Tmux:
 """ see http://vim.wikia.com/wiki/Change_cursor_shape_in_different_modes
 if exists('$TMUX')
-  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
 elseif &term =~ '^xterm'
-  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
+"""}}}
+
 
 """-------------------------------------------------------------------------------------
 """}}}
@@ -158,10 +166,10 @@ endif
 """ Auto Cmd {{{
 """-------------------------------------------------------------------------------------
 if has("autocmd")
-	" auto source vimrc on save:
-	autocmd! BufWritePost $MYVIMRC nested :source $MYVIMRC
-	" toggle line highlighting on insert mode
-	autocmd InsertEnter,InsertLeave * set cul!
+    " auto source vimrc on save:
+    autocmd! BufWritePost $MYVIMRC nested :source $MYVIMRC
+    " toggle line highlighting on insert mode
+    autocmd InsertEnter,InsertLeave * set cul!
 endif
 """}}}
 
@@ -197,6 +205,8 @@ inoremap <left>  <nop>
 inoremap <right> <nop>
 """-----------------------------------------------------------------------------------------------------
 """}}}
+
+nnoremap <leader>fe :VimFilerExplorer<CR>
 
 """ Omnicompletion {{{
 "inoremap <leader>oc <C-X><C-O>
@@ -242,12 +252,12 @@ nmap <Leader>RN :set relativenumber!<CR>
 nmap <leader>L :set list!<CR>
 
 if !exists('s:sources_loaded')
-	source $HOME/.vim/config/variables.vim
-	source $HOME/.vim/config/functions.vim
-	source $HOME/.vim/config/filetypes.vim
-	source $HOME/.vim/config/syntax.vim
-	source $HOME/.vim/config/plugins.vim
-	let s:sources_loaded = 1
+    source $HOME/.vim/config/variables.vim
+    source $HOME/.vim/config/functions.vim
+    source $HOME/.vim/config/filetypes.vim
+    source $HOME/.vim/config/syntax.vim
+    source $HOME/.vim/config/plugins.vim
+    let s:sources_loaded = 1
 endif
 
 """-----------------------------------------------------------------------------------------------------
@@ -255,8 +265,8 @@ endif
 call SetCurrentColorScheme(myCs, myBg)
 """ Php Syntax Override:
 function! PhpSyntaxOverride()
-  hi! def link phpDocTags  phpDefine
-  hi! def link phpDocParam phpType
+    hi! def link phpDocTags  phpDefine
+    hi! def link phpDocParam phpType
 endfunction
 
 "augroup phpSyntaxOverride

@@ -1,10 +1,16 @@
-"""-----------------------------------------------------------------------------------------------------
-""" Plugins:
-"""-----------------------------------------------------------------------------------------------------
+""" Unite: {{{
+""" fuzzy searching
+nnoremap <C-p> :Unite file_rec/async<cr>
+""" content search lile Ack/Ag
+nnoremap <space>/ :Unite grep:.<cr>
+""" search for open buffers
+nnoremap <C-b> :Unite buffer<cr>
+"""}}}
+
 """ Ack: {{{
 """ if silver searcher is installed, use Ag instread of Ack:
 if executable('ag')
-	let g:ackprg = 'ag --vimgrep'
+    let g:ackprg = 'ag --vimgrep'
 endif
 """}}}
 
@@ -47,11 +53,11 @@ let g:easytags_dynamic_files = 1
 
 """ languages: 
 if !exists('g:easytags_languages')
-	let g:easytags_languages = {}
+    let g:easytags_languages = {}
 endif
 
 if !exists('g:easytags_languages.javascript')
-	let g:easytags_languages.javascript = {}
+    let g:easytags_languages.javascript = {}
 endif
 
 let g:easytags_languages.javascript.cmd = 'jsctags'
@@ -61,7 +67,7 @@ let g:easytags_languages.javascript.stdout_opt = '-f-'
 let g:easytags_languages.javascript.recurse_flag = '-R'
 
 if !exists('g:easytags_languages.php')
-	let g:easytags_languages.php = {}
+    let g:easytags_languages.php = {}
 endif
 
 let g:easytags_languages.php.cmd = 'ctags'
@@ -83,55 +89,55 @@ let g:vimfiler_tree_leaf_icon = ""
 let g:vimfiler_tree_opened_icon = "▼"
 let g:vimfiler_tree_closed_icon = "▶︎"
 """ auto open vimfiler explorer if no startfiles are present 
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | exec ':VimFilerExplorer' | endif
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | exec ':VimFilerExplorer' | endif
 """}}}
 
 if exists(":NERDTree")
-""" NERDTree: {{{
-	let NERDTreeHijackNetrw=1 " Use NERDTree as split explorer 
-	let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$', '\.DS_*', '*.swp']
-	let NERDTreeShowHidden = 1
-	let NERDTreeAutoDeleteBuffer = 1
-	let NERDTreeChDirMode = 1
+    """ NERDTree: {{{
+    let NERDTreeHijackNetrw=1 " Use NERDTree as split explorer 
+    let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$', '\.DS_*', '*.swp']
+    let NERDTreeShowHidden = 1
+    let NERDTreeAutoDeleteBuffer = 1
+    let NERDTreeChDirMode = 1
 
-	set guioptions-=L
+    set guioptions-=L
 
-	" open NERDTree automatically when vim starts up if no files were specified
-	autocmd StdinReadPre * let s:std_in=1
-	autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+    " open NERDTree automatically when vim starts up if no files were specified
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-	" close vim if the only window left open is a NERDTree
-	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+    " close vim if the only window left open is a NERDTree
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-	" find current buffer in NERDTree:
-	map <Leader>nf :NERDTreeFind<CR>
-	" find current Working Directory in NERDTree:
-	map <Leader>ncwd :NERDTreeCWD<CR>
-	" open NERDTree:
-	map <Leader>n :NERDTree<CR>
-	" toggle NERDTree:
-	map <Leader>nt :NERDTreeToggle<CR>
-"""}}}
+    " find current buffer in NERDTree:
+    map <Leader>nf :NERDTreeFind<CR>
+    " find current Working Directory in NERDTree:
+    map <Leader>ncwd :NERDTreeCWD<CR>
+    " open NERDTree:
+    map <Leader>n :NERDTree<CR>
+    " toggle NERDTree:
+    map <Leader>nt :NERDTreeToggle<CR>
+    """}}}
 
-""" NERDTree Git Plugin: {{{
-	""" icon mapping:
+    """ NERDTree Git Plugin: {{{
+    """ icon mapping:
 
-	let g:NERDTreeMapNextHunk = 'c'
-	let g:NERDTreeMapPrevHunk = 'c'
+    let g:NERDTreeMapNextHunk = 'c'
+    let g:NERDTreeMapPrevHunk = 'c'
 
-	let g:NERDTreeIndicatorMapCustom = {
-				\ "Modified"  : "✹",
-				\ "Staged"    : "✚",
-				\ "Untracked" : "✭",
-				\ "Renamed"   : "➜",
-				\ "Unmerged"  : "═",
-				\ "Deleted"   : "✖",
-				\ "Dirty"     : "✗",
-				\ "Clean"     : "✔︎",
-				\ "Unknown"   : "?"
-				\ }
-	"""}}}
+    let g:NERDTreeIndicatorMapCustom = {
+                \ "Modified"  : "✹",
+                \ "Staged"    : "✚",
+                \ "Untracked" : "✭",
+                \ "Renamed"   : "➜",
+                \ "Unmerged"  : "═",
+                \ "Deleted"   : "✖",
+                \ "Dirty"     : "✗",
+                \ "Clean"     : "✔︎",
+                \ "Unknown"   : "?"
+                \ }
+    """}}}
 endif
 
 """ CssColor: {{{
@@ -139,8 +145,8 @@ let g:cssColorVimDoNotMessMyUpdatetime = 1
 """}}}
 
 """ JSBeautify: {{{
-let g:JSLintHighlightErrorLine = 1							" Turn on JSLint error highlighting
-let g:Jsbeautify_jslint_whitespace = 1						" JSbreautyfy JSlint
+let g:JSLintHighlightErrorLine = 1                          " Turn on JSLint error highlighting
+let g:Jsbeautify_jslint_whitespace = 1                      " JSbreautyfy JSlint
 let g:Jsbeautify_jslint_expandtab = 1                       " expand tabs to spaces
 """}}}
 """-----------------------------------------------------------------------------------------------------
@@ -226,7 +232,7 @@ let g:neocomplete#sources#syntax#min_keyword_length = 2
 
 """ force Enable Heavy Completion
 if !exists('g:neocomplete#force_omni_input_patterns')
-	let g:neocomplete#force_omni_input_patterns = {}
+    let g:neocomplete#force_omni_input_patterns = {}
 endif
 let g:neocomplete#force_omni_input_patterns.php = '[^. \t]->\h\w*\|\h\w*::|use\s|namespace\s'
 let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\h\w*\|umport\s'
@@ -277,23 +283,27 @@ let g:phpcomplete_min_num_of_chars_for_namespace_completion = 2
 let g:phpcomplete_enhance_jump_to_definition = 1
 
 let g:phpcomplete_mappings = {
-			\ 'jump_to_def': '<C-ü>',
-			\ }
+            \ 'jump_to_def': '<C-ü>',
+            \ }
 """}}}
 
 "" PHP Pdv: {{{
 let g:pdv_template_dir = $HOME ."/.vim/tools/pdv_templates"
-nnoremap <C-p> :call pdv#DocumentWithSnip()<CR>
+
+if has("autocmd")
+    autocmd FileType php nnoremap <leader>doc :call pdv#DocumentWithSnip()<CR>
+endif
+
 """}}}
 
 """ PHPCSFixer: {{{
-let g:php_cs_fixer_path = "~/.composer/vendor/bin/php-cs-fixer"	" define the path to the php-cs-fixer.phar
-let g:php_cs_fixer_level = "psr2"							" which level ?
-let g:php_cs_fixer_config = "default"						" configuration
-let g:php_cs_fixer_php_path = "/usr/local/bin/php"			" Path to PHP
-let g:php_cs_fixer_fixers_list = ""							" List of fixers
-let g:php_cs_fixer_enable_default_mapping = 1				" Enable the mapping by default (<leader>pcd)
-let g:php_cs_fixer_dry_run = 0								" Call command with dry-run option
+let g:php_cs_fixer_path = "~/.composer/vendor/bin/php-cs-fixer" " define the path to the php-cs-fixer.phar
+let g:php_cs_fixer_level = "psr2"                           " which level ?
+let g:php_cs_fixer_config = "default"                       " configuration
+let g:php_cs_fixer_php_path = "/usr/local/bin/php"          " Path to PHP
+let g:php_cs_fixer_fixers_list = ""                         " List of fixers
+let g:php_cs_fixer_enable_default_mapping = 1               " Enable the mapping by default (<leader>pcd)
+let g:php_cs_fixer_dry_run = 0                              " Call command with dry-run option
 let g:php_cs_fixer_verbose = 1
 
 """ call PHPCSFixer on current directory:
@@ -329,51 +339,58 @@ inoremap <silent><leader>nsg :call PhpNamespaceGet()<CR>
 
 """ PHPUnit: {{{
 """ function to run Unittest against current buffer
-function! <SID>RunPHPUnitTest()
-	"cd %:p:h
-	pwd
-	let result = system("vendor/bin/phpunit " . bufname("%"))
-	split __PHPUnit_Result__
-	normal! ggdG
-	setlocal buftype=nofile
-	call append(0, split(result, '\v\n'))
-	cd -
-endfunction
+"function! <SID>RunPHPUnitTest()
+"   "cd %:p:h
+"   pwd
+"   let result = system("vendor/bin/phpunit " . bufname("%"))
+"   split __PHPUnit_Result__
+"   normal! ggdG
+"   setlocal buftype=nofile
+"   call append(0, split(result, '\v\n'))
+"   cd -
+"endfunction
+"
+"""" runs PHPUnit test:
+"nnoremap <leader>pu :call <SID>RunPHPUnitTest()<cr>
 
-""" runs PHPUnit test:
-nnoremap <leader>pu :call <SID>RunPHPUnitTest()<cr>
+let g:phpunit_namespace_prefix="Tests"
+let g:phpunitpath='vendor/bin/phpunit'
+
+nnoremap <silent><leader>pug :call PhpunitGenerate()<CR>
+nnoremap <silent><leader>pur :call PhpunitRun()<CR>
+
 """}}}
 
 """ Rainbow Parantheses: {{{
 let g:rbpt_colorpairs = [
-			\ ['brown',       'RoyalBlue3'],
-			\ ['Darkblue',    'SeaGreen3'],
-			\ ['darkgray',    'DarkOrchid3'],
-			\ ['darkgreen',   'firebrick3'],
-			\ ['darkcyan',    'RoyalBlue3'],
-			\ ['darkred',     'SeaGreen3'],
-			\ ['darkmagenta', 'DarkOrchid3'],
-			\ ['brown',       'firebrick3'],
-			\ ['gray',        'RoyalBlue3'],
-			\ ['black',       'SeaGreen3'],
-			\ ['darkmagenta', 'DarkOrchid3'],
-			\ ['Darkblue',    'firebrick3'],
-			\ ['darkgreen',   'RoyalBlue3'],
-			\ ['darkcyan',    'SeaGreen3'],
-			\ ['darkred',     'DarkOrchid3'],
-			\ ['red',         'firebrick3'],
-			\ ]
+            \ ['brown',       'RoyalBlue3'],
+            \ ['Darkblue',    'SeaGreen3'],
+            \ ['darkgray',    'DarkOrchid3'],
+            \ ['darkgreen',   'firebrick3'],
+            \ ['darkcyan',    'RoyalBlue3'],
+            \ ['darkred',     'SeaGreen3'],
+            \ ['darkmagenta', 'DarkOrchid3'],
+            \ ['brown',       'firebrick3'],
+            \ ['gray',        'RoyalBlue3'],
+            \ ['black',       'SeaGreen3'],
+            \ ['darkmagenta', 'DarkOrchid3'],
+            \ ['Darkblue',    'firebrick3'],
+            \ ['darkgreen',   'RoyalBlue3'],
+            \ ['darkcyan',    'SeaGreen3'],
+            \ ['darkred',     'DarkOrchid3'],
+            \ ['red',         'firebrick3'],
+            \ ]
 if has('autocmd') && exists('RainbowParenthesesToggle')
-	au VimEnter * RainbowParenthesesToggle
-	au Syntax * RainbowParenthesesLoadRound
-	au Syntax * RainbowParenthesesLoadSquare
-	au Syntax * RainbowParenthesesLoadBraces
+    au VimEnter * RainbowParenthesesToggle
+    au Syntax * RainbowParenthesesLoadRound
+    au Syntax * RainbowParenthesesLoadSquare
+    au Syntax * RainbowParenthesesLoadBraces
 endif
 """}}}
 
 """ SpellBad: {{{
 if has("gui_running")
-	highlight SpellBad term=underline gui=undercurl guisp=Orange
+    highlight SpellBad term=underline gui=undercurl guisp=Orange
 endif
 """}}}
 
@@ -432,56 +449,56 @@ map <Leader>SC :SyntasticCheck<CR>
 nmap <Leader>tb :TagbarToggle<CR>
 let g:tagbar_ctags_bin='ctags'
 let g:tagbar_type_php = {
-			\ 'ctagstype' : 'php',
-			\ 'ctagsbin' : 'ctags',
-			\ 'ctagsargs': '-R --fields=+aimS -f -',
-			\ 'kinds'     : [
-				\ 'd:Constants:0:0',
-				\ 'v:Variables:0:0',
-				\ 'f:Functions:1',
-				\ 'i:Interfaces:0',
-				\ 'c:Classes:0',
-				\ 'p:Properties:0:0',
-				\ 'm:Methods:0:0',
-				\ 'n:Namespaces:0',
-				\ 't:Traits:0',
-			\ ],
-			\ 'sro'        : '::',
-			\ 'kind2scope' : {
-			\ 'c' : 'class',
-			\ 'm' : 'method',
-			\ 'f' : 'function',
-			\ 'i' : 'interface',
-			\ 'n' : 'namespace',
-			\ 't' : 'trait',
-			\ },
-			\ 'scope2kind' : {
-			\ 'class'     : 'c',
-			\ 'method'    : 'm',
-			\ 'function'  : 'f',
-			\ 'interface' : 'i',
-			\ 'namespace' : 'n',
-			\ 'trait'     : 't',
-			\ }
-			\ }
+            \ 'ctagstype' : 'php',
+            \ 'ctagsbin' : 'ctags',
+            \ 'ctagsargs': '-R --fields=+aimS -f -',
+            \ 'kinds'     : [
+            \ 'd:Constants:0:0',
+            \ 'v:Variables:0:0',
+            \ 'f:Functions:1',
+            \ 'i:Interfaces:0',
+            \ 'c:Classes:0',
+            \ 'p:Properties:0:0',
+            \ 'm:Methods:0:0',
+            \ 'n:Namespaces:0',
+            \ 't:Traits:0',
+            \ ],
+            \ 'sro'        : '::',
+            \ 'kind2scope' : {
+            \ 'c' : 'class',
+            \ 'm' : 'method',
+            \ 'f' : 'function',
+            \ 'i' : 'interface',
+            \ 'n' : 'namespace',
+            \ 't' : 'trait',
+            \ },
+            \ 'scope2kind' : {
+            \ 'class'     : 'c',
+            \ 'method'    : 'm',
+            \ 'function'  : 'f',
+            \ 'interface' : 'i',
+            \ 'namespace' : 'n',
+            \ 'trait'     : 't',
+            \ }
+            \ }
 
 let g:tagbar_type_typescript = {
-			\ 'ctagstype': 'typescript',
-			\ 'kinds': [
-			\ 'c:classes',
-			\ 'n:modules',
-			\ 'f:functions',
-			\ 'v:variables',
-			\ 'v:varlambdas',
-			\ 'm:members',
-			\ 'i:interfaces',
-			\ 'e:enums',
-			\ ]
-			\ }
+            \ 'ctagstype': 'typescript',
+            \ 'kinds': [
+            \ 'c:classes',
+            \ 'n:modules',
+            \ 'f:functions',
+            \ 'v:variables',
+            \ 'v:varlambdas',
+            \ 'm:members',
+            \ 'i:interfaces',
+            \ 'e:enums',
+            \ ]
+            \ }
 
 let g:tagbar_type_javascript = {
-\ 'ctagsbin' : 'jsctags'
-\ }
+            \ 'ctagsbin' : 'jsctags'
+            \ }
 """}}}
 
 """ Ultisnips: {{{
@@ -513,18 +530,33 @@ let g:webdevicons_enable_airline_statusline = 0
 let g:webdevicons_enable_airline_tabline = 0
 """ enable devicons for NERDTree
 if exists(":NERDTree")
-	let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
-	let g:WebDevIconsNerdTreeBeforeGlyphPadding = ''
+    let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
+    let g:WebDevIconsNerdTreeBeforeGlyphPadding = ''
 endif
 
 """ enable devicons for vimfiler
 if exists(":VimFiler")
-	let g:webdevicons_enable_vimfiler = 1
+    let g:webdevicons_enable_vimfiler = 1
 endif
 """}}}
 
 """ VimShell: {{{
 nnoremap <leader>vs :VimShell<CR>
+"""}}}
+
+""" Vim Test: {{{
+
+let test#php#phpunit#executable = './vendor/bin/phpunit'
+""" if running in neovim, use :terminal to run tests.
+if has('nvim')
+    let test#strategy = 'neovim'
+""" if running in a tmux session, use vimux to handle testruns
+elseif exists('$TMUX')
+    let test#strategy = 'vimux'
+else
+""" else use Dispatch
+    let test#strategy = 'dispatch'
+endif
 """}}}
 
 """ YCM: {{{

@@ -90,7 +90,7 @@
 	url = git://github.com/ludovicPelle/vim-xdebug.git
 [submodule "bundle/vim-phpunit"]
 	path = bundle/vim-phpunit
-	url = git://github.com/klokane/vim-phpunit.git
+	url = https://github.com/dantleech/vim-phpunit.git
 [submodule "bundle/vim-sql"]
 	path = bundle/vim-sql
 	url = git://github.com/LStinson/Vim.git
@@ -478,3 +478,21 @@
 [submodule "bundle/vim-ag"]
 	path = bundle/vim-ag
 	url = https://github.com/rking/ag.vim.git
+[submodule "bundle/vim-go-explorer"]
+	path = bundle/vim-go-explorer
+	url = https://github.com/garyburd/go-explorer.git
+[submodule "bundle/vim-phpunit-gen"]
+	path = bundle/vim-phpunit-gen
+	url = https://github.com/dantleech/vim-phpunit.git
+[submodule "bundle/dockerfile.vim"]
+	path = bundle/dockerfile.vim
+	url = https://github.com/ekalinin/Dockerfile.vim.git
+[submodule "bundle/vim-test"]
+	path = bundle/vim-test
+	url = https://github.com/janko-m/vim-test.git
+[submodule "bundle/vim-dispatch"]
+	path = bundle/vim-dispatch
+	url = https://github.com/tpope/vim-dispatch.git
+[submodule "bundle/vimux"]
+	path = bundle/vimux
+	url = https://github.com/benmills/vimux.git
