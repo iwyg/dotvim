@@ -3,12 +3,15 @@
 """-----------------------------------------------------------------------------------------------------
 set nocompatible
 filetype off
+""" Vim Plug {{{
+source $HOME/.vim/plugins.vim
+"""}}}
 
 """ Pathogen {{{
 """-----------------------------------------------------------------------------------------------------
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-let g:pathogen_disabled = ['vim-jsx']
-execute pathogen#infect('bundles_loaded/{}')
+"runtime bundle/vim-pathogen/autoload/pathogen.vim
+"let g:pathogen_disabled = ['vim-jsx']
+"execute pathogen#infect('bundles_loaded/{}')
 filetype plugin indent on
 syntax on
 """-----------------------------------------------------------------------------------------------------
@@ -21,7 +24,7 @@ syntax on
 let mapleader=","
 
 """ enable mouse interaction:
-if has("mouse") && !has("nvim")
+if has('mouse') && !has('nvim')
     set mouse=a
     set ttymouse=xterm2
 endif

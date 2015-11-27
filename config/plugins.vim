@@ -220,24 +220,47 @@ let g:vim_markdown_math=1
 let g:vim_markdown_frontmatter=1
 """}}}
 
-""" NeoComplete: {{{
-""" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-""" Enables at startup
-let g:neocomplete#enable_at_startup = 1
-""" Enable smartcase
-let g:neocomplete#enable_smart_case = 1
-""" set minimal keyword trigger length
-let g:neocomplete#sources#syntax#min_keyword_length = 2
+""" DeoPlete: {{{
+if has('nvim') 
+	let g:acp_enableAtStartup = 0
+	let g:deoplete#enable_at_startup = 1
+	""" Enables at startup
+		let g:deoplete#enable_at_startup = 1
+	""" Enable smartcase
+	let g:deoplete#enable_smart_case = 1
+	""" set minimal keyword trigger length
+	let g:deoplete#sources#syntax#min_keyword_length = 2
 
-""" force Enable Heavy Completion
-if !exists('g:neocomplete#force_omni_input_patterns')
-    let g:neocomplete#force_omni_input_patterns = {}
+	""" force Enable Heavy Completion
+	if !exists('g:deoplete#force_omni_input_patterns')
+		let g:deoplete#force_omni_input_patterns = {}
+	endif
+	let g:deoplete#force_omni_input_patterns.php = '[^. \t]->\h\w*\|\h\w*::|use\s|namespace\s'
+	let g:deoplete#force_omni_input_patterns.javascript = '[^. \t]\.\h\w*\|umport\s'
+	let g:deoplete#force_omni_input_patterns.c = '[^.[:digit:]*\t]\%(\.\|->\)'
+	let g:deoplete#force_omni_input_patterns.cpp = '[^.[:digit:]*\t]\%(\.\|->\)\|\h\w*::'
 endif
-let g:neocomplete#force_omni_input_patterns.php = '[^. \t]->\h\w*\|\h\w*::|use\s|namespace\s'
-let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\h\w*\|umport\s'
-let g:neocomplete#force_omni_input_patterns.c = '[^.[:digit:]*\t]\%(\.\|->\)'
-let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:]*\t]\%(\.\|->\)\|\h\w*::'
+"""}}}
+""" NeoComplete: {{{
+if !has('nvim') 
+	""" Disable AutoComplPop.
+	let g:acp_enableAtStartup = 0
+	""" Enables at startup
+		let g:neocomplete#enable_at_startup = 1
+	""" Enable smartcase
+	let g:neocomplete#enable_smart_case = 1
+	""" set minimal keyword trigger length
+	let g:neocomplete#sources#syntax#min_keyword_length = 2
+
+	""" force Enable Heavy Completion
+	if !exists('g:neocomplete#force_omni_input_patterns')
+		let g:neocomplete#force_omni_input_patterns = {}
+	endif
+	let g:neocomplete#force_omni_input_patterns.php = '[^. \t]->\h\w*\|\h\w*::|use\s|namespace\s'
+	let g:neocomplete#force_omni_input_patterns.javascript = '[^. \t]\.\h\w*\|umport\s'
+	let g:neocomplete#force_omni_input_patterns.c = '[^.[:digit:]*\t]\%(\.\|->\)'
+	let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:]*\t]\%(\.\|->\)\|\h\w*::'
+endif
 """}}}
 
 """ GoYo: {{{
@@ -353,12 +376,20 @@ inoremap <silent><leader>nsg :call PhpNamespaceGet()<CR>
 """" runs PHPUnit test:
 "nnoremap <leader>pu :call <SID>RunPHPUnitTest()<cr>
 
-let g:phpunit_namespace_prefix="Tests"
+let g:phpunit_namespace_prefix='Tests'
 let g:phpunitpath='vendor/bin/phpunit'
 
 nnoremap <silent><leader>pug :call PhpunitGenerate()<CR>
 nnoremap <silent><leader>pur :call PhpunitRun()<CR>
 
+"""}}}
+
+""" Vim Test: {{{
+nnoremap <leader>tf :TestFile<CR>
+nnoremap <leader>tn :TestNearest<CR>
+nnoremap <leader>ts :TestSuite<CR>
+nnoremap <leader>tl :TestLast<CR>
+nnoremap <leader>tv :TestVisit<CR>
 """}}}
 
 """ Rainbow Parantheses: {{{
@@ -389,7 +420,7 @@ endif
 """}}}
 
 """ SpellBad: {{{
-if has("gui_running")
+if has('gui_running')
     highlight SpellBad term=underline gui=undercurl guisp=Orange
 endif
 """}}}
@@ -567,6 +598,11 @@ let g:ycm_auto_trigger = 1
 "let g:ycm_key_list_previous_completion=['<Up>']
 """ Helps with language specific completion
 let g:ycm_semantic_triggers = {}
+
+if !exists('g:ycm_semantic_triggers')
+	let g:ycm_semantic_triggers = {}
+endif
+
 let g:ycm_semantic_triggers.php = ['->', '::', '(', 'use ', 'namespace ', '\']
 let g:ycm_semantic_triggers.javascript = ['.', 'import ', 'let ', '= ']
 """}}}
