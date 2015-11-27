@@ -25,3 +25,6 @@ doc/
 bundles_loaded/
 bundle/vimproc/autoload/*
 eclim/
+plugged/
+shada/
+init.vim
