@@ -534,7 +534,7 @@ let g:tagbar_type_javascript = {
 
 """ Ultisnips: {{{
 let g:UltiSnipsEnableSnipMate= 0
-let g:UltiSnipsUsePythonVersion = 2
+let g:UltiSnipsUsePythonVersion=2
 let g:UltiSnipsEnableSnipmate=0
 let g:UltiSnipsSnippetsDir = '~/.vim/snippets/UltiSnips'
 let g:UltiSnipsSnippetDirectories=["UltiSnips"]

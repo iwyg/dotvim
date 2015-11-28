@@ -133,8 +133,8 @@ Plug 'Shougo/deoplete.nvim'
 
 """ Snippets {{{
 Plug 'honza/vim-snippets'
-Plug 'iwyg/vim-snippets', { 'dir': $HOME.'/.vim/plugged/mysnippets' }
 Plug 'justinj/vim-react-snippets', { 'for': 'javascript' }
+"Plug 'iwyg/vim-snippets', { 'dir': $HOME.'/.vim/plugged/mysnippets' }
 """}}}
 """ Languages {{{
 """ Dart: {{{

@@ -342,7 +342,7 @@
 	url = https://github.com/Shougo/neomru.vim.git
 [submodule "snippets"]
 	path = snippets
-	url = https://github.com/iwyg/vim-snippets.git
+	url = git@github.com:iwyg/vim-snippets.git
 [submodule "bundle/rcshell.vim"]
 	path = bundle/rcshell.vim
 	url = https://github.com/vim-scripts/rcshell.vim.git
