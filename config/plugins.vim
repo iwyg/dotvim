@@ -1,10 +1,15 @@
 """ Unite: {{{
 """ fuzzy searching
-nnoremap <C-p> :Unite file_rec/async<cr>
+nmap <C-p> :Unite file_rec/async<CR>
+nnoremap <C-p> :Unite file_rec/async<CR>
 """ content search lile Ack/Ag
-nnoremap <space>/ :Unite grep:.<cr>
+nmap <space>/ :Unite grep:.<CR>
+nnoremap <space>/ :Unite grep:.<CR>
 """ search for open buffers
-nnoremap <C-b> :Unite buffer<cr>
+nmap <leader>b :Unite buffer<CR>
+nnoremap <leader>b :Unite buffer<CR>
+nmap <C-space> :Unite buffer<CR>
+nnoremap <C-space> :Unite buffer<CR>
 """}}}
 
 """ Ack: {{{
@@ -536,12 +541,12 @@ let g:tagbar_type_javascript = {
 let g:UltiSnipsEnableSnipMate= 0
 let g:UltiSnipsUsePythonVersion=2
 let g:UltiSnipsEnableSnipmate=0
-let g:UltiSnipsSnippetsDir = '~/.vim/snippets/UltiSnips'
-let g:UltiSnipsSnippetDirectories=["UltiSnips"]
+let g:UltiSnipsSnippetsDir = $HOME.'/.vim/snippets/UltiSnips'
+let g:UltiSnipsSnippetDirectories=['UltiSnips', 'snips', 'snippets/UltiSnips']
 """ Don't use TAB if YCM is installed
-let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 """ filetype extensions
 
 """ Edit snippts file for current filetype:

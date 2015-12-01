@@ -29,3 +29,5 @@ plugged/
 shada/
 init.vim
 .*~
+autoload/plug.vim
+autoload/plug.vim.*

@@ -4,6 +4,10 @@
 set nocompatible
 filetype off
 """ Vim Plug {{{
+if !exists('s:my_plugins_loaded')
+	let s:my_plugins_loaded = 1
+endif
+
 source $HOME/.vim/plugins.vim
 """}}}
 
@@ -58,7 +62,9 @@ set wildmode=longest:list,full
 set whichwrap=b,s,h,l,<,>,[,]
 
 """ encoding:
-set encoding=utf8
+if has('vim_starting')
+	set encoding=utf8
+endif
 "set fileencoding=utf8
 
 """ format:
@@ -110,19 +116,25 @@ set listchars=tab:›\ ,eol:¬,trail:•,extends:#,nbsp:. " Highlight problemati
 
 set scrolljump=4
 set scrolloff=3
+
+""" code folding: {{{
 set foldenable
-
-""" code folding:
-set foldmethod=syntax       "fold based on indent
-set foldnestmax=10          "deepest fold is 10 levels
-set nofoldenable            "dont fold by default
+"fold based on indent 
+set foldmethod=syntax       
+"deepest fold is 10 levels 
+set foldnestmax=10          
+"dont fold by default 
+"set nofoldenable            
+" default folding level
 set foldlevel=2
+"""}}}
 
 
-""" ctags
+""" ctags {{{
 set tags=./tags,tags
+"""}}}
 
-""" searching: 
+""" searching: {{{ 
 set ignorecase
 set smartcase
 set incsearch
@@ -130,12 +142,12 @@ set showmatch "show matching brackets
 set hlsearch
 set gdefault
 set grepprg=ack
+"""}}}
 "runtime macros/matchit.vim
 
-""" wrap text:
+""" wrap text: {{{
 command! -nargs=* Wrap set wrap linebreak nolist
-
-
+"""}}}
 """ Cursor: {{{
 """ enables cursor shape in NeoVim
 if has('nvim')
@@ -232,10 +244,14 @@ vmap <S-TAB> :b#<CR>
 """ next buffer
 nmap <C-L> :bn<CR>
 vmap <C-L> :bn<CR>
+nnoremap <C-L> :bn<CR>
+vnoremap <C-L> :bn<CR>
 
 """ previous buffer
-nmap <C-H> :bp<CR>
-vmap <C-H> :bp<CR>
+nmap <C-h> :bp<CR>
+vmap <C-h> :bp<CR>
+nnoremap <C-h> :bp<CR>
+vnoremap <C-h> :bp<CR>
 
 """ next tab
 nmap <leader>tn :tabnext<CR>
@@ -254,14 +270,21 @@ nmap <Leader>RN :set relativenumber!<CR>
 """ Shortcut to rapidly toggle `set list`
 nmap <leader>L :set list!<CR>
 
-if !exists('s:sources_loaded')
-    source $HOME/.vim/config/variables.vim
-    source $HOME/.vim/config/functions.vim
-    source $HOME/.vim/config/filetypes.vim
-    source $HOME/.vim/config/syntax.vim
-    source $HOME/.vim/config/plugins.vim
-    let s:sources_loaded = 1
+""" terminal mode
+
+if has('nvim')
+	nmap <leader>term :terminal<CR>
 endif
+
+if !exists('s:sources_loaded')
+	source $HOME/.vim/config/variables.vim
+	source $HOME/.vim/config/functions.vim
+	source $HOME/.vim/config/filetypes.vim
+	source $HOME/.vim/config/syntax.vim
+	source $HOME/.vim/config/plugins.vim
+	let s:sources_loaded = 1
+endif
+
 
 """-----------------------------------------------------------------------------------------------------
 """ Post Setup:

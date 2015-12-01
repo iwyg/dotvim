@@ -78,6 +78,9 @@ Plug 'scrooloose/nerdcommenter'
 """ Vim Fugitive: {{{
 Plug 'tpope/vim-fugitive'
 """}}}
+""" Vim GitGutter: {{{
+Plug 'airblade/vim-gitgutter'
+"""}}}
 """ Vim Surround: {{{
 Plug 'tpope/vim-surround'
 """}}}
