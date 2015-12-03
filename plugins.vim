@@ -94,7 +94,8 @@ Plug 'tpope/vim-dispatch'
 Plug 'SirVer/ultisnips'
 """}}}
 """ Vim Base16: {{{
-Plug 'chriskempson/base16-vim'
+" handle via submodule
+""Plug 'chriskempson/base16-vim'
 """}}}
 """ Vim EasyTags: {{{
 Plug 'xolox/vim-easytags' | Plug 'xolox/vim-misc'
@@ -186,16 +187,18 @@ Plug 'darfink/vim-plist'
 Plug 'wting/rust.vim'
 """}}}
 """ Javascript: {{{
-Plug 'othree/yajs.vim' | Plug 'othree/javascript-libraries-syntax.vim' 
+"Plug 'othree/yajs.vim' | Plug 'othree/javascript-libraries-syntax.vim' 
 Plug 'digitaltoad/vim-jade'
 Plug 'mklabs/grunt.vim'
 Plug 'aaronj1335/underscore-templates.vim'
 Plug 'heavenshell/vim-jsdoc', { 'for': 'javascript' }
 Plug 'claco/jasmine.vim', { 'for': 'javascript' }
-Plug 'marijnh/tern_for_vim', { 'for': 'javascript', 'do': 'npm install -g tern' }
+Plug 'marijnh/tern_for_vim', { 'for': 'javascript', 'do': 'npm install -g tern && npm install' }
 """}}}
 """ JSX: {{{
-Plug 'mxw/vim-jsx'
+Plug 'isRuslan/vim-es6'
+"Plug 'mxw/vim-jsx' | Plug 'pangloss/vim-javascript'
+"Plug 'jsx/jsx.vim'
 """}}}
 """ JSON: {{{
 Plug 'elzr/vim-json'
@@ -216,8 +219,8 @@ endif
 Plug 'othree/html5.vim'
 """}}}
 """ XML: {{{
-Plug 'othree/xml.vim'
-Plug 'sukima/xmledit', { 'for': 'xml' }
+"Plug 'othree/xml.vim'
+"Plug 'sukima/xmledit'
 """}}}
 """ TOML: {{{
 Plug 'cespare/vim-toml'
