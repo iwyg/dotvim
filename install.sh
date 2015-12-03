@@ -14,6 +14,10 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.c
 # Install submodules:
 git submodule update --init --recursive
 
+cd colors
+ln -s base16/colors/*.vim ./
+cd -
+
 if [ $OS == 'Darwin' ]; then
 	`./install_osx.sh`
 else

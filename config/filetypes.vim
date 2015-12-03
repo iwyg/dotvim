@@ -56,6 +56,7 @@ if has("autocmd")
 
 	" treat these as vim files
 	autocmd BufNewFile,BufRead pluginsrc,filetypesrc,functionsrc setfiletype vim
+	autocmd BufNewFile,BufRead *.jsx setfiletype javascript.jsx
 
 	" Treat .rss and .atom feeds as xml
 	autocmd BufNewFile,BufRead *.rss,*.atom setfiletype xml

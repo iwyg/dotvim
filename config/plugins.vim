@@ -157,11 +157,15 @@ let g:Jsbeautify_jslint_expandtab = 1                       " expand tabs to spa
 """-----------------------------------------------------------------------------------------------------
 """ Jsx: {{{
 """ allow jsx in .js files
-let g:jsx_ext_required = 1
+let g:jsx_ext_required = 0
 let g:jsx_pragma_required = 0
 """}}}
 
 """ Javascript: {{{
+"let javascript_fold = 0
+"let b:javascript_fold = 0
+"let g:javascript_fold = 0
+let javascript_enable_domhtmlcss = 1
 let javascript_ignore_javaScriptdoc = 0
 """}}}
 
@@ -192,6 +196,9 @@ let g:livedown_port = 1337
 """ for normal and visual mode for the purpose.
 nmap <Leader>l <Plug>(Limelight)
 xmap <Leader>l <Plug>(Limelight)
+
+nmap <Leader>ll :Limelight<CR>
+xmap <Leader>ll :Limelight<CR>
 
 """ Color name (:help cterm-colors) or ANSI code
 let g:limelight_conceal_ctermfg = 'gray'
@@ -273,6 +280,8 @@ autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 nmap <leader>fuckit :Goyo<CR>
 nmap <leader>gt :Goyo<CR>
+
+let g:goyo_width=120
 """ }}}
 
 """ Local Vimrc: {{{
@@ -483,6 +492,7 @@ map <Leader>SC :SyntasticCheck<CR>
 """ Tagbar: {{{
 """ toggle TagBar:
 nmap <Leader>tb :TagbarToggle<CR>
+nnoremap <Leader>tb :TagbarToggle<CR>
 let g:tagbar_ctags_bin='ctags'
 let g:tagbar_type_php = {
             \ 'ctagstype' : 'php',
@@ -617,5 +627,12 @@ let g:dbgWaitTime = 30
 """}}}
 
 """ Xml: {{{
-let g:xml_syntax_folding = 1
+" setting this variable breaks js/jsx syntax and indentation
+"let g:xml_syntax_folding = 0
+"""}}}
+""" GitGutter: {{{
+nnoremap <leader>gg :GitGutterToggle<CR>
+let g:gitgutter_enabled = 0
+"let g:gitgutter_readltimr = 0
+"let g:gitgutter_eager = 0
 """}}}

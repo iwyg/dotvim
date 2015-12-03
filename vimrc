@@ -2,22 +2,17 @@
 """ Disable Vi Compatibility:
 """-----------------------------------------------------------------------------------------------------
 set nocompatible
-filetype off
+"filetype off
 """ Vim Plug {{{
 if !exists('s:my_plugins_loaded')
 	let s:my_plugins_loaded = 1
 endif
 
-source $HOME/.vim/plugins.vim
-"""}}}
-
-""" Pathogen {{{
-"""-----------------------------------------------------------------------------------------------------
-"runtime bundle/vim-pathogen/autoload/pathogen.vim
-"let g:pathogen_disabled = ['vim-jsx']
-"execute pathogen#infect('bundles_loaded/{}')
 filetype plugin indent on
 syntax on
+source $HOME/.vim/plugins.vim
+
+"""}}}
 """-----------------------------------------------------------------------------------------------------
 """}}}
 
@@ -32,6 +27,8 @@ if has('mouse') && !has('nvim')
     set mouse=a
     set ttymouse=xterm2
 endif
+""" update time
+set updatetime=100
 """ remove timeout for escape sequence:
 set timeoutlen=1000 ttimeoutlen=0
 """ set the working shell:
@@ -123,8 +120,6 @@ set foldenable
 set foldmethod=syntax       
 "deepest fold is 10 levels 
 set foldnestmax=10          
-"dont fold by default 
-"set nofoldenable            
 " default folding level
 set foldlevel=2
 """}}}
@@ -243,15 +238,11 @@ vmap <S-TAB> :b#<CR>
 
 """ next buffer
 nmap <C-L> :bn<CR>
-vmap <C-L> :bn<CR>
 nnoremap <C-L> :bn<CR>
-vnoremap <C-L> :bn<CR>
 
 """ previous buffer
 nmap <C-h> :bp<CR>
-vmap <C-h> :bp<CR>
 nnoremap <C-h> :bp<CR>
-vnoremap <C-h> :bp<CR>
 
 """ next tab
 nmap <leader>tn :tabnext<CR>
