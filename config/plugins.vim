@@ -17,6 +17,14 @@ nnoremap <C-space> :Unite buffer<CR>
 if executable('ag')
     let g:ackprg = 'ag --vimgrep'
 endif
+
+"""}}}
+""" Vim Grepper: {{{
+if executable('ag')
+	nnoremap <leader>ack :Grepper! -tool ag -open -switch<CR>
+else
+	nnoremap <leader>ack :Grepper! -tool ack -open -switch<CR>
+endif
 """}}}
 
 """ Airline: {{{
@@ -37,15 +45,18 @@ nmap <leader>hex :ColorHEX<CR>
 let g:composer_cmd = $COMPOSER_BIN
 """}}}
 """ GunDo: {{{
-nmap <leader>gt GundoToggle<CR>
-nmap <leader>go GundoOpen<CR>
-nmap <leader>gc GundoClose<CR>
+nmap <leader>gdt GundoToggle<CR>
+nmap <leader>gdo GundoOpen<CR>
+nmap <leader>gdc GundoClose<CR>
 """}}}
 
 """ Eclim: {{{
 let g:EclimCompletionMethod = 'omnifunc'
 """ enable syntastic
 let g:EclimPhpSyntasticEnabled = 1
+""" disable js/jsx validation
+let g:eclim_javascript_jsl_warn = 0
+let g:EclimJavascriptLintEnabled = 0 
 """}}}
 
 """ EasyTags: {{{
@@ -80,6 +91,12 @@ let g:easytags_languages.php.args = ['--fields=+aimS']
 let g:easytags_languages.php.fileoutput_opt = '-f'
 let g:easytags_languages.php.stdout_opt = '-f-'
 let g:easytags_languages.php.recurse_flag = '-R'
+
+if !exists('g:easytags_languages.jsx')
+    let g:easytags_languages.jsx = {}
+endif
+
+let g:easytags_languages.jsx.cmd = 'jsx'
 """}}}
 
 """ NetRW: {{{
@@ -87,6 +104,7 @@ let g:netrw_liststyle=3
 """}}}
 
 """ VimFiler: {{{
+nnoremap <leader>fe :VimFilerExplorer<CR>
 """ let vimfiler be the default file explorer
 let g:vimfiler_as_default_explorer = 1
 """ tree icons
@@ -98,7 +116,7 @@ let g:vimfiler_tree_closed_icon = "▶︎"
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | exec ':VimFilerExplorer' | endif
 """}}}
 
-if exists(":NERDTree")
+if exists(':NERDTree')
     """ NERDTree: {{{
     let NERDTreeHijackNetrw=1 " Use NERDTree as split explorer 
     let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$', '\.DS_*', '*.swp']
@@ -159,6 +177,30 @@ let g:Jsbeautify_jslint_expandtab = 1                       " expand tabs to spa
 """ allow jsx in .js files
 let g:jsx_ext_required = 0
 let g:jsx_pragma_required = 0
+
+""" disable folding for js/jsx files
+function! <SID>SetFoldState()
+	exec ':redir => s:fold_state'
+	exec ':silent set foldenable?'
+	exec ':redir END'
+	let s:fold_state=substitute(s:fold_state, '\n', '', '')
+endfunction
+""" toggle fold states
+function! <SID>SetNoFold()
+	exec ':call <SID>SetFoldState()'
+	set nofoldenable
+endfunction
+""" reset previous fold state
+function! <SID>ResetFoldState(state)
+	exec ':set '.a:state
+endfunction
+
+if has('autocmd')
+	au BufNewFile,BufRead,BufEnter *.jsx :call <SID>SetNoFold()
+	au BufLeave,BufDelete *.jsx :call <SID>ResetFoldState(s:fold_state)
+endif
+"""}}}
+
 """}}}
 
 """ Javascript: {{{
@@ -433,10 +475,88 @@ if has('autocmd') && exists('RainbowParenthesesToggle')
 endif
 """}}}
 
+""" AutoCorrect: {{{
+if has('autcmd')
+	autocmd FileType text call AutoCorrect()
+endif
+"""}}}
+
 """ SpellBad: {{{
 if has('gui_running')
     highlight SpellBad term=underline gui=undercurl guisp=Orange
 endif
+"""}}}
+
+""" NeoMake: {{{
+""" auto check syntax on filewrite
+if has('autocmd')
+	autocmd! BufWritePost * Neomake
+endif
+
+""" open list without moving the cursor; use :ll to jump to current error
+let g:neomake_open_list = 2
+""" verbose behaviour
+let g:neomake_verbose=1
+""" error log file
+let g:neomake_logfile=$HOME.'/.vim/log/neomake.log'
+""" define error symbols in gutter
+"let g:neomake_warning_sign = {
+"  \ 'text': '✹',
+"  \ 'texthl': 'WarningMsg',
+"  \ }
+
+let g:neomake_warning_sign = {
+  \ 'text': '▶︎',
+  \ 'texthl': 'DiffText',
+  \ }
+
+let g:neomake_error_sign = {
+  \ 'text': '✹',
+  \ 'texthl': 'ErrorMsg',
+  \ }
+
+""" jump to next error
+nnoremap <leader>ne :ll<CR>
+""" linters {{{
+"let g:neomake_go_gofmt_maker = {
+"	\ 'exe': 'gofmt',
+"	\ 'args': [],
+"	\ 'append_file': ' -1 > ' . neomake#utils#DevNull(),
+"	\ 'errorformat': '%f:%l:%c: %m,%-G%.%#',
+"	\ }
+
+let g:neomake_javascript_flow_maker = {
+		\ 'exe': 'flow',
+		\ 'args': ['check', '--one-line', '--old-output-format'],
+		\ 'errorformat': '%f:%l:%c\,%n: %m',
+		\ 'mapexpr': 'substitute(v:val, "\\\\n", " ", "g")',
+		\ }
+
+""" allow new es6 features for js files
+let g:neomake_javascript_jscs_maker = {
+	\ 'exe': 'jscs',
+	\ 'args': ['--no-color', '--preset', 'crockford', '--reporter', 'inline', '--esnext'],
+	\ 'errorformat': '%f: line %l\, col %c\, %m',
+	\ }
+
+"let g:neomake_javascript_jsx_eslint_maker = {
+"		\ 'args': ['-f', 'compact'],
+"		\ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
+"		\ '%W%f: line %l\, col %c\, Warning - %m'
+"		\ }
+"
+
+let g:neomake_go_enabled_makers = ['gofmt', 'golint']
+let g:neomake_go_enabled_makers = ['go', 'golint']
+"let g:neomake_jsx_enabled_makers = ['eslint']
+let g:neomake_php_enabled_makers = ['phpcs', 'php', 'phpmd']
+let g:neomake_typescript_enabled_makers = ['tsc', 'tsclint']
+let g:neomake_javascript_enabled_makers = ['flow', 'eslint']
+
+
+"let g:neomake_javascript_jsx_enabled_makers = ['eslint']
+
+"""}}}
 """}}}
 
 """ Syntastic: {{{
@@ -557,17 +677,15 @@ let g:UltiSnipsSnippetDirectories=['UltiSnips', 'snips', 'snippets/UltiSnips']
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
-""" filetype extensions
-
 """ Edit snippts file for current filetype:
-noremap <leader>use :UltiSnipsEdit<CR>
+noremap <leader>snp :UltiSnipsEdit<CR>
 """}}}
 
 """ Vim Go: {{{
 let g:go_auto_type_info = 1
 let g:go_fmt_fail_silently = 1
 let g:go_highlight_structs = 1
-nnoremap <leader>gr :GoRun<CR>
+nnoremap <leader>go :GoRun<CR>
 """}}}
 
 """ Devicons {{{
@@ -575,7 +693,7 @@ let g:webdevicons_enable_unite = 0
 let g:webdevicons_enable_airline_statusline = 0
 let g:webdevicons_enable_airline_tabline = 0
 """ enable devicons for NERDTree
-if exists(":NERDTree")
+if exists(':NERDTree')
     let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
     let g:WebDevIconsNerdTreeBeforeGlyphPadding = ''
 endif
@@ -606,20 +724,19 @@ endif
 """}}}
 
 """ YCM: {{{
-let g:ycm_min_num_of_chars_for_completion = 1
+let g:ycm_min_num_of_chars_for_completion = 3
 let g:ycm_min_num_identifier_candidate_chars = 0
-let g:ycm_auto_trigger = 1
-
-"let g:ycm_key_list_previous_completion=['<Up>']
-""" Helps with language specific completion
+let g:ycm_auto_trigger = 0
+"
+"""" Helps with language specific completion
 let g:ycm_semantic_triggers = {}
 
 if !exists('g:ycm_semantic_triggers')
 	let g:ycm_semantic_triggers = {}
 endif
-
-let g:ycm_semantic_triggers.php = ['->', '::', '(', 'use ', 'namespace ', '\']
-let g:ycm_semantic_triggers.javascript = ['.', 'import ', 'let ', '= ']
+let g:ycm_semantic_triggers.php = ['->', '::', '(', 'use ', 'namespace ', '\', 'return ']
+let g:ycm_semantic_triggers.javascript = ['.', 'import ', 'let ', '= ', 'var ', 'const ', 'return ']
+let g:ycm_semantic_triggers.go = ['.', 'import ', 'var ', ':= ', 'return ']
 """}}}
 
 """ XDEBUG: {{{
@@ -633,6 +750,6 @@ let g:dbgWaitTime = 30
 """ GitGutter: {{{
 nnoremap <leader>gg :GitGutterToggle<CR>
 let g:gitgutter_enabled = 0
-"let g:gitgutter_readltimr = 0
-"let g:gitgutter_eager = 0
+let g:gitgutter_readltimr = 0
+let g:gitgutter_eager = 0
 """}}}
