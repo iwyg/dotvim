@@ -56,7 +56,16 @@ if has("autocmd")
 
 	" treat these as vim files
 	autocmd BufNewFile,BufRead pluginsrc,filetypesrc,functionsrc setfiletype vim
-	autocmd BufNewFile,BufRead *.jsx setfiletype javascript.jsx
+	autocmd BufNewFile,BufRead *.plist setfiletype plist
+	autocmd BufNewFile,BufRead *.rst setfiletype rust
+	autocmd BufNewFile,BufRead *.go setfiletype go
+	autocmd BufNewFile,BufRead *.groovy setfiletype groovy
+	autocmd BufNewFile,BufRead *.ex setfiletype elixir
+	autocmd BufNewFile,BufRead *.j setfiletype objj
+	autocmd BufNewFile,BufRead *.objc setfiletype objc
+	autocmd BufNewFile,BufRead *.switf setfiletype swift
+	autocmd BufNewFile,BufRead *.elm setfiletype elm
+	autocmd BufNewFile,BufRead *.dart setfiletype dart
 
 	" Treat .rss and .atom feeds as xml
 	autocmd BufNewFile,BufRead *.rss,*.atom setfiletype xml

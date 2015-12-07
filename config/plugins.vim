@@ -14,9 +14,9 @@ nnoremap <C-space> :Unite buffer<CR>
 
 """ Ack: {{{
 """ if silver searcher is installed, use Ag instread of Ack:
-if executable('ag')
-    let g:ackprg = 'ag --vimgrep'
-endif
+"if executable('ag')
+"    let g:ackprg = 'ag --vimgrep'
+"endif
 
 """}}}
 """ Vim Grepper: {{{
@@ -116,52 +116,52 @@ let g:vimfiler_tree_closed_icon = "▶︎"
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | exec ':VimFilerExplorer' | endif
 """}}}
 
-if exists(':NERDTree')
-    """ NERDTree: {{{
-    let NERDTreeHijackNetrw=1 " Use NERDTree as split explorer 
-    let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$', '\.DS_*', '*.swp']
-    let NERDTreeShowHidden = 1
-    let NERDTreeAutoDeleteBuffer = 1
-    let NERDTreeChDirMode = 1
-
-    set guioptions-=L
-
-    " open NERDTree automatically when vim starts up if no files were specified
-    autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
-    " close vim if the only window left open is a NERDTree
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
-    " find current buffer in NERDTree:
-    map <Leader>nf :NERDTreeFind<CR>
-    " find current Working Directory in NERDTree:
-    map <Leader>ncwd :NERDTreeCWD<CR>
-    " open NERDTree:
-    map <Leader>n :NERDTree<CR>
-    " toggle NERDTree:
-    map <Leader>nt :NERDTreeToggle<CR>
-    """}}}
-
-    """ NERDTree Git Plugin: {{{
-    """ icon mapping:
-
-    let g:NERDTreeMapNextHunk = 'c'
-    let g:NERDTreeMapPrevHunk = 'c'
-
-    let g:NERDTreeIndicatorMapCustom = {
-                \ "Modified"  : "✹",
-                \ "Staged"    : "✚",
-                \ "Untracked" : "✭",
-                \ "Renamed"   : "➜",
-                \ "Unmerged"  : "═",
-                \ "Deleted"   : "✖",
-                \ "Dirty"     : "✗",
-                \ "Clean"     : "✔︎",
-                \ "Unknown"   : "?"
-                \ }
-    """}}}
-endif
+"if exists(':NERDTree')
+"    """ NERDTree: {{{
+"    let NERDTreeHijackNetrw=1 " Use NERDTree as split explorer 
+"    let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$', '\.DS_*', '*.swp']
+"    let NERDTreeShowHidden = 1
+"    let NERDTreeAutoDeleteBuffer = 1
+"    let NERDTreeChDirMode = 1
+"
+"    set guioptions-=L
+"
+"    " open NERDTree automatically when vim starts up if no files were specified
+"    autocmd StdinReadPre * let s:std_in=1
+"    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"
+"    " close vim if the only window left open is a NERDTree
+"    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+"
+"    " find current buffer in NERDTree:
+"    map <Leader>nf :NERDTreeFind<CR>
+"    " find current Working Directory in NERDTree:
+"    map <Leader>ncwd :NERDTreeCWD<CR>
+"    " open NERDTree:
+"    map <Leader>n :NERDTree<CR>
+"    " toggle NERDTree:
+"    map <Leader>nt :NERDTreeToggle<CR>
+"    """}}}
+"
+"    """ NERDTree Git Plugin: {{{
+"    """ icon mapping:
+"
+"    let g:NERDTreeMapNextHunk = 'c'
+"    let g:NERDTreeMapPrevHunk = 'c'
+"
+"    let g:NERDTreeIndicatorMapCustom = {
+"                \ "Modified"  : "✹",
+"                \ "Staged"    : "✚",
+"                \ "Untracked" : "✭",
+"                \ "Renamed"   : "➜",
+"                \ "Unmerged"  : "═",
+"                \ "Deleted"   : "✖",
+"                \ "Dirty"     : "✗",
+"                \ "Clean"     : "✔︎",
+"                \ "Unknown"   : "?"
+"                \ }
+"    """}}}
+"endif
 
 """ CssColor: {{{
 let g:cssColorVimDoNotMessMyUpdatetime = 1
@@ -561,52 +561,52 @@ let g:neomake_javascript_enabled_makers = ['flow', 'eslint']
 
 """ Syntastic: {{{
 """ settings:
-let g:syntastic_quiet_messages = {'level': 'warnings'}
-let g:syntastic_enable_signs=1
-let g:syntastic_auto_loc_list=1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_jump=0
-let g:syntastic_check_on_open=1
-let g:syntastic_echo_current_error=1
-let g:syntastic_loc_list_height=4
-let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
-""" executables:
-let g:syhtastic_javascript_executable = "/usr/local/bin/eslint"
-let g:syhtastic_jsx_executable = "/usr/local/bin/eslint"
-let g:syntastic_php_exec = "/usr/local/bin/php"
-let g:syntastic_ruby_exec = "/usr/local/bin/ruby"
-let g:syntastic_json_exec = "/usr/local/share/npm/bin/jsonlint"
-let g:syntastic_python_exec = "/usr/local/bin/python3.4"
-""" checkers:
-let g:syntastic_php_checkers=['phpcs', 'php', 'phpmd']
-let g:syntastic_jsx_checkers = ['eslint']
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_typescript_checkers = ['tslint']
-let g:syntastic_json_checkers = ['jsonlint']
-let g:syntastic_html_checkers = ['tidy', 'jshint']
-let g:syntastic_python_checkers=['/usr/local/bin/python3.4']
-let g:syntastic_go_checkers=['gofmt', 'go']
-let g:syntastic_sass_checkers=['sassc']
-let g:syntastic_scss_checkers=['sassc']
-""" Ignore Angular ng-* attributes error
-let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
-let g:syntastic_php_phpmd_post_args = "text unusedcode"
-
-""" PHP force PSR-2 standard 
-let g:syntastic_php_phpcs_args = "--report=csv --standard=PSR2"
-""" Read the clang complete file
-"let g:syntastic_objc_config_file = '.clang_complete'
-""" Tell it to use clang instead of gcc
-"let g:syntastic_objc_checker = 'clang'
-let g:syntastic_enable_balloons=0 
-
-""" stausline formatting
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-nnoremap <silent> ` :Errors<CR>
-""" run Syntasitc syntax check manualy:
-map <Leader>SC :SyntasticCheck<CR>
+"let g:syntastic_quiet_messages = {'level': 'warnings'}
+"let g:syntastic_enable_signs=1
+"let g:syntastic_auto_loc_list=1
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_jump=0
+"let g:syntastic_check_on_open=1
+"let g:syntastic_echo_current_error=1
+"let g:syntastic_loc_list_height=4
+"let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
+"""" executables:
+"let g:syhtastic_javascript_executable = "/usr/local/bin/eslint"
+"let g:syhtastic_jsx_executable = "/usr/local/bin/eslint"
+"let g:syntastic_php_exec = "/usr/local/bin/php"
+"let g:syntastic_ruby_exec = "/usr/local/bin/ruby"
+"let g:syntastic_json_exec = "/usr/local/share/npm/bin/jsonlint"
+"let g:syntastic_python_exec = "/usr/local/bin/python3.4"
+"""" checkers:
+"let g:syntastic_php_checkers=['phpcs', 'php', 'phpmd']
+"let g:syntastic_jsx_checkers = ['eslint']
+"let g:syntastic_javascript_checkers = ['eslint']
+"let g:syntastic_typescript_checkers = ['tslint']
+"let g:syntastic_json_checkers = ['jsonlint']
+"let g:syntastic_html_checkers = ['tidy', 'jshint']
+"let g:syntastic_python_checkers=['/usr/local/bin/python3.4']
+"let g:syntastic_go_checkers=['gofmt', 'go']
+"let g:syntastic_sass_checkers=['sassc']
+"let g:syntastic_scss_checkers=['sassc']
+"""" Ignore Angular ng-* attributes error
+"let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+"let g:syntastic_php_phpmd_post_args = "text unusedcode"
+"
+"""" PHP force PSR-2 standard 
+"let g:syntastic_php_phpcs_args = "--report=csv --standard=PSR2"
+"""" Read the clang complete file
+""let g:syntastic_objc_config_file = '.clang_complete'
+"""" Tell it to use clang instead of gcc
+""let g:syntastic_objc_checker = 'clang'
+"let g:syntastic_enable_balloons=0 
+"
+"""" stausline formatting
+""set statusline+=%#warningmsg#
+""set statusline+=%{SyntasticStatuslineFlag()}
+""set statusline+=%*
+"nnoremap <silent> ` :Errors<CR>
+"""" run Syntasitc syntax check manualy:
+"map <Leader>SC :SyntasticCheck<CR>
 """}}}
 
 """ Tagbar: {{{
@@ -750,6 +750,6 @@ let g:dbgWaitTime = 30
 """ GitGutter: {{{
 nnoremap <leader>gg :GitGutterToggle<CR>
 let g:gitgutter_enabled = 0
-let g:gitgutter_readltimr = 0
-let g:gitgutter_eager = 0
+"let g:gitgutter_readltimr = 0
+"let g:gitgutter_eager = 0
 """}}}

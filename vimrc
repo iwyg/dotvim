@@ -1,24 +1,28 @@
-
 """ Disable Vi Compatibility:
 """-----------------------------------------------------------------------------------------------------
+""" init {{{
 set nocompatible
-"filetype off
+filetype off
 """ Vim Plug {{{
+source $HOME/.vim/plugins.vim
 if !exists('s:my_plugins_loaded')
 	let s:my_plugins_loaded = 1
 endif
-
+"""}}}
 filetype plugin indent on
 syntax on
-source $HOME/.vim/plugins.vim
 
+""" Swap and Undo {{{
+set directory=.,$TMPDIR
+set undofile
+set undolevels=10000
+set history=10000
+set nobackup
 """}}}
-"""-----------------------------------------------------------------------------------------------------
 """}}}
 
-"""-----------------------------------------------------------------------------------------------------
+
 """ Behaviour And Settings {{{
-"""-----------------------------------------------------------------------------------------------------
 """ set leaderkey to ,:
 let mapleader=","
 
@@ -28,41 +32,29 @@ if has('mouse') && !has('nvim')
     set ttymouse=xterm2
 endif
 """ update time
-set updatetime=100
-""" remove timeout for escape sequence:
+set updatetime=2000
+"""" remove timeout for escape sequence:
 set timeoutlen=1000 ttimeoutlen=0
 """ set the working shell:
 set shell=/bin/zsh
 
 set ruler
 set cursorline
-set undofile
-set undolevels=10000
-set history=10000
-set nobackup
-set directory=.,$TMPDIR
 
 """ enables edit and movement in virtual spaces
 set virtualedit=all
 
-""" set omicimpletion
-set ofu=syntaxcomplete#Complete
-
-""" Status bar
-set laststatus=2
+"
+"""" Status bar
+"set laststatus=2
 "disable statusline for poweline
 "set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 
-""" Cool tab completion stuff
-set wildmenu
-set wildmode=longest:list,full
-set whichwrap=b,s,h,l,<,>,[,]
 
 """ encoding:
 if has('vim_starting')
 	set encoding=utf8
 endif
-"set fileencoding=utf8
 
 """ format:
 set title
@@ -93,56 +85,74 @@ set smarttab
 set noexpandtab
 
 
+""" windows {{{
+""" scrolling
+set scrolljump=4
+set scrolloff=3
 """ split new windows on the right
 set splitbelow
-""" set completeopt+=longest,menu ",preview
-set completeopt=longest,menuone
-set pumheight=15
-set complete-=i
-""" make <Enter> key behave like <C-y> if the completion menu is visible
-""" see http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
-"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-""" auto close preview
-if has("autocmd")
-    autocmd CompleteDone * pclose
-endif
+"""}}}
 
 """ Use the same symbols as TextMate for tabstops and EOLs
 set listchars=tab:›\ ,eol:¬,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 
-set scrolljump=4
-set scrolloff=3
 
 """ code folding: {{{
 set foldenable
-"fold based on indent 
-set foldmethod=syntax       
-"deepest fold is 10 levels 
-set foldnestmax=10          
+"fold based on indent
+set foldmethod=syntax
+"deepest fold is 10 levels
+set foldnestmax=10
 " default folding level
 set foldlevel=2
-"""}}}
 
 
 """ ctags {{{
 set tags=./tags,tags
 """}}}
 
-""" searching: {{{ 
+""" searching: {{{
 set ignorecase
 set smartcase
 set incsearch
 set showmatch "show matching brackets
 set hlsearch
 set gdefault
-set grepprg=ack
+" see Ack.vim for grepprg
+if executable('ag')
+	set grepprg=ag
+else
+	set grepprg=ack
+endif
 """}}}
-"runtime macros/matchit.vim
+
+""" code completion {{{
+""" Omnicompletion {{{
+""" set omicimpletion
+"set ofu=syntaxcomplete#Complete
+"""}}}
+""" set completeopt+=longest,menu ",preview
+set completeopt=longest,menuone
+set pumheight=15
+set complete-=i
+
+set wildmenu
+set wildmode=longest:list,full
+set whichwrap=b,s,h,l,<,>,[,]
+""" make <Enter> key behave like <C-y> if the completion menu is visible
+""" see http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
+"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+""" auto close preview
+if has('autocmd')
+    autocmd CompleteDone * pclose
+endif
+"""}}}
 
 """ wrap text: {{{
 command! -nargs=* Wrap set wrap linebreak nolist
 """}}}
+
 """ Cursor: {{{
 """ enables cursor shape in NeoVim
 if has('nvim')
@@ -175,7 +185,7 @@ endif
 
 """ Auto Cmd {{{
 """-------------------------------------------------------------------------------------
-if has("autocmd")
+if has('autocmd')
     " auto source vimrc on save:
     autocmd! BufWritePost $MYVIMRC nested :source $MYVIMRC
     " toggle line highlighting on insert mode
@@ -183,12 +193,6 @@ if has("autocmd")
 endif
 """}}}
 
-""" Php {{{
-"""-------------------------------------------------------------------------------------
-let php_sql_query = 1
-let php_htmlInStrings = 1
-"""-------------------------------------------------------------------------------------
-"""}}}
 
 """-----------------------------------------------------------------------------------------------------
 """ Basic Mappings {{{
@@ -213,16 +217,12 @@ inoremap <up>    <nop>
 inoremap <down>  <nop>
 inoremap <left>  <nop>
 inoremap <right> <nop>
+
+""" disable backspace in insert mode
+"inoremap <backspace> <nop>
 """-----------------------------------------------------------------------------------------------------
 """}}}
 
-nnoremap <leader>fe :VimFilerExplorer<CR>
-
-""" Omnicompletion {{{
-"inoremap <leader>oc <C-X><C-O>
-"imap <leader>oc <C-X><C-O>
-"nnoremap <C-Space> <C-X><C-O><CR>
-"""}}}
 
 """ Edit Open Vimrc:
 nmap <leader>v :e $MYVIMRC<CR>
@@ -230,19 +230,18 @@ nmap <leader>v :e $MYVIMRC<CR>
 """ tag jump to next tag:
 nnoremap ü <C-]>
 """ tag jump to previous tag:
-nnoremap Ü <C-O>
+nnoremap <C-Ü> <C-O>
 
 """ switch between current and previous buffer
 nmap <S-TAB> :b#<CR>
 vmap <S-TAB> :b#<CR>
 
 """ next buffer
-nmap <C-L> :bn<CR>
-nnoremap <C-L> :bn<CR>
-
+map <C-l> :bn<CR>
+nnoremap <leader>bn <C-l>
 """ previous buffer
-nmap <C-h> :bp<CR>
-nnoremap <C-h> :bp<CR>
+map <C-h> :bp<CR>
+nnoremap <leader>bp <C-h>
 
 """ next tab
 nmap <leader>tn :tabnext<CR>
@@ -264,16 +263,18 @@ nmap <leader>L :set list!<CR>
 """ terminal mode
 
 if has('nvim')
-	nmap <leader>term :terminal<CR>
+	nmap <leader>term :belowright split <CR> \| :terminal<CR>
+else
+	nmap <leader>term :belowright split<CR> \| :VimShell<CR>
 endif
 
 if !exists('s:sources_loaded')
+	let s:sources_loaded = 1
 	source $HOME/.vim/config/variables.vim
 	source $HOME/.vim/config/functions.vim
 	source $HOME/.vim/config/filetypes.vim
 	source $HOME/.vim/config/syntax.vim
 	source $HOME/.vim/config/plugins.vim
-	let s:sources_loaded = 1
 endif
 
 
